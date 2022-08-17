@@ -21,6 +21,7 @@
   --color-default: #364d59;
   --color-primary: #0067b8;
   --color-secondary: #52565e;
+  --color-tertiary: #FF8C00;
 }
 
 /* Smooth scroll behavior */
@@ -1133,9 +1134,9 @@ section {
   content: "";
   position: absolute;
   display: block;
-  width: 50px;
+  width: 990px;
   height: 3px;
-  background: var(--color-primary);
+  background: var(--color-tertiary);
   left: 0;
   bottom: 0;
 }
@@ -1148,7 +1149,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-primary);
+  color: var(--color-tertiary);
   margin-right: 25px;
   font-size: 28px;
   width: 56px;
