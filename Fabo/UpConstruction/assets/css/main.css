@@ -183,12 +183,12 @@ section {
 
 .scroll-top i {
   font-size: 24px;
-  color: var(--color-secondary);
+  color: white;
   line-height: 0;
 }
 
 .scroll-top:hover {
-  background: #ffc732;
+  background: #004478;
   color: #fff;
 }
 
@@ -1666,7 +1666,7 @@ section {
   line-height: 0;
   color: var(--color-primary);
   border-radius: 50%;
-  border: 2px dotted #ffd565;
+  border: 2px dotted #004478;
 }
 
 .contact .info-item h3 {
@@ -1766,7 +1766,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background: rgba(254, 185, 0, 0.8);
+  background: #004478;
 }
 
 @keyframes animate-loading {
@@ -2580,11 +2580,15 @@ section {
 --------------------------------------------------------------*/
 .footer {
   color: #fff;
-  background: url("../img/footer-bg.jpg") top center no-repeat;
+  background: url("../img/footerimg.jpg") top center no-repeat;
   background-size: cover;
   font-size: 14px;
   padding: 80px 0 60px 0;
   position: relative;
+}
+
+.row{
+  justify-content: center;
 }
 
 .footer:before {
@@ -2645,9 +2649,14 @@ section {
   padding-bottom: 12px;
 }
 
-.footer .footer-content .footer-links {
+/* .footer .footer-content .footer-text{
+  font-size: 20px;
+} */
+
+/* .footer .footer-content .footer-links {
   margin-bottom: 30px;
-}
+  
+} */
 
 .footer .footer-content .footer-links ul {
   list-style: none;
