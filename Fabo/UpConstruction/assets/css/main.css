@@ -3071,16 +3071,16 @@ section {
 }
 
 .footer .footer-content h4 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: #fff;
   position: relative;
   padding-bottom: 12px;
 }
 
-/* .footer .footer-content .footer-text{
-  font-size: 20px;
-} */
+.footer .footer-content .footer-text{
+  width: 20vw;
+}
 
 /* .footer .footer-content .footer-links {
   margin-bottom: 30px;
