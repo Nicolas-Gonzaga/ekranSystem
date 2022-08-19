@@ -20,8 +20,8 @@
 :root {
   --color-default: #364d59;
   --color-primary: #0067b8;
-  --color-secondary: #52565e;
-  --color-tertiary: #FF8C00;
+  --color-secondary: #004478;
+  --color-tertiary: #0067b8;
 }
 
 /* Smooth scroll behavior */
@@ -1633,15 +1633,15 @@ section {
 }
 
 .about .our-story {
-  padding-right: 40%;
+  padding: 40px;
   background-color: #f5f6f7;
 }
 
-@media (min-width: 991px) {
+/* @media (min-width: 991px) {
   .about .our-story {
     padding-right: 50%;
   }
-}
+} */
 
 .about .our-story h4 {
   text-transform: uppercase;
@@ -3128,15 +3128,17 @@ section {
 }
 
 .img-nosso-projeto{
-  background-image: url(assets/img/toten-autoatendimento.png);
-  margin-right: 50%;
+  margin-left: 50%;
 }
 
 .col-lg-7{
-  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .class-main{
   display: flex;
+}
 
+#texto-sobre-nos{
+  text-align: justify;
 }
