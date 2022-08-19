@@ -1,8 +1,8 @@
 var database = require("../database/config")
 
 /* Mexida-lucas mudei aqui para os nossos dados */
-function logar(logemail, logpass) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", logemail, logpass)
+function logar(email, pass) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, pass)
     var instrucao = `
         SELECT * FROM cadastro WHERE email = '${logemail}' AND senha = '${logpass}';
     `;
@@ -11,23 +11,21 @@ function logar(logemail, logpass) {
 }
 
 
-/* Mexida3-Michelly mudei aqui para os nossos dados cadastro do funcionário*/
-function cadastrar(lognome, logsenha, logemail, logempresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",cnpj, email, senha, tel, tipofunc);
+/* Mexida-lucas mudei aqui para os nossos dados cadastro do funcionário*/
+function cadastrar(nome, senha, email,fkPerfil, fkEmpresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",nome, senha, email, fkPerfil,fkEmpresa);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO usuario (fkempresa, email, senha, tel, tipofunc) VALUES ('${cnpj}', '${email}', '${senha}', '${tel}','${tipofunc}');
+        INSERT INTO cadastro (nome, senha, email, fkPerfil, fkEmpresa) VALUES ('${nome}', '${senha}', '${email}', '${fkPerfil}','${fkEmpresa}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 }
 
-/* Mexida4-Michelly adicionei a função avancar*/
+/* Mexida-lucas adicionei a função avancar*/
 module.exports = {
-    entrar,
+    logar,
     cadastrar,
-    avancar,
-    listar,
 };

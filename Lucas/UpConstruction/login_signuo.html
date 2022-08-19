@@ -113,13 +113,13 @@
 													<i class="input-icon uil uil-at"></i>
 												</div>
 												<div class="form-group mt-2">
-													<input type="password" name="logpass" class="form-style"
-														placeholder="Sua Senha" id="logpass" autocomplete="off">
+													<input type="password" name="pass" class="form-style"
+														placeholder="Sua Senha" id="pass" autocomplete="off">
 													<i class="input-icon uil uil-lock-alt"></i>
 												</div>
 												<div class="form-group mt-2">
-													<input type="text" name="logempresa" class="form-style"
-														placeholder="Sua Empresa" id="logempresa" autocomplete="off">
+													<input type="text" name="empresa" class="form-style"
+														placeholder="Sua Empresa" id="empresa" autocomplete="off">
 													<i class="input-icon uil uil-user"></i>
 												</div>
 												<div class="form-group mt-2">
@@ -152,10 +152,10 @@
 <script>
 	let girar1 = girar.value
 	function logar() {
-		let logemail = logemail.value
-		let logpass = logpass.value
+		let email = email.value
+		let pass = pass.value
 
-		if (logemail == "" || logpass == "") {
+		if (email == "" || pass == "") {
 			alert("Seus dados não coferem!");
 			return false;
 		} else {
@@ -164,12 +164,12 @@
 	}
 
 	function cadastrar() {
-		let logname = logname.value
-		let logemail = logemail.value
-		let logsenha = logsenha.value
-		let logempresa = logempresa.value
+		let name = name.value
+		let email = email.value
+		let senha = senha.value
+		let empresa = empresa.value
 
-		if (logname == "" || logemail == "" || logsenha == "" || logempresa == "") {
+		if (name == "" || email == "" || senha == "" || empresa == "") {
 			alert("Informe seus dados corretamente!");
 			return false;
 		} else {
@@ -184,10 +184,10 @@
 				body: JSON.stringify({
 					// crie um atributo que recebe o valor recuperado aqui
 					// Agora vá para o arquivo routes/usuario.js
-					lognameServer: logname,
-					logemailServer: logemail,
-					logsenhaServer: logsenha,
-					logempreaServer: logempresa,
+					nameServer: name,
+					emailServer: email,
+					senhaServer: senha,
+					empreaServer: empresa,
 				})
 			}).then(function (resposta) {
 				console.log("entrei no fetch");
