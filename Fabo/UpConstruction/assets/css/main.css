@@ -21,7 +21,7 @@
   --color-default: #364d59;
   --color-primary: #0067b8;
   --color-secondary: #52565e;
-  --color-tertiary: #FF8C00;
+  --color-tertiary: #005A9E;
 }
 
 /* Smooth scroll behavior */
@@ -1437,7 +1437,7 @@ section {
 # Alt Services Section
 --------------------------------------------------------------*/
 .alt-services .img-bg {
-  background-size: cover;
+  background-repeat: no-repeat;
   background-position: center center;
   min-height: 400px;
 }
