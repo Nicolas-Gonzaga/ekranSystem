@@ -504,7 +504,7 @@ section {
 }
 
 .section-header h2 {
-  font-size: 32px;
+  font-size: 180%;
   font-weight: 700;
   position: relative;
   color:#0067b8;
@@ -1621,7 +1621,7 @@ section {
 # About Section
 --------------------------------------------------------------*/
 .about h2 {
-  font-size: 48px;
+  font-size: 200%;
   font-weight: 700;
   font-family: var(--font-secondary);
   margin: 30px 0;
@@ -1639,11 +1639,10 @@ section {
   background-color: #004478;
 }
 
-/* @media (min-width: 991px) {
-  .about .our-story {
+.about .our-story {
     padding-right: 50%;
-  }
-} */
+
+  } 
 
 .about .our-story h4 {
   text-transform: uppercase;
@@ -3142,6 +3141,7 @@ section {
 }
 
 #texto-sobre-nos{
+  padding: 100%;
   text-align: justify;
   color: white;
 }
