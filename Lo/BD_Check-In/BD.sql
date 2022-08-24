@@ -43,22 +43,15 @@ CREATE TABLE Maquina (
 SELECT * FROM Maquina;
 
 CREATE TABLE Leitura (
-	idLeitura INT PRIMARY KEY AUTO_INCREMENT,
-    horario DATETIME,
+	idLeitura BIGINT PRIMARY KEY AUTO_INCREMENT,
     fkMaquina INT,
     FOREIGN KEY (fkMaquina) REFERENCES Maquina (idMaquina),
-	media DECIMAL(5, 2),
-    Processador INT,
-    TempoUso INT,
-    DiscoTotal INT,
-    DiscoUso INT,
-    DiscoLivre INT,
-    RamTotal INT,
-    RamUso INT,
-    RamUsoPercent INT,
-    PctEnv INT,
-    PctRecv INT
-) AUTO_INCREMENT = 1;
+    CPUM DECIMAL (5,2),
+    RAM DECIMAL (5,2),
+    DISC DECIMAL (5,2),
+    TEMP INT,
+    horario DATETIME
+) AUTO_INCREMENT = 100000;
 
 SELECT * FROM Leitura;
 
@@ -83,5 +76,7 @@ INSERT INTO Maquina VALUES (NULL, 'Santiago', 'Servidor', 'Windows', 'S', 101, N
 						   (NULL, 'Guarulhos', 'Totem', 'Windows', 'S', 101, 10000);
 						
 SELECT * FROM Maquina;
+
+INSERT INTO Leitura VALUES (NULL, 10001, 100.00, 80.50, 75.50, 35, '2022-08-17 23:55');
 
 SELECT * FROM Leitura;
