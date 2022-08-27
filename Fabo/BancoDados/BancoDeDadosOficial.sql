@@ -26,6 +26,7 @@ foreign key (fkEmpresa) references Empresa(idEmpresa)
 
 create table Totem(
 idTotem int primary key auto_increment,
+sistemaOperacional varchar(2),
 fkUnidade int,
 foreign key (fkUnidade) references Unidade(idUnidade)
 )auto_increment = 50000;
@@ -45,3 +46,9 @@ discoLivre decimal(5,2),
 qtdPacoteEnv int,
 qtdPatoceRecv int
 )
+
+select * from Usuario;
+select * from Empresa;
+select * from Unidade;
+select* from Totem;
+select * from Leitura;
