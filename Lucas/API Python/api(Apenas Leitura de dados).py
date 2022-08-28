@@ -34,5 +34,5 @@ while True:
         print(f"Quantidade de pacotes de Internet recebidos: {PctRecv}Kbps")
         print("\n")
         print("\n")
-        time.sleep(100)
+        time.sleep(2)
     criarTabela()

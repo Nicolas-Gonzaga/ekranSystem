@@ -1,6 +1,3 @@
-from operator import ne
-from tkinter import N
-from traceback import print_tb
 from datetime import datetime
 import psutil
 import mysql.connector
