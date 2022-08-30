@@ -128,20 +128,26 @@ function cadastrarUnidade(req, res) {
 //Arrumar essa parte inteira
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var loglocal = req.body.loglocalServer;
-    var logidempresa = req.body.logidempresaServer;
-    
+    var logname = req.body.lognameServer;
+    var logemail = req.body.logemailServer;
+    var logsenha = req.body.logsenhaServer;
+    var logempresa = req.body.logempresaServer;
+    var logpermissoes = req.body.logpermissoesServer;
 
     // Faça as validações dos valores
 
-    if (loglocal == undefined) {
-        res.status(400).send("Informe o local correto");
-    } else if (logidempresa == undefined) {
+    if (logname == undefined) {
+        res.status(400).send("Informe algum nome");
+    } else if (logemail == undefined) {
         res.status(400).send("Informe o id da empresa correto");
-    }
+    } else if (logsenha == undefined) {
+        res.status(400).send("Informe alguma senha");
+    } else if (logempresa == undefined) {
+        res.status(400).send("Informe o id da empresa correto");
+    } 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
 
-    usuarioModel.cadastrar(loglocal, logidempresa)
+    usuarioModel.cadastrar(logname, logemail, logsenha, logempresa, logpermissoes)
         .then(
             function (resultado) {
                 res.json(resultado);

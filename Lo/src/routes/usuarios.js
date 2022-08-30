@@ -17,8 +17,13 @@ router.post("/cadastrarEmpresa", function (req, res) {
 })
 
 router.post("/cadastrarUnidade", function (req, res) {
-    usuarioController.cadastrarEmpresa(req, res);
+    usuarioController.cadastrarUnidade(req, res);
 })
+
+router.post("/cadastrar", function (req, res) {
+    usuarioController.cadastrar(req, res);
+})
+
 
 
 router.post("/autenticar", function (req, res) {

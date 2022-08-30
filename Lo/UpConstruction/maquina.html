@@ -60,7 +60,7 @@
 					<li><a href="sobre.html">Sobre nós</a></li>
 					<li><a href="servicos.html">Serviços</a></li>
 					<li><a href="contato.html">Contato</a></li>
-					<li><a href="cadastro.html" class="active">Login / SignUp</a></li>
+					<li><a href="Login_SignUp.html" class="active">Login / SignUp</a></li>
 				</ul>
 			</nav><!-- .navbar -->
 
@@ -73,26 +73,25 @@
 				<div class="row full-height justify-content-center">
 					<div class="col-12 text-center align-self-center py-5">
 						<div class="section pb-5 pt-5 pt-sm-2 text-center">
-							<h6 class="mb-0 pb-3"><span>Cadastrar empresa</span></h6>
+							<h6 class="mb-0 pb-3"><span>Cadastrar Maquina</span></h6>
 							<label for="reg-log"></label>
-							<div class="card-3d-wrap mx-auto" id="girar1" onclick="girar()">
 								<div class="card-3d-wrapper">
 									<div class="card-front">
 										<div class="center-wrap">
 											<div class="section text-center">
-												<h4 class="mb-4 pb-3">Cadastrar Empresa</h4>
+												<h4 class="mb-4 pb-3">Cadastrar Maquina</h4>
 												<div class="form-group">
-													<input type="text" name="logempresa" class="form-style"
-														placeholder="Nome da empresa" id="logempresa" autocomplete="off">
+													<input type="text" name="logsistema" class="form-style"
+														placeholder="Sistema operacional" id="logsistema" autocomplete="off">
 													<i class="input-icon uil uil-at"></i>
 												</div>
                                                 <br>
 												<div class="form-group">
-													<input type="text" name="logcnpj" class="form-style"
-														placeholder="CNPJ da empresa" id="logcnpj" autocomplete="off">
+													<input type="text" name="logunidade" class="form-style"
+														placeholder="idUnidade" id="logunidade" autocomplete="off">
 													<i class="input-icon uil uil-at"></i>
 												</div>
-												<a href="#" class="btn mt-4" onclick="cadastrarEmpresa()">Cadastrar Empresa</a>
+												<a href="#" class="btn mt-4" onclick="cadastrarMaquina()">Cadastrar Maquina</a>
 											</div>
 										</div>
 									</div>
@@ -110,18 +109,18 @@
 
 </html>
 <script>
-	function cadastrarEmpresa() {
-		let logcnpj = logcnpj.value
-		let logempresa = logempresa.value
+	function cadastrarMaquina() {
+		let logsistema = logsistema.value
+		let logunidade = logunidade.value
 
-		if (logcnpj == "" || logempresa == "") {
+		if (logsistema == "" || logunidade == "") {
 			alert("Informe seus dados corretamente!");
 			return false;
 		} else {
 
 			console.log("INICIANDO O FETCH");
 			// Enviando o valor da nova input
-			fetch("/usuarios/cadastrarEmpresa", {
+			fetch("/usuarios/cadastrarMaquina", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -129,8 +128,8 @@
 				body: JSON.stringify({
 					// crie um atributo que recebe o valor recuperado aqui
 					// Agora vá para o arquivo routes/usuario.js
-					logcnpjServer: logcnpj,
-					logempreaServer: logempresa,
+					logsistemaServer: logsistema,
+					logempreaServer: logunidade,
 				})
 			}).then(function (resposta) {
 				console.log("entrei no fetch");
@@ -142,6 +141,8 @@
 					}
 				} else {
 					throw ("Houve um erro ao tentar realizar o cadastro!");
+					window.location.href = "../suporte.html";
+
 				}
 			}).catch(function (resposta) {
 				console.log(`#ERRO: ${resposta}`);
@@ -149,8 +150,6 @@
 			});
 
 			return false;
-            window.location.href = "../funcionario.html";
-
 		}
 	}
 
