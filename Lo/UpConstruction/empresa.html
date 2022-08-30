@@ -73,65 +73,26 @@
 				<div class="row full-height justify-content-center">
 					<div class="col-12 text-center align-self-center py-5">
 						<div class="section pb-5 pt-5 pt-sm-2 text-center">
-							<h6 class="mb-0 pb-3"><span>Entrar</span><span>Cadastrar</span></h6>
-							<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+							<h6 class="mb-0 pb-3"><span>Cadastrar empresa</span></h6>
 							<label for="reg-log"></label>
 							<div class="card-3d-wrap mx-auto" id="girar1" onclick="girar()">
 								<div class="card-3d-wrapper">
 									<div class="card-front">
 										<div class="center-wrap">
 											<div class="section text-center">
-												<h4 class="mb-4 pb-3">Entrar</h4>
+												<h4 class="mb-4 pb-3">Cadastrar Empresa</h4>
 												<div class="form-group">
-													<input type="email" name="logemail" class="form-style"
-														placeholder="Seu Email" id="logemail" autocomplete="off">
-													<i class="input-icon uil uil-at"></i>
-												</div>
-												<div class="form-group mt-2">
-													<input type="password" name="logpass" class="form-style"
-														placeholder="Sua senha" id="logpass" autocomplete="off">
-													<i class="input-icon uil uil-lock-alt"></i>
-												</div>
-												<a href="#" class="btn mt-4" onclick="logar()">Entrar</a>
-												<p class="mb-0 mt-4 text-center"><a href="#0" class="link">Esqueceu sua
-														senha?</a></p>
-											</div>
-										</div>
-									</div>
-									<div class="card-back">
-										<div class="center-wrap">
-											<div class="section text-center">
-												<h4 class="mb-4 pb-3">Cadastrar</h4>
-												<div class="form-group">
-													<input type="text" name="logname" class="form-style"
-														placeholder="Seu Nome" id="logname" autocomplete="off">
-													<i class="input-icon uil uil-user"></i>
-												</div>
-												<div class="form-group mt-2">
-													<input type="email" name="logemail" class="form-style"
-														placeholder="Seu E-mail" id="logemail" autocomplete="off">
-													<i class="input-icon uil uil-at"></i>
-												</div>
-												<div class="form-group mt-2">
-													<input type="password" name="logpass" class="form-style"
-														placeholder="Sua Senha" id="logpass" autocomplete="off">
-													<i class="input-icon uil uil-lock-alt"></i>
-												</div>
-												<div class="form-group mt-2">
 													<input type="text" name="logempresa" class="form-style"
-														placeholder="Id da sua Empresa" id="logempresa" autocomplete="off">
-													<i class="input-icon uil uil-user"></i>
+														placeholder="Nome da empresa" id="logempresa" autocomplete="off">
+													<i class="input-icon uil uil-at"></i>
 												</div>
-												<div class="form-group mt-2">
-													<select name="" id="" class="form-style"
-														placeholder="Selecione o cargo">
-														<option value="0">Selecione o cargo</option>
-														<option value="1">Administrador</option>
-														<option value="2">Funcionário</option>
-													</select>
+                                                <br>
+												<div class="form-group">
+													<input type="text" name="logcnpj" class="form-style"
+														placeholder="CNPJ da empresa" id="logcnpj" autocomplete="off">
+													<i class="input-icon uil uil-at"></i>
 												</div>
-
-												<a href="#" class="btn mt-4" onclick="cadastrar()">Enviar</a>
+												<a href="#" class="btn mt-4" onclick="cadastrarEmpresa()">Cadastrar Empresa</a>
 											</div>
 										</div>
 									</div>
@@ -149,37 +110,18 @@
 
 </html>
 <script>
-	let girar1 = girar.value
-	function logar() {
-		let logemail = logemail.value
-		let logpass = logpass.value
-		let logpermissoes = logpermissoes.value
-
-		if (logemail == "" || logpass == "") {
-			alert("Seus dados não coferem!");
-			return false;
-		} else if (logpermissoes == "1") {
-            window.location.href = "../empresa.html";
-		} else {
-            window.location.href = "../dashboard.html";
-		}
-	}
-
-	function cadastrar() {
-		let logname = logname.value
-		let logemail = logemail.value
-		let logsenha = logsenha.value
+	function cadastrarEmpresa() {
+		let logcnpj = logcnpj.value
 		let logempresa = logempresa.value
-		let logpermissoes = logpermissoes.value
 
-		if (logname == "" || logemail == "" || logsenha == "" || logempresa == "" || logpermissoes == "0") {
+		if (logcnpj == "" || logempresa == "") {
 			alert("Informe seus dados corretamente!");
 			return false;
 		} else {
 
 			console.log("INICIANDO O FETCH");
 			// Enviando o valor da nova input
-			fetch("/usuarios/cadastrar", {
+			fetch("/usuarios/cadastrarEmpresa", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -187,11 +129,8 @@
 				body: JSON.stringify({
 					// crie um atributo que recebe o valor recuperado aqui
 					// Agora vá para o arquivo routes/usuario.js
-					lognameServer: logname,
-					logemailServer: logemail,
-					logsenhaServer: logsenha,
+					logcnpjServer: logcnpj,
 					logempreaServer: logempresa,
-					logpermissoesServer: logpermissoes,
 				})
 			}).then(function (resposta) {
 				console.log("entrei no fetch");
@@ -210,6 +149,8 @@
 			});
 
 			return false;
+            window.location.href = "../funcionario.html";
+
 		}
 	}
 

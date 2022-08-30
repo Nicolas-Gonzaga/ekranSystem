@@ -24,17 +24,20 @@ function listar(req, res) {
         );
 }
 
-function entrar(req, res) {
-    var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
+function logar(req, res) {
+    var logemail = req.body.logemailServer;
+    var logpass = req.body.logpassServer;
+    let logpermissoes = logpermissoes.value
 
-    if (email == undefined) {
+    if (logemail == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
+    } else if (logpass == undefined) {
         res.status(400).send("Sua senha está indefinida!");
+    } else if (logpermissoes == undefined || logpermissoes == "0") {
+        res.status(400).send("Sua permissão está indefinida!");
     } else {
-        
-        usuarioModel.entrar(email, senha)
+
+        usuarioModel.logar(logemail, logpas, logpermissoes)
             .then(
                 function (resultado) {
                     console.log(`\nResultados encontrados: ${resultado.length}`);
@@ -60,27 +63,21 @@ function entrar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+function cadastrarEmpresa(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var logname = req.body.lognameServer;
-    var logemail = req.body.logemailServer;
-    var logsenha = req.body.logsenhaServer;
+    var logcnpj = req.body.logcnpjServer;
     var logempresa = req.body.logempresaServer;
 
-// Faça as validações dos valores
+    // Faça as validações dos valores
 
-if(logname == undefined){
-    res.status(400).send("Seu nome está indefinido!");
-} else if(logemail == undefined){
-    res.status(400).send("Seu email está indefinido!");
-} else if(logsenha == undefined){
-    res.status(400).send("Sua senha está indefinida!");
-} else if(logempresa == undefined){
-    res.status(400).send("O nome da sua empresa está indefinido!");    
-}
+    if (logcnpj == undefined) {
+        res.status(400).send("Informe o CNPJ correto");
+    } else if (logempresa == undefined) {
+        res.status(400).send("Informe a empresa correta");
+    }
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
 
-    usuarioModel.cadastrar(logname, logemail, logsenha, logempresa)
+    usuarioModel.cadastrarEmpresa(logcnpj, logempresa)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -97,10 +94,75 @@ if(logname == undefined){
         );
 }
 
+function cadastrarUnidade(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var loglocal = req.body.loglocalServer;
+    var logidempresa = req.body.logidempresaServer;
+
+    // Faça as validações dos valores
+
+    if (loglocal == undefined) {
+        res.status(400).send("Informe o local correto");
+    } else if (logidempresa == undefined) {
+        res.status(400).send("Informe o id da empresa correto");
+    }
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+
+    usuarioModel.cadastrarUnidade(loglocal, logidempresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+//Arrumar essa parte inteira
+function cadastrar(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var loglocal = req.body.loglocalServer;
+    var logidempresa = req.body.logidempresaServer;
+    
+
+    // Faça as validações dos valores
+
+    if (loglocal == undefined) {
+        res.status(400).send("Informe o local correto");
+    } else if (logidempresa == undefined) {
+        res.status(400).send("Informe o id da empresa correto");
+    }
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+
+    usuarioModel.cadastrar(loglocal, logidempresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 module.exports = {
-entrar,
-cadastrar,
-listar,
-testar
+    logar,
+    cadastrarEmpresa,
+    cadastrarUnidade,
+    cadastrar,
+    listar,
+    testar
 }
