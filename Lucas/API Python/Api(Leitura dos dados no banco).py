@@ -9,7 +9,7 @@ while True:
     i = i + 1
     try:
         db_connection = mysql.connector.connect(
-            host='localhost', user='Gabes', password='urubu100', database='ekran')
+            host='localhost', user='root', password='Lucas0708', database='ekran')
         print("Conectei no banco!")
     except mysql.connector.Error as error:
         if error.errno == errorcode.ER_BAD_DB_ERROR:
@@ -38,7 +38,7 @@ while True:
     formatoh = dataHora.strftime("%d/%m/%Y %H:%M:%S")
 
    
-    db_connection = mysql.connector.connect(host="localhost", user="Gabes", passwd="urubu100", database="ekran")
+    db_connection = mysql.connector.connect(host="localhost", user="root", passwd="Lucas0708", database="ekran")
     cursor = db_connection.cursor()
     sql = "INSERT INTO Leitura (CPUM, Processador, DiscoTotal, DiscoUso, DiscoLivre, RamTotal, RamUso, RamUsoPercent, PctEnv, PctRecv) VALUES (%s, %s, %s, %s, %s,%s,%s,%s,%s,%s)"
     values = [media, Processador, DiscoTotal, DiscoUso, DiscoLivre, RamTotal, RamUso, RamUsoPercent, PctEnv, PctRecv]

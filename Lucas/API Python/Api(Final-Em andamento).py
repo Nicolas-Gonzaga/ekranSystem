@@ -56,7 +56,7 @@ while True:
     cursor = db_connection.cursor()
     fkTotem = 1
     sql = "INSERT INTO Leitura (fkTotem, CPUM, qtdProcessador, ramTotal, ramUso,  ramUsoPercent, discoTotal, discoUso, discoLivre, discoPercent, qtdPacoteEnv, qtdPacoteRecv, dataHora) VALUES (%s,%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s)"
-    values = [ fkTotem, porcentagem_cpu, processador, ramTotal,  ramUso, ramPercent, discoTotal, discoUso, discoLivre, diskPercent, pctEnv, pctRecv, dataHora,]
+    values = [ fkTotem, porcentagem_cpu, processador, ramTotal,  ramUso, ram.percent, discoTotal, discoUso, discoLivre, disk.percent, pctEnv, pctRecv, dataHora,]
     cursor.execute
     (sql, values)
 
