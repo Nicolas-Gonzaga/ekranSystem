@@ -52,20 +52,20 @@ while True:
     dataHora = datetime.now()
     formatoh = dataHora.strftime("%d/%m/%Y %H:%M:%S")
 
-    db_connection = mysql.connector.connect(host="localhost", user="root", passwd="Lucas0708", database="extensao")
+    db_connection = mysql.connector.connect(host="localhost", user="root", passwd="Lucas0708", database="ekran")
     cursor = db_connection.cursor()
     fkTotem = 1
-    sql = "INSERT INTO Leitura (Processador, CPUM, DiscoTotal, DiscoUso, DiscoLivre, DiscoPercent, RamTotal, RamUso, RamUsoPercent, PctEnv, PctRecv, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s)"
+    sql = "INSERT INTO Leitura (qtdProcessador, CPUM, discoTotal, discoUso, discoLivre, DiscoPercent, ramTotal, ramUso, ramUsoPercent, qtdPacoteEnv, qtdPacoteRecv, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s)"
     values = [processador, porcentagem_cpu, discoTotal, discoUso, discoLivre, diskPercent, ramTotal, ramUso, ramPercent, pctEnv, pctRecv, dataHora, fkTotem]
     cursor.execute(sql, values)
 
     fkTotem = 2
-    sql = "INSERT INTO Leitura (CPUM, DiscoPercent, RamUsoPercent, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s)"
+    sql = "INSERT INTO Leitura (CPUM, DiscoPercent, ramUsoPercent, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s)"
     values = [porcentagem_cpu2, diskPercent2, ramPercent2, dataHora, fkTotem]
     cursor.execute(sql, values)
 
     fkTotem = 3
-    sql = "INSERT INTO Leitura (CPUM, DiscoPercent, RamUsoPercent, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s)"
+    sql = "INSERT INTO Leitura (CPUM, DiscoPercent, amUsoPercent, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s)"
     values = [porcentagem_cpu3, diskPercent3, ramPercent3, dataHora, fkTotem]
     cursor.execute(sql, values)
 

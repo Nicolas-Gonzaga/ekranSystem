@@ -36,8 +36,8 @@ while True:
     diskPercent3 = diskPercent2 * 3
 
     # Ram
-    ramTotal = "%0.2f" % (psutil.virtual_memory() [0] / 10**9)
-    ramUso = "%0.2f" % (psutil.virtual_memory() [3] / 10**9)
+    ramTotal = (psutil.virtual_memory() [0] / 10**9)
+    ramUso =  (psutil.virtual_memory() [3] / 10**9)
     # ramUsoPercent = "%0.2f" % (psutil.virtual_memory() [2])
     ram = (psutil.virtual_memory())
     ramPercent = ram.percent
@@ -45,8 +45,8 @@ while True:
     ramPercent3 = ramPercent2 * 1.05
 
     # Internet 
-    pctEnv = "%0.0f" % (psutil.net_io_counters [2] / 1024)
-    pctRecv = "%0.0f" % (psutil.net_io_counters [3]/ 1024)
+    pctEnv = (psutil.net_io_counters() [2] / 1024)
+    pctRecv = (psutil.net_io_counters() [3]/ 1024)
     
 
     dataHora = datetime.now()
@@ -55,19 +55,22 @@ while True:
     db_connection = mysql.connector.connect(host="localhost", user="root", passwd="Lucas0708", database="ekran")
     cursor = db_connection.cursor()
     fkTotem = 1
-    sql = "INSERT INTO Leitura (Processador, CPUM, DiscoTotal, DiscoUso, DiscoLivre, DiscoPercent, RamTotal, RamUso, RamUsoPercent, PctEnv, PctRecv, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s)"
-    values = [processador, porcentagem_cpu, discoTotal, discoUso, discoLivre, diskPercent, ramTotal, ramUso, ramPercent, pctEnv, pctRecv, dataHora, fkTotem]
-    cursor.execute(sql, values)
+    sql = "INSERT INTO Leitura (fkTotem, CPUM, qtdProcessador, ramTotal, ramUso,  ramUsoPercent, discoTotal, discoUso, discoLivre, discoPercent, qtdPacoteEnv, qtdPacoteRecv, dataHora) VALUES (%s,%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s)"
+    values = [ fkTotem, porcentagem_cpu, processador, ramTotal,  ramUso, ramPercent, discoTotal, discoUso, discoLivre, diskPercent, pctEnv, pctRecv, dataHora,]
+    cursor.execute
+    (sql, values)
 
     fkTotem = 2
-    sql = "INSERT INTO Leitura (CPUM, DiscoPercent, RamUsoPercent, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s)"
-    values = [porcentagem_cpu2, diskPercent2, ramPercent2, dataHora, fkTotem]
-    cursor.execute(sql, values)
+    sql = "INSERT INTO Leitura ( fkTotem, CPUM, ramUsoPercent, discoPercent,  dataHora) VALUES (%s,%s, %s, %s, %s)"
+    values = [fkTotem, porcentagem_cpu2, ramPercent2, diskPercent2, dataHora]
+    cursor.execute
+    (sql, values)
 
     fkTotem = 3
-    sql = "INSERT INTO Leitura (CPUM, DiscoPercent, RamUsoPercent, dataHora, fkTotem) VALUES (%s,%s, %s, %s, %s)"
-    values = [porcentagem_cpu3, diskPercent3, ramPercent3, dataHora, fkTotem]
-    cursor.execute(sql, values)
+    sql = "INSERT INTO Leitura ( fkTotem, CPUM, ramUsoPercent, discoPercent,  dataHora) VALUES (%s,%s, %s, %s, %s)"
+    values = [fkTotem, porcentagem_cpu2, ramPercent2, diskPercent2, dataHora]
+    cursor.execute
+    (sql, values)
 
 
     print("\n")
