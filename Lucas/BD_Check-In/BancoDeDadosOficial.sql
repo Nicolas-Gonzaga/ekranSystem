@@ -7,9 +7,15 @@ idUsuario int primary key auto_increment,
 nome varchar(45),
 email varchar(45),
 senha varchar(15),
-permissoes varchar(10),
 fkEmpresa int,
-foreign key (fkEmpresa) references Empresa(idEmpresa)
+foreign key (fkEmpresa) references Empresa(idEmpresa),
+fkPerfil int,
+foreign key (fkPerfil) references Perfil(idPerfil)
+);
+
+create table Perfil(
+idPerfil int primary key,
+permissao varchar(10)
 );
 
 create table Empresa(
@@ -44,16 +50,38 @@ ramUsoPercent int,
 discoTotal decimal(5,2),
 discoUso decimal(5,2),
 discoLivre decimal(5,2),
-discopercent decimal(5,2),
+discoPercent decimal(5,2),
 qtdPacoteEnv int,
 qtdPatoceRecv int,
 dataHora datetime 
-);
+)auto_increment = 50;
 
-drop table Leitura;
 
-select* from Leitura;
+insert into Perfil values ('111','ADM'),
+('222','FUNC'),
+('333','DEV');
+
+insert into Usuario values 
+(null,'Lucas','lucas.navasconi@sptech.school','123',10000,333),
+(null,'Fabio','fabio.seabra@sptech.school','123',10000,333),
+(null,'Nathalia','nathalia.marques@sptech.school','123',10000,333),
+(null,'Thais','thais.inacio@sptech.school','123',10000,333),
+(null,'Gabriela','gabriela.dias@sptech.school','123',10000,333),
+(null,'Lourenzo','lourenzo.silva@sptech.school','123',10000,333),
+(null,'Brandao','fernando.brandao@sptech.school','123',10001,111);
+(null,'Brandao','oi.brandao@sptech.school','123',10001,111);
+
+
+
+insert into Empresa values (null, 'ēKran','12345678900000'),
+(null, 'Sptech','12345678900001');
+
+insert into Unidade values
+(null, 'Consolação', 10001);
+
+
 select * from Usuario;
+select * from Perfil;
 select * from Empresa;
 select * from Unidade;
 select* from Totem;

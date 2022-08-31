@@ -134,10 +134,43 @@ function cadastrar(req, res) {
         );
 }
 
+function cadastrarEmpresa(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var lognameE = req.body.lognameEServer;
+    var logcnpj = req.body.logcnpjServer;
+ 
+
+    // Faça as validações dos valores
+
+    if (lognameE == undefined) {
+        res.status(400).send("Informe algum nome");
+    } else if (logcnpj == undefined) {
+        res.status(400).send("Informe o id da empresa correto");
+    } 
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+
+    usuarioModel.cadastrarEmpresa(lognameE, logcnpj)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 module.exports = {
     logar,
     cadastrarUnidade,
     cadastrar,
     listar,
-    testar
+    testar,
+    cadastrarEmpresa,
 }
