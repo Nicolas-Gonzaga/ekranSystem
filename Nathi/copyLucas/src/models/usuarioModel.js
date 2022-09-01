@@ -32,7 +32,7 @@ function cadastrar(logname, logemail, logsenha, logempresa, logpermissoes) {
 }
 
 function cadastrarEmpresa(lognomeE, logcnpj) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",lognomeE, logcnpj);
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEmpresa():",lognomeE, logcnpj);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
@@ -43,13 +43,13 @@ function cadastrarEmpresa(lognomeE, logcnpj) {
     return database.executar(instrucao);
 }
 
-function cadastrarUnidade(loglocal, logidempresa) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():",loglocal, logidempresa);
+function cadastrarUnidade(loglocal, logempresaId) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarUnidade():",loglocal, logempresaId);
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-        INSERT INTO Unidade (localUnidade, fkEmpresa) VALUES ('${loglocal}', '${logidempresa}'');
+        INSERT INTO Unidade (localUnidade, fkEmpresa) VALUES ('${loglocal}', '${logempresaId}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -60,5 +60,5 @@ module.exports = {
     logar,
     cadastrar,
     cadastrarEmpresa,
-    cadastrarUnidade,
+    cadastrarUnidade
 };

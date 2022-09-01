@@ -67,18 +67,18 @@ function logar(req, res) {
 function cadastrarUnidade(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var loglocal = req.body.loglocalServer;
-    var logidempresa = req.body.logidempresaServer;
+    var logempresaId = req.body.logempresaIdServer;
 
     // Faça as validações dos valores
 
     if (loglocal == undefined) {
         res.status(400).send("Informe o local correto");
-    } else if (logidempresa == undefined) {
+    } else if (logempresaId == undefined) {
         res.status(400).send("Informe o id da empresa correto");
     }
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
 
-    usuarioModel.cadastrarUnidade(loglocal, logidempresa)
+    usuarioModel.cadastrarUnidade(loglocal, logempresaId)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -167,6 +167,7 @@ function cadastrarEmpresa(req, res) {
             }
         );
 }
+
 
 module.exports = {
     logar,

@@ -73,6 +73,9 @@ insert into Usuario values (null,'Lucas','lucas.navasconi@sptech.school','123',1
                            (null,'Brandao','fernando.brandao@sptech.school','123',10001,111);
 
 insert into Unidade values (null, 'Consolação', 10001);
+insert into Totem values (null, 'Ws', 20001),
+						 (null, 'Ws', 20001),
+						 (null, 'Ws', 20001);
 
 -- SELECT * FROM usuario WHERE email = 'nathalia.marques@sptech.school' AND senha = '123' AND fkPerfil = 333;
 
@@ -80,5 +83,5 @@ select * from Usuario;
 select * from Perfil;
 select * from Empresa;
 select * from Unidade;
-select* from Totem;
+select * from Totem;
 select * from Leitura;
