@@ -74,6 +74,7 @@ insert into Usuario values (null,'Lucas','lucas.navasconi@sptech.school','123',1
 
 insert into Unidade values (null, 'Consolação', 10001);
 
+-- SELECT * FROM usuario WHERE email = 'nathalia.marques@sptech.school' AND senha = '123' AND fkPerfil = 333;
 
 select * from Usuario;
 select * from Perfil;
