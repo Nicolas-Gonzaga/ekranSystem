@@ -60,7 +60,7 @@ h6 span{
   padding: 0;
   margin: 10px auto;
   cursor: pointer;
-  background-color: #102770;
+  background-color: #0067b8;
   margin-top: 3%;
 }
 .checkbox:checked + label:before,
@@ -70,8 +70,9 @@ h6 span{
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  color: #102770;
+  color: #0067b8;
   background-color: #9ca3a9;
+ 
   font-family: 'unicons';
   content: '\eb4f';
   z-index: 20;
@@ -110,7 +111,7 @@ h6 span{
 .card-front {
   padding-top: -20px;
   width: 100%;
-  height: 90%;
+  height: 80%;
   background-color: #2a2b38;
   background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
   background-position: bottom center;
@@ -131,7 +132,7 @@ h6 span{
 .card-back {
     padding-top: -20px;
     width: 100%;
-    height: 100%;
+    height: 80%;
     background-color: #2a2b38;
     background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
     background-position: bottom center;
@@ -280,18 +281,18 @@ h6 span{
   text-align: center;
   border: none;
   background-color: #9ca3a9;
-  color: #102770;
-  box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
+  color: #0c395c;
+  box-shadow: 0 8px 24px 0 rgba(56, 116, 172, 0.26);
 }
 .btn:active,
 .btn:focus{  
   background-color: #9ca3a9;
-  color: #102770;
+  color: #0c395c;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 .btn:hover{  
   background-color: #9ca3a9;
-  color: #102770;
+  color: #0c395c;
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 

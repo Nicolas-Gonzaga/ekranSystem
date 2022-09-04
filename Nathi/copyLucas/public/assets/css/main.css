@@ -21,6 +21,7 @@
   --color-default: #364d59;
   --color-primary: #0067b8;
   --color-secondary: #52565e;
+  --color-tertiary: #005A9E;
 }
 
 /* Smooth scroll behavior */
@@ -33,7 +34,7 @@
 --------------------------------------------------------------*/
 body {
   font-family: var(--font-default);
-  color: var(--color-default);
+  /* color: var(--color-default); */
   overflow-x: hidden;
 }
 
@@ -43,7 +44,7 @@ a {
 }
 
 a:hover {
-  color: #ffc732;
+  color: #0067b8;
   text-decoration: none;
 }
 
@@ -110,6 +111,16 @@ section {
 /*--------------------------------------------------------------
 # Breadcrumbs
 --------------------------------------------------------------*/
+
+.nosTitle{
+  color: #0067b8;
+}
+
+.class-main{
+  text-align: center;
+}
+
+
 .breadcrumbs {
   padding: 140px 0 60px 0;
   min-height: 30vh;
@@ -183,12 +194,12 @@ section {
 
 .scroll-top i {
   font-size: 24px;
-  color: var(--color-secondary);
+  color: white;
   line-height: 0;
 }
 
 .scroll-top:hover {
-  background: #ffc732;
+  background: #004478;
   color: #fff;
 }
 
@@ -1190,34 +1201,34 @@ section {
 # About Section
 --------------------------------------------------------------*/
 .about h2 {
-  font-size: 48px;
+  font-size: 200%;
   font-weight: 700;
   font-family: var(--font-secondary);
   margin: 30px 0;
 }
 
+
 @media (min-width: 991px) {
   .about h2 {
-    max-width: 65%;
+    /* max-width: 65%; */
     margin: 0 0 80px 0;
   }
 }
 
 .about .our-story {
   padding: 40px;
-  background-color: #f5f6f7;
+  background-color: #004478;
 }
 
-@media (min-width: 991px) {
-  .about .our-story {
-    padding-right: 35%;
-  }
-}
+.about .our-story {
+    padding-right: 50%;
+
+  } 
 
 .about .our-story h4 {
   text-transform: uppercase;
   font-size: 18px;
-  color: #838893;
+  color: white;
 }
 
 .about .our-story h3 {
@@ -1279,7 +1290,6 @@ section {
     right: 0;
   }
 }
-
 /*--------------------------------------------------------------
 # Stats Counter Section
 --------------------------------------------------------------*/
@@ -1666,7 +1676,7 @@ section {
   line-height: 0;
   color: var(--color-primary);
   border-radius: 50%;
-  border: 2px dotted #ffd565;
+  border: 2px dotted #004478;
 }
 
 .contact .info-item h3 {
@@ -1766,7 +1776,7 @@ section {
 }
 
 .contact .php-email-form button[type=submit]:hover {
-  background: rgba(254, 185, 0, 0.8);
+  background: #004478;
 }
 
 @keyframes animate-loading {
@@ -2580,11 +2590,15 @@ section {
 --------------------------------------------------------------*/
 .footer {
   color: #fff;
-  background: url("../img/footer-bg.jpg") top center no-repeat;
+  background: url("../img/contato1.jpg") center no-repeat;
   background-size: cover;
   font-size: 14px;
   padding: 80px 0 60px 0;
   position: relative;
+}
+
+.row{
+  justify-content: center;
 }
 
 .footer:before {
@@ -2638,16 +2652,21 @@ section {
 }
 
 .footer .footer-content h4 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
   color: #fff;
   position: relative;
   padding-bottom: 12px;
 }
 
-.footer .footer-content .footer-links {
-  margin-bottom: 30px;
+.footer .footer-content .footer-text{
+  width: 20vw;
 }
+
+/* .footer .footer-content .footer-links {
+  margin-bottom: 30px;
+  
+} */
 
 .footer .footer-content .footer-links ul {
   list-style: none;
