@@ -10,7 +10,7 @@ while True:
 
     try:
         db_connection = mysql.connector.connect(
-            host='localhost', user='root', password='Lucas0708', database='ekran')
+            host='localhost', user='root', password='#Gf40928326802', database='ekran')
         print("Conectei no banco!")
     except mysql.connector.Error as error:
         if error.errno == errorcode.ER_BAD_DB_ERROR:
@@ -49,32 +49,26 @@ while True:
     pctRecv = (psutil.net_io_counters() [3]/ 1024)
     
 
-    dataHora = datetime.now()
-    formatoh = dataHora.strftime("%d/%m/%Y %H:%M:%S")
 
-    db_connection = mysql.connector.connect(host="localhost", user="root", passwd="Lucas0708", database="ekran")
+    db_connection = mysql.connector.connect(host="localhost", user="root", passwd="#Gf40928326802", database="ekran")
     cursor = db_connection.cursor()
-    fkTotem = 1
-    sql = "INSERT INTO Leitura (fkTotem, CPUM, qtdProcessador, ramTotal, ramUso,  ramUsoPercent, discoTotal, discoUso, discoLivre, discoPercent, qtdPacoteEnv, qtdPacoteRecv, dataHora) VALUES (%s,%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s)"
-    values = [ fkTotem, porcentagem_cpu, processador, ramTotal,  ramUso, ram.percent, discoTotal, discoUso, discoLivre, disk.percent, pctEnv, pctRecv, dataHora,]
-    cursor.execute
-    (sql, values)
+    fkTotem = 50000
+    sql = "INSERT INTO Leitura (fkTotem, CPUM, qtdProcessador, ramTotal, ramUso,  ramUsoPercent, discoTotal, discoUso, discoLivre, discoPercent, qtdPacoteEnv, qtdPacoteRecv, dataHora) VALUES (%s,%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s, (SELECT NOW()))"
+    values = [ fkTotem, porcentagem_cpu, processador, ramTotal,  ramUso, ram.percent, discoTotal, discoUso, discoLivre, disk.percent, pctEnv, pctRecv]
+    cursor.execute(sql, values)
+    
+    fkTotem = 50001
+    sql = "INSERT INTO Leitura ( fkTotem, CPUM, ramUsoPercent, discoPercent,  dataHora) VALUES (%s,%s, %s, %s, (SELECT NOW()))"
+    values = [fkTotem, porcentagem_cpu2, ramPercent2, diskPercent2]
+    cursor.execute(sql, values)
 
-    fkTotem = 2
-    sql = "INSERT INTO Leitura ( fkTotem, CPUM, ramUsoPercent, discoPercent,  dataHora) VALUES (%s,%s, %s, %s, %s)"
-    values = [fkTotem, porcentagem_cpu2, ramPercent2, diskPercent2, dataHora]
-    cursor.execute
-    (sql, values)
-
-    fkTotem = 3
-    sql = "INSERT INTO Leitura ( fkTotem, CPUM, ramUsoPercent, discoPercent,  dataHora) VALUES (%s,%s, %s, %s, %s)"
-    values = [fkTotem, porcentagem_cpu2, ramPercent2, diskPercent2, dataHora]
-    cursor.execute
-    (sql, values)
+    fkTotem = 50002
+    sql = "INSERT INTO Leitura ( fkTotem, CPUM, ramUsoPercent, discoPercent,  dataHora) VALUES (%s,%s, %s, %s, (SELECT NOW()))"
+    values = [fkTotem, porcentagem_cpu2, ramPercent2, diskPercent2]
+    cursor.execute(sql, values)
 
 
     print("\n")
     print(cursor.rowcount, "Inserindo no banco.")
     db_connection.commit()
-    db_connection.close()    
     time.sleep(5)
