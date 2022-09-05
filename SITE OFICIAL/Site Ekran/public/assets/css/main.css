@@ -2659,8 +2659,16 @@ section {
   padding-bottom: 12px;
 }
 
+
+
 .footer .footer-content .footer-text{
   width: 20vw;
+}
+
+@media screen and (max-width: 768px) {
+  .footer .footer-content .footer-text{
+    width: 80vw;
+  }
 }
 
 /* .footer .footer-content .footer-links {
