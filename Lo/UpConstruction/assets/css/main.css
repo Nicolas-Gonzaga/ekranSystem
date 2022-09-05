@@ -246,11 +246,12 @@ section {
 /*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
-  [data-aos-delay] {
-    transition-delay: 0 !important;
+/* @media screen and (max-width: 768px) {
+  [data-aos-delay].aos-animate, body[data-aos-delay][data-aos].aos-animate{
+    margin-left: 0%;
+    /* transition-delay: 0 !important; 
   }
-}
+} 
 
 /*--------------------------------------------------------------
 # Header
