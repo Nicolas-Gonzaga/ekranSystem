@@ -10,7 +10,7 @@ while True:
 
     try:
         db_connection = mysql.connector.connect(
-            host='localhost', user='root', password='#Gf40928326802', database='ekran')
+            host='localhost', user='root', password='Lucas0708', database='ekran')
         print("Conectei no banco!")
     except mysql.connector.Error as error:
         if error.errno == errorcode.ER_BAD_DB_ERROR:
@@ -50,7 +50,7 @@ while True:
     
 
 
-    db_connection = mysql.connector.connect(host="localhost", user="root", passwd="#Gf40928326802", database="ekran")
+    db_connection = mysql.connector.connect(host="localhost", user="root", passwd="Lucas0708", database="ekran")
     cursor = db_connection.cursor()
     fkTotem = 50000
     sql = "INSERT INTO Leitura (fkTotem, CPUM, qtdProcessador, ramTotal, ramUso,  ramUsoPercent, discoTotal, discoUso, discoLivre, discoPercent, qtdPacoteEnv, qtdPacoteRecv, dataHora) VALUES (%s,%s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s, (SELECT NOW()))"
