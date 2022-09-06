@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css');
+@import url('https://unicons.iconscout.com/release/v2.1.9/css/unicons.css');
 
 body{
 	font-family: 'Poppins', sans-serif;
@@ -12,6 +14,7 @@ body{
 a {
 	cursor: pointer;
   transition: all 200ms linear;
+  color: #0067b8;
 }
 a:hover {
 	text-decoration: none;
@@ -71,7 +74,7 @@ h6 span{
   height: 36px;
   border-radius: 50%;
   color: #0067b8;
-  background-color: #9ca3a9;
+  background-color: white;
   font-family: 'unicons';
   content: '\eb4f';
   z-index: 20;
@@ -253,7 +256,7 @@ transform: rotateY(180deg);
   font-size: 24px;
   line-height: 48px;
   text-align: left;
-  color: #102770;
+  color: #0067b8;
   -webkit-transition: all 200ms linear;
     transition: all 200ms linear;
 }
@@ -331,6 +334,7 @@ transform: rotateY(180deg);
   color: #0c395c;
   box-shadow: 0 8px 24px 0 rgba(56, 116, 172, 0.26);
 }
+
 .btn:active,
 .btn:focus{  
   background-color: #9ca3a9;
