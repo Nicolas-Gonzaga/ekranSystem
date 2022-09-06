@@ -331,8 +331,12 @@ transform: rotateY(180deg);
   text-align: center;
   border: none;
   background-color: #9ca3a9;
-  color: #0c395c;
+  /* color: #0c395c; */
   box-shadow: 0 8px 24px 0 rgba(56, 116, 172, 0.26);
+}
+
+.btn mt-4{
+  color:red
 }
 
 .btn:active,
