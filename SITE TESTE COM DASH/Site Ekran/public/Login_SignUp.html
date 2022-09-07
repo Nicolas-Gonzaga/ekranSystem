@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+	<title>ēKran - Login</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
+
+	<!-- Favicons -->
+	<link href="assets/img/icon-ekran.png" rel="icon">
+	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+		rel="stylesheet">
+
+	<!-- Vendor CSS Files -->
+	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendor/bootstrap/css/cadastrocss.css" rel="stylesheet">
+	<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+	<link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+	<link href="assets/vendor/aos/aos.css" rel="stylesheet">
+	<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+	<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+	<!-- Template Main CSS File -->
+	<link href="assets/css/main.css" rel="stylesheet">
+
+	<!-- =======================================================
+  * Template Name: ēKran - v1.1.0
+  * Template URL: https://bootstrapmade.com/ēKran-bootstrap-construction-website-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header id="header" class="header d-flex align-items-center">
+		<div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+			<a href="index.html" class="logo d-flex align-items-center">
+				<!-- Uncomment the line below if you also wish to use an image logo -->
+				<!-- <img src="assets/img/logo.png" alt=""> -->
+				<h1>ēKran<span>.</span></h1>
+			</a>
+
+			<i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+			<i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+			<nav id="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html">Início</a></li>
+					<li><a href="sobre.html">Sobre nós</a></li>
+					<li><a href="servicos.html">Serviços</a></li>
+					<li><a href="contato.html">Contato</a></li>
+					<li><a href="Login_SignUp.html" class="active">Login</a></li>
+				</ul>
+			</nav><!-- .navbar -->
+
+		</div>
+	</header><!-- End Header -->
+
+	<div class="geral">
+		<div class="section">
+			<div class="container">
+				<div class="row full-height justify-content-center">
+					<div class="col-12 text-center align-self-center py-5">
+						<div class="section pb-5 pt-5 pt-sm-2 text-center">
+							<h6 class="mb-0 pb-3"><span>Login</span>/<span>Contato</span></h6>
+							<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+							<label for="reg-log"></label>
+							<div class="card-3d-wrap mx-auto" id="girar1" onclick="girar()">
+								<div class="card-3d-wrapper">
+									<div class="card-front">
+										<div class="center-wrap">
+											<div class="section text-center">
+												<h4 class="mb-4 pb-3"></h4>
+												<div class="form-group">
+													<input type="email" name="logemail" class="form-style"
+														placeholder="Seu Email" id="logemail" autocomplete="off">
+													<i class="input-icon uil uil-at"></i>
+												</div>
+												<div class="form-group mt-2">
+													<input type="password" name="logpass" class="form-style"
+														placeholder="Sua senha" id="logpass" autocomplete="off">
+													<i class="input-icon uil uil-lock-alt"></i>
+												</div>
+													<div class="form-group mt-2">
+														<i class="input-icon uil uil-social-distancing"></i>
+														<select name="logpermissoes" id="logpermissoes" class="form-style"
+															placeholder="Selecione o cargo">
+															<option value="0">Selecione o cargo</option>
+															<option id="fkPerfil" value="111">Administrador</option>
+															<option id="fkPerfil" value="222">Funcionário</option>
+															<option id="fkPerfil" value="333">Dev</option>
+														</select>
+													</div>
+												<a class="btn mt-4" style="color: #343a40" id="loginButton" onclick="logar()">Entrar</a>
+											</div>
+										</div>
+									</div>
+									<div class="card-back">
+										<div class="center-wrap">
+											<div class="section text-center">
+												<h4 class="mb-4 pb-3">Crie uma conta!</h4>
+												<div class="form-group">
+													<p>Para cadastrar e adiquirir nosso sistema entre em contato com a nossa equipe que nós iremos te guiar para o sucesso.</p>
+												
+												<a href="contato.html" style="color: #343a40" class="btn mt-4">Clique aqui</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<script src="js/funcoes.js"></script>
+		<!-- <script src="js/login.js"></script> -->
+
+
+</body>
+
+</html>
+<script>
+	let girar1 = girar.value
+	var loginButton = document.getElementById('login');
+	// function logar() {
+	// 	let logemail = logemail.value
+	// 	let logpass = logpass.value
+	// 	let logpermissoes = logpermissoes.value
+	// 	// loginButton.href = './cadEmpresa.html'
+
+	// 	if (logemail == "" || logpass == "") {
+	// 		alert("Seus dados não coferem!");
+	// 		return false;
+	// 	} else if (logpermissoes == "111") {
+	// 		loginButton = "../dashboard.html";
+	// 	} else if (logpermissoes == "222") {
+	// 		loginButton = "../dashboard.html";
+	// 	}else if (logpermissoes == "333") {
+    //         loginButton = "../cadEmpresa.html";
+	// 	}else {
+    //         loginButton.href = "../";
+	// 	}
+	// }
+
+	// 			else {
+	// 				throw ("Houve um erro ao tentar realizar o cadastro!");
+	// 			}
+	// 		}).catch(function (resposta) {
+	// 			console.log(`#ERRO: ${resposta}`);
+
+	// 		});
+
+	// 		return false;
+
+	
+    function logar() {
+        // aguardar();
+
+        var logEmail = logemail.value;
+		var logPass = logpass.value;
+		var logPermissoes = logpermissoes.value;
+
+		var loginButton = document.getElementById('login');
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        if (logEmail == "" || logPass == "" || logPermissoes == "") {
+			alert("Seus dados não coferem!");
+			return false;
+		}
+
+        console.log("FORM LOGIN: ", logemail);
+        console.log("FORM SENHA: ", logpass);
+        console.log("FORM USUARIO: ", logpermissoes);
+
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                logemailServer: logEmail,
+                logpassServer: logPass,
+                logpermissoesServer: logPermissoes
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+			if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.logemail = json.logEmail;
+                    sessionStorage.logpass = json.logPass;
+                    sessionStorage.logpermissoes = json.logPermissoes;
+
+                    setTimeout(function ()
+					{if (logPermissoes == "111") {
+						window.location = "../dashboardTeste.html";
+    } else if (logPermissoes == "222") {
+		window.location = "../funDash.html";
+    }else if (logPermissoes == "333") {
+        window.location = "../cadEmpresa.html";
+    }else {
+		window.location = "../";
+		}})
+	})}
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+				function girar() {
+						girar1
+					}
+
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+</script>
