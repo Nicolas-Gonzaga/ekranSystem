@@ -1,253 +1,906 @@
+<!--
+=========================================================
+* * Black Dashboard - v1.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/black-dashboard
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>ēKran - Dashboard</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/icon-ekran.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/icon-ekran.png">
+  <link rel="icon" type="image/png" href="assets/img/icon-ekran.png">
+  <title>
+    ēKran - Dashboard
+  </title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
+  
+  
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Chart/Dashboards -->
-   <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
-  
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/main.css" rel="stylesheet">
-  <!-- <link href="assets/css/dash.css" rel="stylesheet"> -->
-  
-  <!-- =======================================================
-  * Template Name: ēKran - v1.1.0
-  * Template URL: https://bootstrapmade.com/ēKran-bootstrap-construction-website-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-
-  
+  <!-- <link rel="stylesheet" href="assets/css/main.css"> -->
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="assets/css/black-dashboard.css?v=1.0.0">
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-
-      <a href="index.html" class="logo d-flex align-items-center">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>ēKran<span>.</span></h1>
-      </a>
-
-      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
-      <nav id="navbar" class="navbar">
-        <ul>
-          <li><a class="active">Gráficos</a></li>
-          <li><a href="https://app.pipefy.com/public/form/JBbirBal">Suporte</a></li>
-          <!-- <li class="dropdown"><a href="#"><span>Cadastrar</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="unidade.html">Unidade</a></li>
-              <li><a href="funcionario.html">Funcionário</a></li>
-            </ul>
-          </li> -->
-          <li class="dropdown"><a href="#"><span>Totens</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="#">Totem 1</a></li>
-              <li><a href="#">Totem 2</a></li>
-              <li><a href="#">Totem 3</a></li>
-              <li><a href="#">Totem 4</a></li>
-            </ul>
-          </li>
-          <li><a href="index.html">Logout</a></li>
-        </ul>
-      </nav><!-- .navbar -->
-
-    </div>
-  </header><!-- End Header -->
-
-  <main id="main">
-
-    <!-- ======= Breadcrumbs ======= -->
-    <div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/img/breadcrumbs-bg.jpg');">
-      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
-
-        <h2>Dashboard</h2>
-        <ol>
-          <li><a href="index.html">Início</a></li>
-          <li>Dashboard</li>
-        </ol>
-
-      </div>
-    </div><!-- End Breadcrumbs -->
-
-    <section id="get-started2" class="get-started2 section-bg">
-      <div class="container">
-
-        <div class="row2 justify-content-between gy-4">
-
-          <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up">
-            <div class="content2">
-              <div class="Graficos">
-                <div class="cards">
-                  <div class="card1">
-
-                  </div>
-                  <div class="card2">
-
-                  </div>
-                  <div class="card3">
-
-                  </div>
-                  <div class="card4">
-
-                  </div>
-                  <div class="card5">
-
-                  </div>
-
-                </div>
-              </div> 
-            </div>
-          </div>
-          <div class="col-lg-5" id="img-container" data-aos="fade" style="background-image: url(assets/img/home-content1.2.png); background-repeat: no-repeat;">
-          </div><!-- End Quote Form -->
+<body class="">
+  <div class="wrapper">
+    <div class="sidebar">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a href="javascript:void(0)" class="simple-text logo-mini">
+            <i class="tim-icons icon-chart-bar-32"></i>
+          </a>
+          <a href="javascript:void(0)" class="simple-text logo-normal">
+            ēKran 
+          </a>
         </div>
-
+        <ul class="nav">
+          <li class="active ">
+            <a href="funDash.html">
+              <i class="tim-icons icon-app"></i>
+              <p>Geral</p>
+            </a>
+          </li>
+          <li>
+            <a href="totemF1.html">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Totem 1</p>
+            </a>
+          </li>
+          <li >
+            <a href="totemF2.html">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Totem 2</p>
+            </a>
+          </li>
+          <li >
+            <a href="totemF3.html">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Totem 3</p>
+            </a>
+          </li>
+          <li>
+            <a href="https://app.pipefy.com/public/form/JBbirBal">
+              <i class="tim-icons icon-headphones"></i>
+              <p>Suporte</p>
+            </a>
+          </li>
+          <li>
+            <a href="index.html">
+              <i class="tim-icons icon-double-left"></i>
+              <p>Sair</p>
+            </a>
+          </li>
+        </ul>
       </div>
-    </section><!-- End Get Started Section -->
-      <!-- GRAFICOS AQUI-->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-
-    <div class="footer-content position-relative">
-      <div class="container">
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle d-inline">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+          </div>
+          <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button> -->
+          <div class="collapse navbar-collapse" id="navigation">
+            <ul class="navbar-nav ml-auto">
+              <li class="search-bar input-group">
+                <!-- <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" ></i>
+                  <span class="d-lg-none d-md-block">Search</span>
+                </button> -->
+              </li>
+              <li class="dropdown nav-item">
+                <!-- <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  <div class="notification d-none d-lg-block d-xl-block"></div>
+                  <i class="tim-icons icon-sound-wave"></i>
+                  <p class="d-lg-none">
+                    Notifications
+                  </p>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+                  <li class="nav-link"><a href="#" class="nav-item dropdown-item">Mike John responded to your email</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">You have 5 more tasks</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Your friend Michael is in town</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another notification</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another one</a></li>
+                </ul> -->
+              </li>
+              <li class="dropdown nav-item">
+                <!-- <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  <div class="photo">
+                    <img src="../assets/img/anime3.png" alt="Profile Photo">
+                  </div>
+                  <b class="caret d-none d-lg-block d-xl-block"></b>
+                  <p class="d-lg-none">
+                    Log out
+                  </p>
+                </a>
+                <ul class="dropdown-menu dropdown-navbar">
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a></li>
+                  <li class="dropdown-divider"></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Log out</a></li>
+                </ul> -->
+              </li>
+              <li class="separator d-lg-none"></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <!-- <div class="modal-content">
+            <div class="modal-header">
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="tim-icons icon-simple-remove"></i>
+              </button>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <!-- End Navbar -->
+      <div class="content">
         <div class="row">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="footer-info">
-              <h3>ēKran</h3>
-              <p>
-                A108 Adam Street <br>
-                NY 535022, USA<br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
-              </p>
-              <div class="social-links d-flex mt-3">
-                <a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="d-flex align-items-center justify-content-center"><i class="bi bi-linkedin"></i></a>
+          <div class="col-12">
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h5 class="card-category">Desempenho %</h5>
+                    <h2 class="card-title">CPU</h2>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                      <!-- <label class="btn btn-sm btn-primary btn-simple active" id="0"> -->
+                        <!-- <input type="radio" name="options" checked> -->
+                        <!-- <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Dia</span> -->
+                        <!-- <span class="d-block d-sm-none"> -->
+                          <!-- <i class="tim-icons icon-single-02"></i> -->
+                        </span>
+                      </label>
+                      <!-- <label class="btn btn-sm btn-primary btn-simple" id="1"> -->
+                        <!-- <input type="radio" class="d-none d-sm-none" name="options"> -->
+                        <!-- <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Mês</span> -->
+                        <!-- <span class="d-block d-sm-none"> -->
+                          <!-- <i class="tim-icons icon-gift-2"></i> -->
+                        </span>
+                      </label>
+                      <!-- <label class="btn btn-sm btn-primary btn-simple" id="2"> -->
+                        <!-- <input type="radio" class="d-none" name="options"> -->
+                        <!-- <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Ano</span> -->
+                        <!-- <span class="d-block d-sm-none"> -->
+                          <!-- <i class="tim-icons icon-tap-02"></i> -->
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartBig1"></canvas>
+                </div>
               </div>
             </div>
-          </div><!-- End footer info column-->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Desempenho %</h5>
+                <h3 class="card-title">Memória</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLinePurple"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Desempenho %</h5>
+                <h3 class="card-title">Disco</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="CountryChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Desempenho Kbps</h5>
+                <h3 class="card-title">Internet</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLineGreen"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <div class="card card-tasks">
+              <div class="card-header ">
+                <h6 class="title d-inline">Histórico alertas</h6>
+                <p class="card-category d-inline">hoje</p>
+              </div>
+              <div class="card-body ">
+                <div class="table-full-width table-responsive">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="title">ESTADO CRÍTICO TOTEM 1 - 18:30:22</p>
+                          <p class="text-muted">100% RAM</p>
+                        </td>
+                        <td class="td-actions text-right">
+                          <!-- <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
+                            <i class="tim-icons icon-pencil"></i>
+                          </button> -->
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="" checked="">
 
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Privacy policy</a></li>
-            </ul>
-          </div><!-- End footer links column-->
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><a href="#">Web Design</a></li>
-              <li><a href="#">Web Development</a></li>
-              <li><a href="#">Product Management</a></li>
-              <li><a href="#">Marketing</a></li>
-              <li><a href="#">Graphic Design</a></li>
-            </ul>
-          </div><!-- End footer links column-->
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Hic solutasetp</h4>
-            <ul>
-              <li><a href="#">Molestiae accusamus iure</a></li>
-              <li><a href="#">Excepturi dignissimos</a></li>
-              <li><a href="#">Suscipit distinctio</a></li>
-              <li><a href="#">Dilecta</a></li>
-              <li><a href="#">Sit quas consectetur</a></li>
-            </ul>
-          </div><!-- End footer links column-->
-
-          <div class="col-lg-2 col-md-3 footer-links">
-            <h4>Nobis illum</h4>
-            <ul>
-              <li><a href="#">Ipsam</a></li>
-              <li><a href="#">Laudantium dolorum</a></li>
-              <li><a href="#">Dinera</a></li>
-              <li><a href="#">Trodelas</a></li>
-              <li><a href="#">Flexo</a></li>
-            </ul>
-          </div><!-- End footer links column-->
-
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="title">ESTADO DE ALERTA TOTEM 3 - 15:28:43</p>
+                          <p class="text-muted">87% CPU</p>
+                        </td>
+                        <td class="td-actions text-right">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="title">ESTADO CRÍTICO TOTEM 2 - 15:18:22</p>
+                          <p class="text-muted">100% CPU</p>
+                        </td>
+                        <td class="td-actions text-right">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="title">ESTADO DE ALERTA TOTEM 1 - 13:34:24</p>
+                          <p class="text-muted">85% RAM</p>
+                        </td>
+                        <td class="td-actions text-right">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="title">ESTADO DE ALERTA TOTEM 2 - 12:43:15</p>
+                          <p class="text-muted">98% DISCO</p>
+                        </td>
+                        <td class="td-actions text-right">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="title">ESTADO DE ALERTA TOTEM 3 - 12:30:25</p>
+                          <p class="text-muted">100% DISCO</p>
+                        </td>
+                        <td class="td-actions text-right">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" value="">
+                            </label>
+                          </div>
+                        </td>
+                        <td>
+                          <p class="title">ESTADO DE ALERTA TOTEM 1 - 08:45:23</p>
+                          <p class="text-muted">85% CPU</p>
+                        </td>
+                        <td class="td-actions text-right">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>   
+          <!-- HISTORICO -->
+          <div class="col-lg-6 col-md-12">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Histórico do dia de 4 em 4 horas</h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table tablesorter " id="">
+                    <thead class=" text-primary">
+                      <tr>
+                        <th>
+                          Totem
+                        </th>
+                        <th>
+                          CPU
+                        </th>
+                        <th>
+                          RAM
+                        </th>
+                        <th>
+                          DISCO
+                        </th>
+                        <th class="text-center">
+                          HORA
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          1
+                        </td>
+                        <td>
+                          36%
+                        </td>
+                        <td>
+                          68%
+                        </td>
+                        <td>
+                          43%
+                        </td>
+                        <td class="text-center">
+                          00:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          2
+                        </td>
+                        <td>
+                          41%
+                        </td>
+                        <td>
+                          69%
+                        </td>
+                        <td>
+                          56%
+                        </td>
+                        <td class="text-center">
+                          00:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          3
+                        </td>
+                        <td>
+                          21%
+                        </td>
+                        <td>
+                          57%
+                        </td>
+                        <td>
+                          32%
+                        </td>
+                        <td class="text-center">
+                          00:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          1
+                        </td>
+                        <td>
+                          32%
+                        </td>
+                        <td>
+                          67%
+                        </td>
+                        <td>
+                          41%
+                        </td>
+                        <td class="text-center">
+                          04:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          2
+                        </td>
+                        <td>
+                          46%
+                        </td>
+                        <td>
+                          78%
+                        </td>
+                        <td>
+                          56%
+                        </td>
+                        <td class="text-center">
+                          04:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          3
+                        </td>
+                        <td>
+                          28%
+                        </td>
+                        <td>
+                          58%
+                        </td>
+                        <td>
+                          39%
+                        </td>
+                        <td class="text-center">
+                          04:00:00
+                        </td>
+                      </tr> <tr>
+                        <td>
+                          1
+                        </td>
+                        <td>
+                          32%
+                        </td>
+                        <td>
+                          48%
+                        </td>
+                        <td>
+                          79%
+                        </td>
+                        <td class="text-center">
+                          08:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          2
+                        </td>
+                        <td>
+                          37%
+                        </td>
+                        <td>
+                          57%
+                        </td>
+                        <td>
+                          60%
+                        </td>
+                        <td class="text-center">
+                          08:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          3
+                        </td>
+                        <td>
+                          10%
+                        </td>
+                        <td>
+                          25%
+                        </td>
+                        <td>
+                          48%
+                        </td>
+                        <td class="text-center">
+                          08:00:00
+                        </td>
+                      </tr> <tr>
+                        <td>
+                          1
+                        </td>
+                        <td>
+                          29%
+                        </td>
+                        <td>
+                          48%
+                        </td>
+                        <td>
+                          38%
+                        </td>
+                        <td class="text-center">
+                          12:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          2
+                        </td>
+                        <td>
+                          89%
+                        </td>
+                        <td>
+                          100%
+                        </td>
+                        <td>
+                          98%
+                        </td>
+                        <td class="text-center">
+                          12:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          3
+                        </td>
+                        <td>
+                          15%
+                        </td>
+                        <td>
+                          38%
+                        </td>
+                        <td>
+                          39%
+                        </td>
+                        <td class="text-center">
+                          12:00:00
+                        </td>
+                      </tr> <tr>
+                        <td>
+                          1
+                        </td>
+                        <td>
+                          30%
+                        </td>
+                        <td>
+                          60%
+                        </td>
+                        <td>
+                          40%
+                        </td>
+                        <td class="text-center">
+                          16:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          2
+                        </td>
+                        <td>
+                          40%
+                        </td>
+                        <td>
+                          70%
+                        </td>
+                        <td>
+                          50%
+                        </td>
+                        <td class="text-center">
+                          16:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          3
+                        </td>
+                        <td>
+                          18%
+                        </td>
+                        <td>
+                          19%
+                        </td>
+                        <td>
+                          49%
+                        </td>
+                        <td class="text-center">
+                          16:00:00
+                        </td>
+                      </tr> <tr>
+                        <td>
+                          1
+                        </td>
+                        <td>
+                          50%
+                        </td>
+                        <td>
+                          63%
+                        </td>
+                        <td>
+                          48%
+                        </td>
+                        <td class="text-center">
+                          20:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          2
+                        </td>
+                        <td>
+                          46%
+                        </td>
+                        <td>
+                          71%
+                        </td>
+                        <td>
+                          48%
+                        </td>
+                        <td class="text-center">
+                          20:00:00
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          3
+                        </td>
+                        <td>
+                          19%
+                        </td>
+                        <td>
+                          53%
+                        </td>
+                        <td>
+                          32%
+                        </td>
+                        <td class="text-center">
+                          20:00:00
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="footer-legal text-center position-relative">
-      <div class="container">
-        <div class="copyright">
-          &copy; Copyright <strong><span>ēKran</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/ēKran-bootstrap-construction-website-template/ -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-      </div>
+  </div>
+  <!-- SIDE BAR -->
+  <div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+      <a href="#" data-toggle="dropdown">
+        <i class="fa fa-cog fa-2x"> </i>
+      </a>
+      <ul class="dropdown-menu">
+        <li class="header-title"> FUNDO </li>
+        <li class="adjustments-line">
+          <a href="javascript:void(0)" class="switch-trigger background-color">
+            <div class="badge-colors text-center">
+              <span class="badge filter badge-primary active" data-color="primary"></span>
+              <span class="badge filter badge-info" data-color="blue"></span>
+              <span class="badge filter badge-success" data-color="dark"></span>
+            </div>
+            <div class="clearfix"></div>
+          </a>
+        </li>
+        <li class="adjustments-line text-center color-change">
+          <span class="color-label">MODO CLARO</span>
+          <span class="badge light-badge mr-2"></span>
+          <span class="badge dark-badge ml-2"></span>
+          <span class="color-label">MODO ESCURO</span>
+        </li>
+      </ul>
     </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="assets/js/core/jquery.min.js"></script>
+  <script src="assets/js/core/popper.min.js"></script>
+  <script src="assets/js/core/bootstrap.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="assets/demo/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+        $navbar = $('.navbar');
+        $main_panel = $('.main-panel');
 
-  </footer>
-  <!-- End Footer -->
+        $full_page = $('.full-page');
 
-  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+        $sidebar_responsive = $('body > .navbar-collapse');
+        sidebar_mini_active = true;
+        white_color = false;
 
-  <div id="preloader"></div>
+        window_width = $(window).width();
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
 
+
+        $('.fixed-plugin a').click(function(event) {
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $('.fixed-plugin .background-color span').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data', new_color);
+          }
+
+          if ($main_panel.length != 0) {
+            $main_panel.attr('data', new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data', new_color);
+          }
+        });
+
+        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            sidebar_mini_active = false;
+            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+          } else {
+            $('body').addClass('sidebar-mini');
+            sidebar_mini_active = true;
+            blackDashboard.showSidebarMessage('Sidebar mini activated...');
+          }
+
+          // we simulate the window Resize so the charts will get updated in realtime.
+          var simulateWindowResize = setInterval(function() {
+            window.dispatchEvent(new Event('resize'));
+          }, 180);
+
+          // we stop the simulation of Window Resize after the animations are completed
+          setTimeout(function() {
+            clearInterval(simulateWindowResize);
+          }, 1000);
+        });
+
+        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (white_color == true) {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').removeClass('white-content');
+            }, 900);
+            white_color = false;
+          } else {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').addClass('white-content');
+            }, 900);
+
+            white_color = true;
+          }
+
+
+        });
+
+        $('.light-badge').click(function() {
+          $('body').addClass('white-content');
+        });
+
+        $('.dark-badge').click(function() {
+          $('body').removeClass('white-content');
+        });
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+
+    });
+  </script>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS &&
+      TrackJS.install({
+        token: "ee6fab19c5a04ac1a32a645abde4613a",
+        application: "black-dashboard-free"
+      });
+  </script>
 </body>
 
 </html>
-
-<script>
-
-</script>
