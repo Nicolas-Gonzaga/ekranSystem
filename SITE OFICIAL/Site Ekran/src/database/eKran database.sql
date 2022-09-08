@@ -3,6 +3,7 @@ use ekran;
 
 -- drop database ekran;
 
+
 create table Perfil(
 idPerfil int primary key,
 permissao varchar(10)
@@ -53,7 +54,7 @@ discoUso decimal(5,2),
 discoLivre decimal(5,2),
 discoPercent decimal(5,2),
 qtdPacoteEnv int,
-qtdPatoceRecv int,
+qtdPacoteRecv int,
 dataHora datetime 
 )auto_increment = 50;
 
@@ -62,21 +63,20 @@ insert into Perfil values ('111','ADM'),
 						  ('222','FUNC'),
 						  ('333','DEV');
                           
-insert into Empresa values (null, 'ēKran','12345678900000'),
-						   (null, 'Sptech','12345678900001');
+insert into Empresa values (null, 'ēKran','12345678900000');
 
 insert into Usuario values (null,'Lucas','lucas.navasconi@sptech.school','123',10000,333),
 						   (null,'Fabio','fabio.seabra@sptech.school','123',10000,333),
                            (null,'Nathalia','nathalia.marques@sptech.school','123',10000,333),
                            (null,'Thais','thais.inacio@sptech.school','123',10000,333),
                            (null,'Gabriela','gabriela.dias@sptech.school','123',10000,333),
-                           (null,'Lourenzo','lourenzo.silva@sptech.school','123',10000,333),
-                           (null,'Brandao','fernando.brandao@sptech.school','123',10001,111);
+                           (null,'Lourenzo','lourenzo.silva@sptech.school','123',10000,333);
 
-insert into Unidade values (null, 'Consolação', 10001);
-insert into Totem values (null, 'Ws', 20001),
-						 (null, 'Ws', 20001),
-						 (null, 'Ws', 20001);
+insert into Unidade values (null, 'Consolação', 10000);
+
+insert into Totem values (null, 'Ws', 20000),
+						 (null, 'Ws', 20000),
+						 (null, 'Ws', 20000);
 
 -- SELECT * FROM usuario WHERE email = 'nathalia.marques@sptech.school' AND senha = '123' AND fkPerfil = 333;
 
@@ -86,4 +86,8 @@ select * from Empresa;
 select * from Unidade;
 select * from Totem;
 select * from Leitura;
-truncate Leitura;
+-- truncate Leitura;
+-- truncate Usuario;
+-- truncate Empresa;
+-- truncate Unidade;
+-- truncate Totem;
