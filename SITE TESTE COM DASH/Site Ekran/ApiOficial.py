@@ -83,3 +83,4 @@ while True:
     print(cursor.rowcount, "Inserindo no banco.")
     db_connection.commit()
     time.sleep(5)
+    
