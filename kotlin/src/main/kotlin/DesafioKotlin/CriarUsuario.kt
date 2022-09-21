@@ -1,15 +1,23 @@
-package DesafioKotlin
-
 import javax.swing.JOptionPane
-
+import javax.swing.text.StyledEditorKit.BoldAction
 
 class CriarUsuario {
-    lateinit var nome:String
-    lateinit var email:String
-    lateinit var senha:String
+    var nome: String = ""
+    var email: String = ""
+    var senha: String = ""
+    var validar: Boolean = false
 
-    fun validar(emailLogin:String, senhaLogin:String):Boolean {
-        return email == emailLogin && senha == senhaLogin
+
+    fun validar(emailLogin: String, senhaLogin: String): Boolean {
+        if (!validar  && senha.length <= 6) {
+            return false
+        } else {
+            return email == emailLogin && senha == senhaLogin
+        }
     }
-//
 }
+
+
+
+
+
