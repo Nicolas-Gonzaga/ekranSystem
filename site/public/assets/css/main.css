@@ -2714,3 +2714,36 @@ section {
 .footer .footer-legal .credits a {
   color: var(--color-primary);
 }
+
+
+.img-view{
+  width: 6%;
+  position: absolute;
+  left: 90%;
+  top: 28%;
+  cursor: pointer;
+}
+
+.wrong-pass{
+  border: solid 2px red;
+  animation: tremer .2s;
+  animation-iteration-count: 4;
+}
+
+@keyframes tremer {
+  0% {margin-left: 0;}
+  25% {margin-left: 3px;}
+  50% {margin-left: 0;}
+  75% {margin-left: -3px;}
+  100% {margin-left: 0;}
+}
+
+.esqueceu-senha{
+  position: absolute;
+  font-size: 90%;
+  text-decoration: underline;
+}
+
+.esqueceu-senha:hover{
+  text-decoration: underline;
+}

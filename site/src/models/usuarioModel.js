@@ -60,5 +60,5 @@ module.exports = {
     logar,
     cadastrar,
     cadastrarEmpresa,
-    cadastrarUnidade
+    cadastrarUnidade,
 };

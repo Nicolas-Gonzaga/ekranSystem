@@ -21,9 +21,10 @@ function validarSessao() {
         loginButton = "../dashboard.html";
     } else if (logPermissoes == "222") {
         loginButton = "../dashboard.html";
-    }else if (logPermissoes == "333") {
+    } else if (logPermissoes == "333") {
         loginButton = "../cadEmpresa.html";
-    }}
+    }
+}
 
 // function limparSessao() {
 //     // aguardar();
@@ -60,3 +61,36 @@ function fecharModal() {
     divModal.style.display = "none";
 }
 
+
+/* Esconder a senha */
+let contPass = 1
+function hidePass() {
+    if (contPass % 2 == 0) {
+        iconView.src = "assets/img/icons8-closed-eye-30.png"
+        logpass.type = "password"
+    } else {
+        iconView.src = "assets/img/icons8-eye-30.png"
+        logpass.type = "text"
+    }
+    contPass++
+}
+
+
+function senhaIncorreta() {
+    logpass.classList.add('wrong-pass')
+    setTimeout(function () {
+        logpass.classList.remove('wrong-pass')
+    }, 2000)
+}
+
+function wrongLogin(){
+    let inputsLogin = document.getElementsByClassName('form-style')
+    inputsLogin[0].classList.add('wrong-pass')
+    inputsLogin[1].classList.add('wrong-pass')
+    inputsLogin[2].classList.add('wrong-pass')
+    setTimeout(function () {
+        inputsLogin[0].classList.remove('wrong-pass')
+        inputsLogin[1].classList.remove('wrong-pass')
+        inputsLogin[2].classList.remove('wrong-pass')
+    }, 2000)
+}

@@ -97,11 +97,11 @@
 														placeholder="Sua Senha" id="logsenha" autocomplete="off">
 													<i class="input-icon uil uil-lock-alt"></i>
 												</div>
-												<div class="form-group mt-2">
+<!-- 												<div class="form-group mt-2">
 													<input name="logempresa" class="form-style"
 														placeholder="Id da sua Empresa" id="logempresa" autocomplete="off">
 													<i class="input-icon uil uil-key-skeleton"></i>
-												</div>
+												</div> -->
 												<div class="form-group mt-2">
 													<i class="input-icon uil uil-social-distancing"></i>
 													<select name="logpermissoes" id="logpermissoes" class="form-style"
@@ -135,7 +135,7 @@
 		var logName = logname.value;
 		var logEmail = logemail.value;
 		var logSenha = logsenha.value;
-		var logEmpresa = Number(logempresa.value);
+		var logEmpresa = sessionStorage.FK_EMPRESA;
 		var logPermissoes = logpermissoes.value;
 	
 

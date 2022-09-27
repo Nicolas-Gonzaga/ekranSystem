@@ -74,7 +74,7 @@
 					<div class="col-12 text-center align-self-center py-5">
 						<div class="section pb-5 pt-5 pt-sm-2 text-center">
 							<h6 class="mb-0 pb-3"><span>Login</span>/<span>Contato</span></h6>
-							<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+							<input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
 							<label for="reg-log"></label>
 							<div class="card-3d-wrap mx-auto" id="girar1" onclick="girar()">
 								<div class="card-3d-wrapper">
@@ -90,19 +90,23 @@
 												<div class="form-group mt-2">
 													<input type="password" name="logpass" class="form-style"
 														placeholder="Sua senha" id="logpass" autocomplete="off">
+													<img class="img-view" src="assets/img/icons8-closed-eye-30.png"
+														id="iconView" onclick="hidePass()" alt="">
 													<i class="input-icon uil uil-lock-alt"></i>
 												</div>
-													<div class="form-group mt-2">
-														<i class="input-icon uil uil-social-distancing"></i>
-														<select name="logpermissoes" id="logpermissoes" class="form-style"
-															placeholder="Selecione o cargo">
-															<option value="0">Selecione o cargo</option>
-															<option id="fkPerfil" value="111">Administrador</option>
-															<option id="fkPerfil" value="222">Funcionário</option>
-															<option id="fkPerfil" value="333">Dev</option>
-														</select>
-													</div>
-												<a class="btn mt-4" style="color: #343a40" id="loginButton" onclick="logar()">Entrar</a>
+												<div class="form-group mt-2">
+													<i class="input-icon uil uil-social-distancing"></i>
+													<select name="logpermissoes" id="logpermissoes" class="form-style"
+														placeholder="Selecione o cargo">
+														<option value="0">Selecione o cargo</option>
+														<option id="fkPerfil" value="111">Administrador</option>
+														<option id="fkPerfil" value="222">Funcionário</option>
+														<option id="fkPerfil" value="333">Dev</option>
+													</select>
+												</div>
+												<a href="" class="esqueceu-senha">Esqueceu a senha?</a>
+												<a class="btn mt-4" style="color: #343a40" id="loginButton"
+													onclick="logar()">Entrar</a>
 											</div>
 										</div>
 									</div>
@@ -111,9 +115,12 @@
 											<div class="section text-center">
 												<h4 class="mb-4 pb-3">Crie uma conta!</h4>
 												<div class="form-group">
-													<p>Para cadastrar e adiquirir nosso sistema entre em contato com a nossa equipe que nós iremos te guiar para o sucesso.</p>
-												
-												<a href="contato.html" style="color: #343a40" class="btn mt-4">Clique aqui</a>
+													<p>Para cadastrar e adiquirir nosso sistema entre em contato com a
+														nossa equipe que nós iremos te guiar para o sucesso.</p>
+
+													<a href="contato.html" style="color: #343a40"
+														class="btn mt-4">Clique aqui</a>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -124,7 +131,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
 		<script src="js/funcoes.js"></script>
 		<!-- <script src="js/login.js"></script> -->
@@ -150,9 +156,9 @@
 	// 	} else if (logpermissoes == "222") {
 	// 		loginButton = "../dashboard.html";
 	// 	}else if (logpermissoes == "333") {
-    //         loginButton = "../cadEmpresa.html";
+	//         loginButton = "../cadEmpresa.html";
 	// 	}else {
-    //         loginButton.href = "../";
+	//         loginButton.href = "../";
 	// 	}
 	// }
 
@@ -166,76 +172,84 @@
 
 	// 		return false;
 
-	
-    function logar() {
-        // aguardar();
 
-        var logEmail = logemail.value;
+	function logar() {
+		// aguardar();
+
+		var logEmail = logemail.value;
 		var logPass = logpass.value;
 		var logPermissoes = logpermissoes.value;
 
 		var loginButton = document.getElementById('login');
 
-        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
-        if (logEmail == "" || logPass == "" || logPermissoes == "") {
+		// TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+		if (logEmail == "" || logPass == "" || logPermissoes == "") {
 			alert("Seus dados não coferem!");
 			return false;
 		}
 
-        console.log("FORM LOGIN: ", logemail);
-        console.log("FORM SENHA: ", logpass);
-        console.log("FORM USUARIO: ", logpermissoes);
+		console.log("FORM LOGIN: ", logemail);
+		console.log("FORM SENHA: ", logpass);
+		console.log("FORM USUARIO: ", logpermissoes);
 
 
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                logemailServer: logEmail,
-                logpassServer: logPass,
-                logpermissoesServer: logPermissoes
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+		fetch("/usuarios/autenticar", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				logemailServer: logEmail,
+				logpassServer: logPass,
+				logpermissoesServer: logPermissoes
+			})
+		}).then(function (resposta) {
+			console.log("ESTOU NO THEN DO entrar()!")
 
 			if (resposta.ok) {
-                console.log(resposta);
+				console.log(resposta);
 
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
+				resposta.json().then(json => {
+					console.log(json);
+					console.log(JSON.stringify(json));
 
-                    sessionStorage.logemail = json.logEmail;
-                    sessionStorage.logpass = json.logPass;
-                    sessionStorage.logpermissoes = json.logPermissoes;
-
-                    setTimeout(function ()
-					{if (logPermissoes == "111") {
-						window.location = "../dashboardTeste.html";
-    } else if (logPermissoes == "222") {
-		window.location = "../funDash.html";
-    }else if (logPermissoes == "333") {
-        window.location = "../cadEmpresa.html";
-    }else {
-		window.location = "../";
-		}})
-	})}
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
-        return false;
-    }
-
-				function girar() {
-						girar1
-					}
+					sessionStorage.logemail = json.logEmail;
+					sessionStorage.logpass = json.logPass;
+					sessionStorage.logpermissoes = json.logPermissoes;
+					sessionStorage.FK_EMPRESA = json.fkEmpresa
+					sessionStorage.EMAIL_USUARIO = json.email
+					sessionStorage.PERMISSOES = json.fkPerfil
 
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
+					setTimeout(function () {
+						if (logPermissoes == "111") {
+							window.location = "../dashboardTeste.html";
+						} else if (logPermissoes == "222") {
+							window.location = "../funDash.html";
+						} else if (logPermissoes == "333") {
+							window.location = "../cadEmpresa.html";
+						} else {
+							window.location = "../";
+						}
+					})
+				})
+			}else{
+				wrongLogin()
+			}
+
+		}).catch(function (erro) {
+			console.log(erro);
+		})
+
+		return false;
+	}
+
+	function girar() {
+		girar1
+	}
+
+
+	function sumirMensagem() {
+		cardErro.style.display = "none"
+	}
 </script>

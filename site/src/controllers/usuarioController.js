@@ -2,6 +2,9 @@ var usuarioModel = require("../models/usuarioModel");
 
 var sessoes = [];
 
+
+
+
 function testar(req, res) {
     console.log("ENTRAMOS NA usuarioController");
     res.json("ESTAMOS FUNCIONANDO!");
