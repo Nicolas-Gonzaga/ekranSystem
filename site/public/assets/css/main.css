@@ -587,6 +587,10 @@ section {
   background: #fff;
   padding: 30px;
   height: 100%;
+  
+}
+.div_formulario{
+  margin-left: 40px;
 }
 
 @media (max-width: 575px) {
@@ -760,21 +764,8 @@ section {
   line-height: 1.8;
 }
 
-.services .service-item .icon:before {
-  position: absolute;
-  content: "";
-  height: 100%;
-  width: 100%;
-  background: #f0f1f2;
-  border-radius: 50px;
-  z-index: 1;
-  top: 10px;
-  right: -15px;
-  transition: 0.3s;
-}
-
 .services .service-item h3 {
-  color: var(--color-default);
+  
   font-weight: 700;
   margin: 0 0 20px 0;
   padding-bottom: 8px;
@@ -803,6 +794,9 @@ section {
 
 .services .service-item:hover h3 {
   border-color: var(--color-primary);
+}
+.service-item{
+  cursor:default
 }
 
 /*--------------------------------------------------------------
@@ -1698,6 +1692,8 @@ section {
   background: #fff;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
   padding: 30px;
+  border: 3px double #0067b8
+
 }
 
 .contact .php-email-form .form-group {
@@ -1760,6 +1756,7 @@ section {
 
 .contact .php-email-form input {
   height: 44px;
+  border-radius: 20px 0 ;
 }
 
 .contact .php-email-form textarea {
@@ -2571,6 +2568,7 @@ section {
 
 .blog .comments .reply-form .form-group {
   margin-bottom: 25px;
+  border-radius: 20px 0;
 }
 
 .blog .comments .reply-form .btn-primary {
@@ -2746,4 +2744,11 @@ section {
 
 .esqueceu-senha:hover{
   text-decoration: underline;
+}
+
+#div_mapa{
+  
+}
+.form-group{
+  border-radius: 20px 0;
 }

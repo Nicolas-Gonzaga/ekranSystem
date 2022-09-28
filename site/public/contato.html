@@ -112,30 +112,36 @@
 
         <div class="row gy-4 mt-1">
 
-          <div class="col-lg-6 ">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d234067.00412393373!2d-46.87899415783047!3d-23.557776559291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59d2b063f663%3A0xc567c0d16d0bc582!2sS%C3%A3o%20Paulo%20Tech%20School!5e0!3m2!1spt-BR!2sbr!4v1660698348766!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div class="col-lg-6 " id= "div_mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d234067.00412393373!2d-46.87899415783047!3d-23.557776559291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59d2b063f663%3A0xc567c0d16d0bc582!2sS%C3%A3o%20Paulo%20Tech%20School!5e0!3m2!1spt-BR!2sbr!4v1660698348766!5m2!1spt-BR!2sbr" width="600" height="545 " style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div><!-- End Google Maps -->
 
           <div class="col-lg-6">
-            <form action="https://api.staticforms.xyz/submit" method="post" role="form" class="php-email-form">
-              <input type="hidden" name="accessKey" value="3eae8004-0b8f-4491-9106-8b6f49130d94">
+            <div class="div_formulario">
+              <form action="https://api.staticforms.xyz/submit" method="post" role="form" class="php-email-form">
+                <input type="hidden" name="accessKey" value="3eae8004-0b8f-4491-9106-8b6f49130d94">
                     <input type="hidden" name="redirectTo" value="http://localhost:3333/contato.html">
-              <div class="row gy-4">
+                    <div class="row gy-4">
+                      <div class="col-lg-6 form-group">
+                        <label>Nome</label>
+                        <input type="text" name="name" class="form-control" id="in_name" placeholder="Fernando Brandão">
+                      </div>
                 <div class="col-lg-6 form-group">
-                  <input type="text" name="name" class="form-control" id="in_name" placeholder="Seu nome">
-                </div>
-                <div class="col-lg-6 form-group">
-                  <input type="email" class="form-control" name="email" id="in_email" placeholder="Seu email">
+                  <label>Email</label>
+                  <input type="email" class="form-control" name="email" id="in_email" placeholder="fernando.brandao@sptech.school">
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="in_subject" placeholder="Assunto">
+                <label>Assunto</label>
+                <input type="text" class="form-control" name="subject" id="in_subject" placeholder="Falha no cadastro">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" name="phone" id="in_phone" placeholder="Seu telefone">
+                <label>Telefone</label>
+                <input type="text" class="form-control" name="phone" id="in_phone" placeholder="91234-5678">
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="message" id="in_message" rows="5" placeholder="Mensagem"></textarea>
+                <label>Mensagem</label>
+                <textarea class="form-control" name="message" id="in_message" rows="5" placeholder="Não consigo cadastrar meus funcionarios"></textarea>
               </div>
               <!-- <div class="my-3">
                 <div class="loading">Carregando</div>
@@ -145,6 +151,7 @@
               <div class="text-center"><button type="submit" value="submit" onclick="enviar()">Enviar</button></div>
             </form>
           </div><!-- End Contact Form -->
+        </div>
 
         </div>
 
