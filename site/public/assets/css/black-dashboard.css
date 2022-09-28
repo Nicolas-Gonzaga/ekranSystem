@@ -1640,7 +1640,6 @@ pre code {
   width: 100%;
   margin-bottom: 1rem;
   color: #525f7f;
-  background-color: transparent;
 }
 
 .table th,
@@ -1648,6 +1647,7 @@ pre code {
   padding: 1rem;
   vertical-align: top;
   border-top: 0.0625rem solid #e3e3e3;
+
 }
 
 .table thead th {
@@ -2066,6 +2066,7 @@ pre code {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  
 }
 
 .table-responsive>.table-bordered {
@@ -16599,7 +16600,10 @@ p.description {
 
 .card-category {
   font-size: 0.75rem;
+ 
 }
+
+
 
 .blockquote {
   border-left: none;
@@ -17325,7 +17329,7 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .wrapper.wrapper-full-page {
-  min-height: 100vh;
+  min-height: 50px;
   height: auto;
 }
 
@@ -17342,7 +17346,7 @@ table.tablesorter thead tr .headerSortDown {
   background: -o-linear-gradient(0deg, #005A9E 0%, #0067b8 100%);
   background: -moz-linear-gradient(0deg, #005A9E 0%, #0067b8 100%);
   background: linear-gradient(0deg, #005A9E 0%, #0067b8 100%);
-  height: calc(100vh - 90px);
+  height: 10px;
   width: 230px;
   position: fixed;
   top: 0;
@@ -17361,8 +17365,7 @@ table.tablesorter thead tr .headerSortDown {
 .sidebar .sidebar-wrapper,
 .off-canvas-sidebar .sidebar-wrapper {
   width: 100%;
-  min-height: 100%;
-  max-height: calc(100vh - 705px);
+  height:  100%
   z-index: 4;
   position: relative;
   overflow: auto;
@@ -17693,6 +17696,7 @@ table.tablesorter thead tr .headerSortDown {
   width: 61px;
   float: left;
   overflow: hidden;
+
 }
 
 .sidebar .logo-tim img,
@@ -17724,6 +17728,7 @@ table.tablesorter thead tr .headerSortDown {
   padding-bottom: 20px;
   margin: 20px auto 0;
   position: relative;
+  
 }
 
 .sidebar .user:after,
@@ -19950,8 +19955,19 @@ Copyright (c) 2015 Daniel Eden
 
 .card .card-body {
   padding: 15px;
-}
 
+}
+.hist{
+  height: 473px;
+overflow-y: scroll;
+}
+.hist::-webkit-scrollbar {
+  width: 5px
+} 
+
+.hist::-webkit-scrollbar-thumb {   
+background-color: darkgrey;   
+}
 .card .card-body.table-full-width {
   padding-left: 0;
   padding-right: 0;
@@ -20223,6 +20239,7 @@ Copyright (c) 2015 Daniel Eden
 .card-chart .card-body {
   padding-left: 5px;
   padding-right: 5px;
+  
 }
 
 .card-chart .card-body .tab-space {
@@ -20246,7 +20263,15 @@ Copyright (c) 2015 Daniel Eden
 .card-chart .chart-area {
   height: 220px;
   width: 100%;
+ 
+ 
+  
 }
+.card-chart .chart-area:hover{
+
+  
+}
+  
 
 .card-chart .card-footer {
   margin-top: 15px;

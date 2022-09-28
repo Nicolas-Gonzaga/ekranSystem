@@ -237,7 +237,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chartBig1"></canvas>
+                  <canvas  id="chartBig1"></canvas>
                 </div>
               </div>
             </div>
@@ -918,6 +918,24 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "black-dashboard-free"
       });
+  </script>
+
+  <script>
+    fetch('/ultimas/{idMaquina}',{
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+    },
+    body:JSON.stringify({
+
+    }
+    .then(function(resposta){
+      console.log("resposta",resposta);
+      if (resposta.ok) {
+        
+      }
+    }
+    )
   </script>
 </body>
 
