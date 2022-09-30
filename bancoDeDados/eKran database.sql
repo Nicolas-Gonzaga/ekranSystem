@@ -51,7 +51,7 @@ insert into Perfil values
 insert into Empresa (nomeEmpresa, CNPJ) values
 ('ēKran','12345678900000'),
 ('Sptech','12345678900001');
-insert into Usuario (nome, email, senha, fkSenha, fkPerfil) values
+insert into Usuario (nome, email, senha, fkEmpresa, fkPerfil) values
 ('Joaquim','joaquim.pires@sptech.school','123',10000,333),
 ('Patrik','patrik.souza@sptech.school','123',10000,333),
 ('Nicolas','nicolas.gonzaga@sptech.school','123',10000,333),
