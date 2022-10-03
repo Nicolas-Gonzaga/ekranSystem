@@ -72,8 +72,12 @@ select * from Empresa;
 select * from Unidade;
 select * from Totem;
 select * from Leitura;
+<<<<<<< HEAD
 
 insert into Usuario (nome, email, senha, fkEmpresa, fkPerfil) values
 ('adm','adm','123',10000,111);
 SELECT * FROM usuario WHERE email = 'adm' AND senha = '123' AND fkPerfil = 111;
 -- truncate Leitura;
+=======
+-- truncate Leitura;
+>>>>>>> 19989260e768155e59c74cb7be816a3ed4bb4baa
