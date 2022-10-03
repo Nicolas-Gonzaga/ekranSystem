@@ -1,6 +1,9 @@
 import psutil
 import mysql.connector
 from mysql.connector import errorcode
+import datetime
+from datetime import date
+from datetime import datetime
 
 i = 0
 while True:
@@ -24,6 +27,8 @@ while True:
         psutilCpuPercent += arrayAtual[f]
         f += 1
     psutilCpuPercent /= len(arrayAtual)
+    hora = hora = datetime.now().strftime('%H:%M')
+    dia = date.today().strftime('%Y/%m/%d')
     cpuPercent = ["%0.2f" % (psutilCpuPercent), "%0.2f" % (psutilCpuPercent * 1.10), "%0.2f" % (psutilCpuPercent * 0.95)]
 
     # Disco
@@ -46,8 +51,8 @@ while True:
     fkTotem = 50000
     f = 0
     while f < 3:
-        sql = "INSERT INTO Leitura (fkTotem, cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload) VALUES (%s,%s,%s,%s,%s,%s)"
-        values = [fkTotem, float(cpuPercent[f]), float(diskPercent[f]), float(ramPercent[f]), float(mbUpload[f]), float(mbDownload[f])]
+        sql = "INSERT INTO Leitura (fkTotem, cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, horario, dia) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+        values = [fkTotem, float(cpuPercent[f]), float(diskPercent[f]), float(ramPercent[f]), float(mbUpload[f]), float(mbDownload[f]), hora, dia]
         print(values)
         cursor.execute(sql, values)
         fkTotem += 1

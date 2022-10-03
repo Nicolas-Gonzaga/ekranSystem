@@ -61,3 +61,14 @@
   max-width: 530px;
   margin: 0 auto;
 }
+
+
+.chart-area{
+  position: relative;
+}
+
+
+#chartBig11{
+  bottom: 1%;
+  position: absolute;
+}

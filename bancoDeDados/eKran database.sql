@@ -40,9 +40,10 @@ diskPercent decimal(5,2),
 ramPercent decimal(5,2),
 mbUpload decimal(7,3),
 mbDownload decimal(7,3),
+horario time,
+dia date,
 foreign key (fkTotem) references Totem(idTotem)
 )auto_increment = 50;
-
 
 insert into Perfil values
 ('111','ADM'),
@@ -51,7 +52,7 @@ insert into Perfil values
 insert into Empresa (nomeEmpresa, CNPJ) values
 ('ēKran','12345678900000'),
 ('Sptech','12345678900001');
-insert into Usuario (nome, email, senha, fkSenha, fkPerfil) values
+insert into Usuario (nome, email, senha, fkEmpresa, fkPerfil) values
 ('Joaquim','joaquim.pires@sptech.school','123',10000,333),
 ('Patrik','patrik.souza@sptech.school','123',10000,333),
 ('Nicolas','nicolas.gonzaga@sptech.school','123',10000,333),
@@ -71,4 +72,8 @@ select * from Empresa;
 select * from Unidade;
 select * from Totem;
 select * from Leitura;
+
+insert into Usuario (nome, email, senha, fkEmpresa, fkPerfil) values
+('adm','adm','123',10000,111);
+SELECT * FROM usuario WHERE email = 'adm' AND senha = '123' AND fkPerfil = 111;
 -- truncate Leitura;
