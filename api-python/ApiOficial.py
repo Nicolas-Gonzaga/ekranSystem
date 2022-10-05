@@ -28,8 +28,6 @@ while True:
         psutilCpuPercent += arrayAtual[f]
         f += 1
     psutilCpuPercent /= len(arrayAtual)
-    hora = hora = datetime.now().strftime('%H:%M')
-    dia = date.today().strftime('%Y/%m/%d')
     cpuPercent = ["%0.2f" % (psutilCpuPercent), "%0.2f" % (
         psutilCpuPercent * 1.10), "%0.2f" % (psutilCpuPercent * 0.95)]
     cpuPercent = [psutilCpuPercent, psutilCpuPercent *
@@ -58,8 +56,11 @@ while True:
     fkTotem = 50000
     f = 0
     while f < len(cpuPercent):
+        hora = datetime.now().strftime('%H:%M')
+        dia = date.today().strftime('%Y/%m/%d')
         sql = "INSERT INTO Leitura (fkTotem, cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, horario, dia) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
-        values = [fkTotem, float("%0.2f" % (cpuPercent[f])), float("%0.2f" % (diskPercent[f])), float("%0.2f" % (ramPercent[f])), float("%0.3f" % (mbUpload[f])), float("%0.3f" % (mbDownload[f])), hora, dia]
+        values = [fkTotem, float("%0.2f" % (cpuPercent[f])), float("%0.2f" % (diskPercent[f])), float(
+            "%0.2f" % (ramPercent[f])), float("%0.3f" % (mbUpload[f])), float("%0.3f" % (mbDownload[f])), hora, dia]
         print(values)
         cursor.execute(sql, values)
         fkTotem += 1

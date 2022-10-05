@@ -48,6 +48,7 @@
   <link rel="stylesheet" href="assets/css/black-dashboard.css?v=1.0.0">
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+  <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>+
 </head>
 
 <body class="">
@@ -238,7 +239,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card-body">
+              <div class="card-body card-body-cpu">
                 <div class="chart-area">
                   <canvas id="chartBig11"></canvas>
                 </div>
@@ -977,7 +978,7 @@
         labels: [],
         datasets: [
           {
-            yAxisID: 'y-temperatura',
+            yAxisID: 'yAxis',
             label: 'Porcentagem de uso da CPU',
             borderColor: 'white',
             backgroundColor: 'rgba(0,0,255,0.5)',
@@ -991,7 +992,7 @@
 
       for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
-        dados.labels.push('teste');
+        dados.labels.push(registro.horario);
         dados.datasets[0].data.push(registro.cpuPercent);
       }
 
@@ -999,7 +1000,6 @@
 
       /* var ctx = chartBig11.getContext('2d');  */
       var optionsTeste = {
-
         options: {
           responsive: true,
           animation: { duration: 1000 },
@@ -1017,20 +1017,22 @@
             backgroundColor: 'rgba(0, 0, 0, 0.703)',
           },
           scales: {
-            yAxes: [{
-              type: 'linear',
+            yAxis: {
+              type: 'bar',
               display: true,
               position: 'left',
-              id: 'y-temperatura',
-              ticks: {
+              beginAtZero: true,
+              max: 100,
+              min: 0
+                /*ticks: {
                 fontColor: 'white',
                 beginAtZero: true,
                 max: 100,
                 min: 0
-              },
+              }, */
 
 
-            }],
+            },
             xAxes: [{
               ticks: {
                 fontColor: 'white'
@@ -1045,7 +1047,30 @@
       window.lineChart = new Chart(chartBig11, {
         type: 'line',
         data: dados,
-        options: optionsTeste
+        options: {
+          responsive: true,
+          animation: { duration: 1000 },
+          hoverMode: 'index',
+          stacked: false,
+          title: {
+            display: false,
+            text: 'Dados capturados'
+          },
+          legend: {
+            display: false
+          },
+
+          tooltips: {
+            backgroundColor: 'rgba(0, 0, 0, 0.703)',
+          },
+          scales:{
+            yAxis: {
+              beginAtZero: true,
+              max: 100,
+            }
+          }
+        }
+        //optionsTeste
       })
 
       /*       window.grafico_barra = Chart.Line(ctx, {
@@ -1112,7 +1137,7 @@
             // tirando e colocando valores no gráfico
 
             dados.labels.shift(); // apagar o primeiro
-            dados.labels.push("teste"); // incluir um novo momento
+            dados.labels.push(novoRegistro[0].horario); // incluir um novo momento
 
             dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
             dados.datasets[0].data.push(novoRegistro[0].cpuPercent); // incluir uma nova medida de temperatura

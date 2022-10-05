@@ -62,13 +62,10 @@
   margin: 0 auto;
 }
 
-
-.chart-area{
+.card-body-cpu{
   position: relative;
 }
 
-
 #chartBig11{
-  bottom: 1%;
   position: absolute;
 }
