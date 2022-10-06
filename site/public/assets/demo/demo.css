@@ -63,9 +63,11 @@
 }
 
 .card-body-cpu{
-  position: relative;
+  height: 65vh;
 }
 
 #chartBig11{
-  position: absolute;
+  height:60vh !important;
+  width: 75vw !important;
+  margin: 0 auto ;
 }

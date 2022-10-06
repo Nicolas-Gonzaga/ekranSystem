@@ -11,7 +11,7 @@ while True:
 
     try:
         db_connection = mysql.connector.connect(
-            host='localhost', user='aluno', password='sptech', database='ekran')
+            host='localhost', user='usuario', password='urubu100', database='ekran')
     except mysql.connector.Error as error:
         if error.errno == errorcode.ER_BAD_DB_ERROR:
             print("Não encontrei o banco")
@@ -44,8 +44,8 @@ while True:
                   1.15, psutilRamPercent * 1.05]
 
     # Internet Upload
-    psutilMbUpload = psutil.net_io_counters()[0] * 10**-6
-    psutilMbDownload = psutil.net_io_counters()[1] * 10**-6
+    psutilMbUpload = psutil.net_io_counters()[0] * 10**-9
+    psutilMbDownload = psutil.net_io_counters()[1] * 10**-9
     mbUpload = [psutilMbUpload, psutilMbUpload * 1.1, psutilMbUpload * 0.95]
     mbDownload = [psutilMbDownload, psutilMbDownload *
                   1.1, psutilMbDownload * 0.95]

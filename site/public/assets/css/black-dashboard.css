@@ -17365,7 +17365,7 @@ table.tablesorter thead tr .headerSortDown {
 .sidebar .sidebar-wrapper,
 .off-canvas-sidebar .sidebar-wrapper {
   width: 100%;
-  height:  100%
+  height:  100%;
   z-index: 4;
   position: relative;
   overflow: auto;
@@ -20266,12 +20266,7 @@ background-color: darkgrey;
  
  
   
-}
-.card-chart .chart-area:hover{
-
-  
-}
-  
+} 
 
 .card-chart .card-footer {
   margin-top: 15px;

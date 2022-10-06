@@ -21,7 +21,7 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
         date_format(momento, '%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit ${limite_linhas}` */
-    `select cpuPercent, horario from Leitura order by idLeitura desc limit ${limite_linhas}`;
+    `select cpuPercent, ramPercent, horario from Leitura order by idLeitura desc limit ${limite_linhas}`;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -53,7 +53,7 @@ function buscarMedidasEmTempoReal(idAquario) {
         DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit 1` */
-    `select cpuPercent, horario from Leitura order by idLeitura desc limit 1`;
+    `select cpuPercent, ramPercent, horario from Leitura order by idLeitura desc limit 1`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
