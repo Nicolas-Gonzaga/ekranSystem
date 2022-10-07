@@ -1,17 +1,47 @@
 import psutil
+# import pyodbc
 import mysql.connector
 from mysql.connector import errorcode
 import datetime
 from datetime import date
 from datetime import datetime
+#https://learn.microsoft.com/pt-br/azure/azure-sql/database/connect-query-python?view=azuresql
+# cnxn = pyodbc.connect('DRIVER={Devart ODBC Driver for SQLAzure};'
+#         'Server=dbekran.database.windows.net;'
+#         'Database=dbeKran;Port=3306;'
+#         'User ID=eKranAdm;Password=1sis@grupo6'
+#         'Trusted_connection = yes;')
+#         cursor = cnxn.cursor()
 
+# config = {
+#   'host':'dbekran',
+#   'user':'eKranAdm@dbeKran',
+#   'password':'1sis@grupo6',
+#   'database':'dbeKran',
+#   'client_flags': [mysql.connector.ClientFlag.SSL],
+#   'ssl_ca': './DigiCertGlobalRootG2.crt.pem'
+# }
+# conn = ''
 i = 0
 while True:
     i += 1
 
+    # try:
+    #     conn = mysql.connector.connect(**config)
+    #     print("Connection established")
+    # except mysql.connector.Error as err:
+    #     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+    #         print("Something is wrong with the user name or password")
+    #     elif err.errno == errorcode.ER_BAD_DB_ERROR:
+    #         print("Database does not exist")
+    #     else:
+    #         print(err)
+    # else:
+    #     cursor = conn.cursor()
+
     try:
         db_connection = mysql.connector.connect(
-            host='localhost', user='usuario', password='urubu100', database='ekran')
+            host='localhost', user='aluno', password='sptech', database='ekran')
     except mysql.connector.Error as error:
         if error.errno == errorcode.ER_BAD_DB_ERROR:
             print("Não encontrei o banco")
@@ -53,6 +83,7 @@ while True:
     print("------------------------------------------")
 
     cursor = db_connection.cursor()
+    # cursor = conn.cursor()
     fkTotem = 50000
     f = 0
     while f < len(cpuPercent):
@@ -71,3 +102,5 @@ while True:
     print("\r")
     db_connection.commit()
     db_connection.close()
+    # conn.commit()
+    # conn.close()
