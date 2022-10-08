@@ -11,4 +11,8 @@ router.get("/tempo-real/:idArmazem", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);
 })
 
+router.get("/ultimaDisco/:idArmazem", function (req, res) {
+    medidaController.buscarUltimaMedidaDisco(req, res);
+})
+
 module.exports = router;

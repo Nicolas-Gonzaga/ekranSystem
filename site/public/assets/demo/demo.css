@@ -62,12 +62,30 @@
   margin: 0 auto;
 }
 
-.card-body-cpu{
-  height: 65vh;
+/* .card-body-cpu{
+  height: 55vh;
+} */
+
+#chartBig11,#chartLinePurple1,#chartLineGreen1{
+  height:100% !important;
+  width:100% !important;
+  margin: 0 auto ;
 }
 
-#chartBig11{
-  height:60vh !important;
-  width: 75vw !important;
+#CountryChart1{
+  height:100% !important;
+  width:80% !important;
   margin: 0 auto ;
+}
+
+
+@media screen and (min-width: 990px){
+  .card-body-cpu{
+    height: 60vh;
+  }
+  #chartBig11{
+    height:55vh !important;
+    width:75vw !important;
+    margin: 0 auto ;
+  }
 }

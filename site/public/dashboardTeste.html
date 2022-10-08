@@ -48,10 +48,10 @@
   <link rel="stylesheet" href="assets/css/black-dashboard.css?v=1.0.0">
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
-  <script src="http://www.chartjs.org/dist/2.7.1/Chart.js"></script>+
+  <script src="http://www.chartjs.org/dist/3.9.1/Chart.js"></script>+
 </head>
 
-<body class="">
+<body class="" onload="disk()">
   <div class="wrapper">
     <div class="sidebar">
       <!--
@@ -255,8 +255,21 @@
                 <h3 class="card-title">Memória</h3>
               </div>
               <div class="card-body">
-                <div class="chart-area">
+                <div class="chart-area chart-area-ram">
                   <canvas id="chartLinePurple1"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Desempenho Mb</h5>
+                <h3 class="card-title">Internet</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLineGreen1"></canvas>
                 </div>
               </div>
             </div>
@@ -269,20 +282,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="CountryChart"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Desempenho Kbps</h5>
-                <h3 class="card-title">Internet</h3>
-              </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartLineGreen"></canvas>
+                  <canvas id="CountryChart1"></canvas>
                 </div>
               </div>
             </div>
@@ -931,9 +931,64 @@
   </script>
 
   <script>
+    function disk() {
+      obterDadosGrafico()
+      function obterDadosGrafico(id) {
+        console.log("Entrei no obter")
+        fetch(`/medidas/ultimaDisco/${id}`, { cache: 'no-store' }).then(function (response) {
+          if (response.ok) {
+            response.json().then(function (resposta) {
+              console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+              resposta.reverse();
+              plotarGrafico(resposta);
+            });
+          } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+          }
+        })
+          .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+          });
+      }
+
+      function plotarGrafico(resposta) {
+        console.log("Entrei no plotar")
+        const dados4 = {
+          labels: ['Livre', 'Ocupado'],
+          datasets: [{
+            backgroundColor: ['rgba(211,70,177,0.7)' , 'rgba(31,142,241,0.7)'],
+            borderColor: ['rgba(211,70,177,0.7)', 'rgba(31,142,241,0.7)'],
+            data: [],
+          }]
+        };
+        var registro = resposta[0]
+        console.log(registro.diskPercent)
+        var espacoOcupado = registro.diskPercent
+        dados4.datasets[0].data.push(registro.diskPercent);
+        var contaLivre = 100 - espacoOcupado
+        dados4.datasets[0].data.push(contaLivre)
+
+        const config = {
+          type: 'pie',
+          data: dados4,
+          options: {}
+        };
+
+
+
+        const myChart = new Chart(
+          document.getElementById('CountryChart1'),
+          config
+        );
+
+      }
+    }
+
+
+
     let proximaAtualizacao;
 
-    window.onload = obterDadosGrafico(1);
+    window.onload = disk(), obterDadosGrafico(1);
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
     // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
@@ -956,7 +1011,6 @@
           response.json().then(function (resposta) {
             console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
             resposta.reverse();
-
             plotarGrafico(resposta);
           });
         } else {
@@ -979,9 +1033,10 @@
         datasets: [
           {
             yAxisID: 'yAxis',
+            xAxisID: 'xAxis',
             label: 'Porcentagem de uso da CPU',
-            borderColor: 'white',
-            backgroundColor: 'rgba(0,0,255,0.5)',
+            borderColor: '#D346B1',
+            backgroundColor: 'rgba(211,70,177,0.01)',
             fill: true,
             data: []
           }
@@ -989,35 +1044,158 @@
 
       };
 
-      var dados2 ={
+      var dados2 = {
         labels: [],
-        datasets:[
+        datasets: [
           {
             yAxisID: 'yAxisRam',
+            xAxisID: 'xAxisRam',
             label: 'Porcentagem de uso da RAM',
-            borderColor: 'white',
-            backgroundColor: 'rgba(0,255,0,0.5)',
+            borderColor: 'rgba(31,142,241,1)',
+            backgroundColor: 'rgba(31,142,241,0.01)',
             fill: true,
             data: []
           }
         ]
       };
+
+      var dados3 = {
+        labels: [],
+        datasets: [
+          {
+            yAxisID: 'yAxisDown',
+            xAxisID: 'xAxisDown',
+            label: 'Download',
+            borderColor: '#D346B1',
+            backgroundColor: 'rgba(211,70,177,0.01)',
+            fill: true,
+            data: []
+          },
+          {
+            yAxisID: 'yAxisUp',
+            xAxisID: 'xAxisUp',
+            label: 'Upload',
+            borderColor: 'rgba(31,142,241,1)',
+            backgroundColor: 'rgba(31,142,241,0.01)',
+            fill: true,
+            data: []
+          }
+        ]
+      };
+
 
 
       for (i = 0; i < resposta.length; i++) {
         var registro = resposta[i];
-        dados.labels.push(registro.horario);
+        dados.labels.push(registro.horarioF);
         dados.datasets[0].data.push(registro.cpuPercent);
-        dados2.labels.push(registro.horario)
+        dados2.labels.push(registro.horarioF)
         dados2.datasets[0].data.push(registro.ramPercent)
+        dados3.labels.push(registro.horarioF)
+        dados3.datasets[0].data.push(registro.mbDownload)
+        dados3.datasets[1].data.push(registro.mbUpload)
       }
 
       console.log(JSON.stringify(dados));
       console.log(JSON.stringify(dados2));
 
       /* var ctx = chartBig11.getContext('2d');  */
-/*       var optionsTeste = {
+      /*       var optionsTeste = {
+              options: {
+                responsive: true,
+                animation: { duration: 1000 },
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                  display: false,
+                  text: 'Dados capturados'
+                },
+                legend: {
+                  display: false
+                },
+      
+                tooltips: {
+                  backgroundColor: 'rgba(0, 0, 0, 0.703)',
+                },
+                scales: {
+                  yAxis: {
+                    type: 'bar',
+                    display: true,
+                    position: 'left',
+                    beginAtZero: true,
+                    max: 30,
+                    min: 0,
+                      ticks: {
+                      fontColor: 'white',
+                      beginAtZero: true,
+                      max: 100,
+                      min: 0
+                    }, 
+      
+      
+                  },
+                  xAxes: [{
+                    ticks: {
+                      fontColor: 'white'
+                    }
+                  }]
+                }
+              }
+            }
+       */
+
+
+
+      window.lineChart = new Chart(chartBig11, {
+        type: 'line',
+        data: dados,
         options: {
+          plugins: {
+            legend: {
+              display: false,
+              labels: {
+                font: {
+                  size: 70,
+                  weight: "bold",
+                  family: "arial"
+                }
+              }
+            },
+          },
+          responsive: true,
+          animation: { duration: 1000 },
+          hoverMode: 'index',
+          stacked: false,
+          tooltips: {
+            backgroundColor: 'rgba(0, 0, 0, 0.703)',
+          },
+          scales: {
+            yAxis: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                stepSize: 20,
+                color: "rgba(255,255,255,0.6)",
+              }
+            },
+            xAxis: {
+              ticks: {
+                color: "rgba(255,255,255,0.6)",
+              }
+            }
+          }
+        }
+      })
+
+      window.lineChart2 = new Chart(chartLinePurple1, {
+        type: 'line',
+        data: dados2,
+        options: {
+          plugins: {
+            legend: {
+              display: false
+            },
+          },
           responsive: true,
           animation: { duration: 1000 },
           hoverMode: 'index',
@@ -1034,65 +1212,23 @@
             backgroundColor: 'rgba(0, 0, 0, 0.703)',
           },
           scales: {
-            yAxis: {
-              type: 'bar',
-              display: true,
-              position: 'left',
+            yAxisRam: {
               beginAtZero: true,
-              max: 30,
-              min: 0,
-                ticks: {
-                fontColor: 'white',
-                beginAtZero: true,
-                max: 100,
-                min: 0
-              }, 
-
-
-            },
-            xAxes: [{
-              ticks: {
-                fontColor: 'white'
-              }
-            }]
-          }
-        }
-      }
- */
-
-
-      window.lineChart = new Chart(chartBig11, {
-        type: 'line',
-        data: dados,
-        options: {
-          responsive: true,
-          animation: { duration: 1000 },
-          hoverMode: 'index',
-          stacked: false,
-          title: {
-            display: false,
-            text: 'Dados capturados'
-          },
-          legend: {
-            display: false
-          },
-
-          tooltips: {
-            backgroundColor: 'rgba(0, 0, 0, 0.703)',
-          },
-          scales:{
-            yAxis: {
-              beginAtZero: true,
-              max:100,
+              max: 100,
             }
           }
         }
       })
 
-      window.lineChart2 = new Chart(chartLinePurple1, {
+      window.lineChart3 = new Chart(chartLineGreen1, {
         type: 'line',
-        data: dados2,
+        data: dados3,
         options: {
+          plugins: {
+            legend: {
+              display: true
+            },
+          },
           responsive: true,
           animation: { duration: 1000 },
           hoverMode: 'index',
@@ -1108,11 +1244,19 @@
           tooltips: {
             backgroundColor: 'rgba(0, 0, 0, 0.703)',
           },
-          scales:{
-            yAxisRam: {
+          scales: {
+            yAxisDown: {
               beginAtZero: true,
-              max:80,
-            }
+              max: 100,
+              display: false
+            },
+            xAxisDown: {
+              display: false
+            },
+            yAxisUp: {
+              beginAtZero: true,
+              max: 100,
+            },
           }
         }
       })
@@ -1159,7 +1303,7 @@
               }
             }); */
 
-      setTimeout(() => atualizarGrafico(id, dados, dados2), 2000);
+      setTimeout(() => atualizarGrafico(id, dados, dados2, dados3), 2000);
     }
 
 
@@ -1168,7 +1312,7 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(id, dados, dados2) {
+    function atualizarGrafico(id, dados, dados2, dados3) {
       console.log("ENTRANDO NO ATUALIZAR GRAFICO")
       console.log("---------------------------------")
       console.log(dados2)
@@ -1185,15 +1329,19 @@
 
             // tirando e colocando valores no gráfico
             dados.labels.shift(); // apagar o primeiro
-            dados.labels.push(novoRegistro[0].horario); // incluir um novo momento
-
-
+            dados.labels.push(novoRegistro[0].horarioF); // incluir um novo momento
             dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
             dados.datasets[0].data.push(novoRegistro[0].cpuPercent); // incluir uma nova medida de temperatura
-            dados2.labels.shift(); 
-            dados2.labels.push(novoRegistro[0].horario);
-            dados2.datasets[0].data.shift();  
-            dados2.datasets[0].data.push(novoRegistro[0].ramPercent); 
+            dados2.labels.shift();
+            dados2.labels.push(novoRegistro[0].horarioF);
+            dados2.datasets[0].data.shift();
+            dados2.datasets[0].data.push(novoRegistro[0].ramPercent);
+            dados3.labels.shift();
+            dados3.labels.push(novoRegistro[0].horarioF);
+            dados3.datasets[0].data.shift();
+            dados3.datasets[0].data.push(novoRegistro[0].mbDownload);
+            dados3.datasets[1].data.shift();
+            dados3.datasets[1].data.push(novoRegistro[0].mbUpload);
 
 
             /* dados.datasets[0].data.shift(); */  // apagar o primeiro de temperatura
@@ -1201,9 +1349,10 @@
 
             window.lineChart.update();
             window.lineChart2.update();
+            window.lineChart3.update();
 
             // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-            proximaAtualizacao = setTimeout(() => atualizarGrafico(id, dados,dados2), 2000);
+            proximaAtualizacao = setTimeout(() => atualizarGrafico(id, dados, dados2, dados3), 2000);
           });
         } else {
           console.error('Nenhum dado encontrado ou erro na API');

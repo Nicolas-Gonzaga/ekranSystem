@@ -21,7 +21,7 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
         date_format(momento, '%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit ${limite_linhas}` */
-    `select cpuPercent, ramPercent, horario from Leitura order by idLeitura desc limit ${limite_linhas}`;
+    `select cpuPercent, ramPercent,mbDownload, mbUpload, horario, date_format(horario, '%H:%i') as horarioF from Leitura order by idLeitura desc limit ${limite_linhas}`;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -53,7 +53,38 @@ function buscarMedidasEmTempoReal(idAquario) {
         DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit 1` */
-    `select cpuPercent, ramPercent, horario from Leitura order by idLeitura desc limit 1`;
+    `select cpuPercent, ramPercent,mbDownload, mbUpload, horario, date_format(horario, '%H:%i') as horarioF from Leitura order by idLeitura desc limit 1`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarUltimaMedidaDisco(idAquario){
+    
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top 1 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
+    from registros  
+    order by idRegistros desc`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit 1` */
+    `select diskPercent from Leitura order by idLeitura desc limit 1;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -66,5 +97,6 @@ function buscarMedidasEmTempoReal(idAquario) {
 
 module.exports = {
     buscarUltimasMedidas,
-    buscarMedidasEmTempoReal
+    buscarMedidasEmTempoReal,
+    buscarUltimaMedidaDisco
 }
