@@ -119,7 +119,7 @@ function cadastrar(req, res) {
         res.status(400).send("Informe o id da empresa correto");
     } else if (logpermissoes == undefined) {
         res.status(400).send("Informe o usuario");
-    } 
+    }
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
 
     usuarioModel.cadastrar(logname, logemail, logsenha, logempresa, logpermissoes)
@@ -143,7 +143,7 @@ function cadastrarEmpresa(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var lognomeE = req.body.lognomeEServer;
     var logcnpj = req.body.logcnpjServer;
- 
+
 
     // Faça as validações dos valores
 
@@ -151,7 +151,7 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("Informe algum nome");
     } else if (logcnpj == undefined) {
         res.status(400).send("Informe o id da empresa correto");
-    } 
+    }
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
 
     usuarioModel.cadastrarEmpresa(lognomeE, logcnpj)
@@ -171,6 +171,129 @@ function cadastrarEmpresa(req, res) {
         );
 }
 
+function validarEmail(req, res) {
+    var email = req.body.emailServer;
+    usuarioModel.validarEmail(email)
+        .then(
+            function (resultado) {
+                console.log(`\nResultados encontrados: ${resultado.length}`);
+                console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+
+                if (resultado.length == 1) {
+                    console.log(resultado);
+                    res.json(resultado[0]);
+                } else if (resultado.length == 0) {
+                    res.status(403).send("Email invalido");
+                } else {
+                    res.status(403).send("Mais de um usuário com o mesmo email");
+                }
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function insertCod(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var codigo = req.body.codigoServer;
+    var idUser = req.body.idUserServer;
+
+    // Faça as validações dos valores
+
+    if (codigo == undefined) {
+        res.status(400).send("Informe algum codigo");
+    } else if (idUser == undefined) {
+        res.status(400).send("Informe o id");
+    }
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+
+    usuarioModel.insertCod(codigo, idUser)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o insert do código Erro:",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function buscarId(req, res){
+    var email = req.params.emailUser;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    usuarioModel.buscarId(email).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar o Id Erro:", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarCod(req, res){
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    usuarioModel.buscarCod().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar o código Erro:", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function mudarSenha(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var senha = req.body.senhaNovaServer;
+    var idTesteUser = req.body.idTesteServer;
+
+    // Faça as validações dos valores
+
+    if (senha == undefined) {
+        res.status(400).send("Informe alguma senha");
+    } else if (idTesteUser == undefined) {
+        res.status(400).send("Informe o id");
+    }
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+
+    usuarioModel.mudarSenha(senha, idTesteUser)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao tentar mudar de senha Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
 
 module.exports = {
     logar,
@@ -179,4 +302,9 @@ module.exports = {
     listar,
     testar,
     cadastrarEmpresa,
+    validarEmail,
+    buscarId,
+    insertCod,
+    buscarCod,
+    mudarSenha
 }

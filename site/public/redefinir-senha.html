@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ēKran - Esqueci minha senha</title>
+    <link href="assets/css/main.css" rel="stylesheet">
+
+    <script src="js/troca-de-senha.js"></script>
+
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/cadastrocss.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+</head>
+
+<body>
+    <div class="container-email">
+        <h1>Digite sua nova senha</h1>
+        <input id="in_codigoUser" type="Number" placeholder="Digite seu código">
+        <input id="in_senha" type="password" placeholder="Nova senha">
+        <input id="in_senhaRep" type="password" placeholder="Repita sua nova senha">
+        <button class="btn-email" onclick="verificacao()">Alterar</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    var senha = ""
+    var idUser = ""
+    var codigoOri = ""
+    var codigoUser = Number(in_codigoUser.value)
+
+    function verificacao() {
+        senha = in_senha.value
+        var senhaRep = in_senhaRep.value
+        if (senha == senhaRep) {
+            buscarCod()
+            if (codigoOri == codigoUser) {
+                mudarSenha()
+            } else {
+                alert("O codigo esta incorreto")
+            }
+        } else {
+            alert("As senhas nao batem")
+        }
+    }
+
+    function buscarCod() {
+        console.log("Buscar codigo")
+        fetch(`/usuarios/buscarCod`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    console.log(resposta[0].codigo)
+                    console.log(resposta[0].fkUsuario)
+                    idUser = resposta[0].fkUsuario
+                    codigoOri = Number(resposta[0].codigo)
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function mudarSenha() {
+        console.log("mudar senha")
+        fetch("/usuarios/mudarSenha", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                idTesteServer: idUser,
+                senhaNovaServer: senha
+            })
+        }).then(function (resposta) {
+            console.log("entrei no fetch");
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("Mudou a senha");
+            } else {
+                alert("não mudou a senha");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+
+        });
+    }
+</script>

@@ -41,7 +41,7 @@ while True:
 
     try:
         db_connection = mysql.connector.connect(
-            host='localhost', user='aluno', password='sptech', database='ekran')
+            host='localhost', user='usuario', password='urubu100', database='ekran')
     except mysql.connector.Error as error:
         if error.errno == errorcode.ER_BAD_DB_ERROR:
             print("Não encontrei o banco")

@@ -2746,9 +2746,29 @@ section {
   text-decoration: underline;
 }
 
-#div_mapa{
-  
-}
 .form-group{
   border-radius: 20px 0;
+}
+
+.container-email{
+  margin: 0 auto;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.container-email input{
+  margin-bottom: 5%;
+  height: 7vh;
+}
+
+.btn-email{
+  width: 10vw;
+  background-color: rgb(2, 255, 2);
+  border-radius: 10px;
+  margin: 0 auto;
+  height: 5vh;
 }

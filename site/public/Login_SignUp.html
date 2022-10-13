@@ -32,6 +32,8 @@
 	<!-- Template Main CSS File -->
 	<link href="assets/css/main.css" rel="stylesheet">
 
+	<script src="https://smtpjs.com/v3/smtp.js"></script>
+
 	<!-- =======================================================
   * Template Name: ēKran - v1.1.0
   * Template URL: https://bootstrapmade.com/ēKran-bootstrap-construction-website-template/
@@ -104,9 +106,10 @@
 														<option id="fkPerfil" value="333">Dev</option>
 													</select>
 												</div>
-												<a href="" class="esqueceu-senha">Esqueceu a senha?</a>
+												<a href="esqueci-senha.html" class="esqueceu-senha">Esqueceu a
+													senha?</a>
 												<a class="btn mt-4" style="color: #343a40" id="loginButton"
-													onclick="logar()">Entrar</a>
+													onclick="logar()">Entrar</a>	
 											</div>
 										</div>
 									</div>
@@ -140,6 +143,9 @@
 
 </html>
 <script>
+
+
+
 	let girar1 = girar.value
 	var loginButton = document.getElementById('login');
 	// function logar() {
@@ -213,12 +219,10 @@
 					console.log(json);
 					console.log(JSON.stringify(json));
 
-					sessionStorage.logemail = json.logEmail;
-					sessionStorage.logpass = json.logPass;
-					sessionStorage.logpermissoes = json.logPermissoes;
 					sessionStorage.FK_EMPRESA = json.fkEmpresa
 					sessionStorage.EMAIL_USUARIO = json.email
 					sessionStorage.PERMISSOES = json.fkPerfil
+					sessionStorage.ID_USUARIO = json.idUsuario
 
 
 					setTimeout(function () {
@@ -233,7 +237,7 @@
 						}
 					})
 				})
-			}else{
+			} else {
 				wrongLogin()
 			}
 

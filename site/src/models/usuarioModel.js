@@ -55,10 +55,110 @@ function cadastrarUnidade(loglocal, logempresaId) {
     return database.executar(instrucao);
 }
 
+function validarEmail(email) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function validarEmail(): ", email)
+    var instrucao = `
+        SELECT * FROM usuario WHERE email = '${email}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function insertCod(codigo, idUser) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function insertCod():",codigo, idUser);
+    
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucao = `
+    insert into esqueciSenha values (${codigo}, ${idUser});
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function buscarId(email){
+    
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top 1 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
+    from registros  
+    order by idRegistros desc`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit 1` */
+    `select idUsuario from Usuario where email = '${email}';`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function buscarCod(){
+    
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top 1 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
+    from registros  
+    order by idRegistros desc`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit 1` */
+    `select * from esqueciSenha;`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function mudarSenha(senha, idTesteUser) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function mudarSenha():",senha, idTesteUser);
+    
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucao = `
+    update usuario set senha = '${senha}' where idUsuario = ${idTesteUser};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     logar,
     cadastrar,
     cadastrarEmpresa,
     cadastrarUnidade,
+    validarEmail,
+    buscarId,
+    insertCod,
+    buscarCod,
+    mudarSenha
 };

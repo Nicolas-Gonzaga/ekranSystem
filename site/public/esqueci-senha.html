@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ēKran - Esqueci minha senha</title>
+    <link href="assets/css/main.css" rel="stylesheet">
+
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap/css/cadastrocss.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <script src="js/troca-de-senha.js"></script>
+
+</head>
+
+<body>
+    <div class="container-email">
+        <h1>Digite seu email</h1>
+        <input id="email" type="text" placeholder="seuemail@dominio.com">
+        <button class="btn-email" onclick="validarEmail()">Enviar</button>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let emailUser = email.value
+    let codigo = ""
+    let idUser = ""
+    function codigoRandom() {
+        console.log("Codigo random")
+        if(codigo > 6){
+            codigo = ""
+        }
+        for (i = 0; i < 6; i++) {
+            let x = parseInt(Math.random() * 10)
+            codigo += x
+        }
+        insertCod()
+    }
+
+    function sendEmail() {
+        console.log("Send Email")
+        console.log(emailUser)
+        Email.send(
+            {
+            Host: "smtp.elasticemail.com",
+            Username: "ekran.contato@gmail.com",
+            Password: "743608085F2AAAC2AB57FD0F5D39D75E998D",
+            To: `${emailUser}`,
+            From: "ekran.contato@gmail.com",
+            Subject: "Mudança de senha",
+            text: "Plaintext version of the message",
+            Body: `Vimos que você esqueceu sua senha, clique no link ao lado para redefinir https://www.google.com/webhp?hl=pt-BR&sa=X&ved=0ahUKEwjy24T09db6AhVxrZUCHQsKBvMQPAgI Seu codigo é ${codigo}`,
+        }
+        ).then(
+            alert("Email enviado com sucesso")
+        );
+    }
+
+    function validarEmail() {
+        console.log("Validar Email")
+        emailUser = email.value
+        fetch("/usuarios/validarEmail", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailUser,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log("------------------------------------")
+                console.log(resposta);
+                console.log("------------------------------------")
+                buscarId(emailUser)
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                })
+            } else {
+                console.log("Email incorreto")
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    }
+
+    function buscarId(emailUser) {
+        console.log("Buscar Id")
+        console.log(emailUser)
+        fetch(`/usuarios/buscarId/${emailUser}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    console.log(resposta[0].idUsuario)
+                    idUser = resposta[0].idUsuario
+                    codigoRandom()
+                });
+            } else {
+                console.error('Nenhum id encontrado');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na hora de buscar o Id`);
+            });
+    }
+
+    function insertCod() {
+        console.log("Insert cod")
+        fetch("/usuarios/insertCod", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                codigoServer: codigo,
+                idUserServer: idUser
+            })
+        }).then(function (resposta) {
+            console.log("entrei no fetch");
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("inseriu o codigo no banco");
+            } else {
+                alert("Houve um erro ao tentar inserir o codigo no banco");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+
+        });
+        sendEmail()
+    }
+</script>
