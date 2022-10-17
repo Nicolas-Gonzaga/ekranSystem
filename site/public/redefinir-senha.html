@@ -28,7 +28,7 @@
         <input id="in_codigoUser" type="Number" placeholder="Digite seu código">
         <input id="in_senha" type="password" placeholder="Nova senha">
         <input id="in_senhaRep" type="password" placeholder="Repita sua nova senha">
-        <button class="btn-email" onclick="verificacao()">Alterar</button>
+        <button class="btn-email" onclick="buscarCod()">Alterar</button>
     </div>
 </body>
 
@@ -36,17 +36,23 @@
 
 <script>
     var senha = ""
-    var idUser = ""
+    var idUser = "Churrasco"
     var codigoOri = ""
     var codigoUser = Number(in_codigoUser.value)
 
     function verificacao() {
+        console.log(idUser)
         senha = in_senha.value
         var senhaRep = in_senhaRep.value
+        var codigoUser = Number(in_codigoUser.value)
         if (senha == senhaRep) {
-            buscarCod()
             if (codigoOri == codigoUser) {
-                mudarSenha()
+                console.log(idUser)
+                if (idUser != "") {
+                    mudarSenha()
+                }else{
+                    alert("nao aguento mais")
+                }
             } else {
                 alert("O codigo esta incorreto")
             }
@@ -65,7 +71,8 @@
                     console.log(resposta[0].codigo)
                     console.log(resposta[0].fkUsuario)
                     idUser = resposta[0].fkUsuario
-                    codigoOri = Number(resposta[0].codigo)
+                    codigoOri = resposta[0].codigo
+                    verificacao()
                 });
             } else {
                 console.error('Nenhum dado encontrado ou erro na API');
@@ -78,16 +85,45 @@
 
     function mudarSenha() {
         console.log("mudar senha")
+        console.log(`${idUser}`)
+        console.log(`${senha}`)
         fetch("/usuarios/mudarSenha", {
-            method: "POST",
+            method: "POST", 
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                idTesteServer: idUser,
-                senhaNovaServer: senha
+                senhaNovaServer: senha,
+                idTesteServer: idUser
+            })
+        }).then(function (resposta) {
+            console.log("entrei no fetch");
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("Mudou a senha");
+                apagarDadosES()
+            } else {
+                alert("não mudou a senha");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+
+        });
+    }
+
+    function apagarDadosES() {
+        console.log("Apagar dados")
+        fetch("/usuarios/apagarDadosES", {
+            method: "POST", 
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
             })
         }).then(function (resposta) {
             console.log("entrei no fetch");

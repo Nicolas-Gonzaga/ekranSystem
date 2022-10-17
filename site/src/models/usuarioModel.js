@@ -150,6 +150,18 @@ function mudarSenha(senha, idTesteUser) {
     return database.executar(instrucao);
 }
 
+function apagarDadosES() {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function apagarDadosES():");
+    
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucao = `
+    truncate esqueciSenha;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     logar,
@@ -160,5 +172,6 @@ module.exports = {
     buscarId,
     insertCod,
     buscarCod,
-    mudarSenha
+    mudarSenha,
+    apagarDadosES
 };

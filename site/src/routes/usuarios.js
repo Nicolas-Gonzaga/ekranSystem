@@ -45,6 +45,10 @@ router.post("/mudarSenha", function (req, res) {
     usuarioController.mudarSenha(req, res);
 })
 
+router.post("/apagarDadosES", function (req, res) {
+    usuarioController.apagarDadosES(req, res);
+})
+
 router.post("/autenticar", function (req, res) {
     usuarioController.logar(req, res);
 });
