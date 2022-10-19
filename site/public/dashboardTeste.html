@@ -931,6 +931,60 @@
   </script>
 
   <script>
+    function alertas(empresa, componente, metrica, frase){
+const options = {  
+method: 'POST',  
+headers: {  
+accept: 'application/json',  
+Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIxNDc5MDEsImVtYWlsIjoiZWtyYW4uY29udGF0b0BnbWFpbC5jb20iLCJhcHBsaWNhdGlvbiI6MzAwMjAyMTU3fX0.VGdCGMvgQ2bYrUL_YKLK7zO99GBuEcVR9ADkNOjcuiFqh7KgjfsrLqEj86kbg0SgJMZ-J0smfL7Qepn0NltFCg',  
+'content-type': 'application/json'  
+},  
+body: JSON.stringify({  
+query: `mutation {           createCard(input: {             pipe_id:302731204,             title: "Card",             fields_attributes:[               {field_id: "nome_do_colaborador", field_value: "${empresa}"},{field_id: "cargo", field_value: "${componente}"},{field_id: "m_tricas", field_value: " ${frase}${metrica}"}             ],           }) {               card {                 title               }             }           }`  
+})  
+};  
+fetch('https://api.pipefy.com/graphql', options)  
+.then(response => response.json())  
+.then(response => console.log(response))  
+.catch(err => console.error(err));  
+}  
+function verificardisco(metrica){  
+var frase= ""  
+// incluir uma nova medida de temperatura  
+if(metrica>=60 && metrica <80){  
+frase = "Alerta: Disco está ficando sobrecarregado! Espaço livre: "  
+console.log('Cheguei aqui')  
+alertas("Ekran","Disco",metrica, frase)  
+} else if(metrica >=80){  
+frase = "Perigo: Disco sobrecarregado! Espaço livre: "  
+alertas("Ekran", "Disco", metrica, frase)  
+}  
+}  
+function verificarram(metrica){  
+var frase= ""  
+// incluir uma nova medida de temperatura  
+if(metrica>=60 && metrica <80){  
+frase = "Alerta: RAM está ficando sobrecarregado! Porcentagem de uso: "  
+console.log('Cheguei aqui')  
+alertas("Ekran","RAM",metrica, frase)  
+} else if(metrica >=80){  
+frase = "Perigo: RAM está sobrecarregado! Porcentagem de uso: "  
+alertas("Ekran", "RAM", metrica, frase)  
+}  
+}  
+function verificarcpu(metrica){  
+var frase= ""  
+// incluir uma nova medida de temperatura  
+if(metrica>=60 && metrica <80){  
+frase = "Alerta: "  
+console.log('Cheguei aqui')  
+alertas("Ekran","CPU",metrica, frase)  
+} else if(metrica >=80){  
+frase = "Perigo: "  
+alertas("Ekran", "CPU", metrica, frase)  
+}  
+}  
+
     function disk() {
       obterDadosGrafico()
       function obterDadosGrafico(id) {
@@ -950,6 +1004,9 @@
             console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
           });
       }
+
+
+
 
       function plotarGrafico(resposta) {
         console.log("Entrei no plotar")
@@ -973,7 +1030,8 @@
           data: dados4,
           options: {}
         };
-
+        let disco = contaLivre
+        verificardisco(disco)
 
 
         const myChart = new Chart(
@@ -1331,11 +1389,15 @@
             dados.labels.shift(); // apagar o primeiro
             dados.labels.push(novoRegistro[0].horarioF); // incluir um novo momento
             dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
-            dados.datasets[0].data.push(novoRegistro[0].cpuPercent); // incluir uma nova medida de temperatura
+            dados.datasets[0].data.push(novoRegistro[0].cpuPercent); 
+            let cpu = novoRegistro[0].cpuPercent// incluir uma nova medida de temperatura
+            setInterval(verificarcpu(cpu), 5000)
             dados2.labels.shift();
             dados2.labels.push(novoRegistro[0].horarioF);
             dados2.datasets[0].data.shift();
             dados2.datasets[0].data.push(novoRegistro[0].ramPercent);
+            let ram = novoRegistro[0].ramPercent
+            setInterval(verificarram(ram),5000)
             dados3.labels.shift();
             dados3.labels.push(novoRegistro[0].horarioF);
             dados3.datasets[0].data.shift();
