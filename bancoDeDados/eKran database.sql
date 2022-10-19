@@ -73,6 +73,11 @@ select * from Unidade;
 select * from Totem;
 select * from Leitura;
 
+create table esqueciSenha(
+  codigo int primary key,
+  fkUsuario int,
+  foreign key (fkUsuario) references Usuario(idUsuario));
+
 insert into Usuario (nome, email, senha, fkEmpresa, fkPerfil) values
 ('adm','adm','123',10000,111);
 SELECT * FROM usuario WHERE email = 'adm' AND senha = '123' AND fkPerfil = 111;

@@ -25,10 +25,13 @@
 <body>
     <div class="container-email">
         <h1>Digite sua nova senha</h1>
-        <input id="in_codigoUser" type="Number" placeholder="Digite seu código">
-        <input id="in_senha" type="password" placeholder="Nova senha">
-        <input id="in_senhaRep" type="password" placeholder="Repita sua nova senha">
+        <input id="in_codigoUser" class="in_rs" type="Number" placeholder="Digite seu código">
+        <input id="in_senha" class="in_rs" type="password" placeholder="Nova senha">
+        <input id="in_senhaRep" class="in_rs" type="password" placeholder="Repita sua nova senha">
         <button class="btn-email" onclick="buscarCod()">Alterar</button>
+        <div id="divInfo" class="div_info" style="display: none;">
+            <p id="pInfo" class="p_info"></p>
+        </div>
     </div>
 </body>
 
@@ -36,7 +39,7 @@
 
 <script>
     var senha = ""
-    var idUser = "Churrasco"
+    var idUser = ""
     var codigoOri = ""
     var codigoUser = Number(in_codigoUser.value)
 
@@ -50,14 +53,14 @@
                 console.log(idUser)
                 if (idUser != "") {
                     mudarSenha()
-                }else{
-                    alert("nao aguento mais")
+                } else {
+                    erroCod()
                 }
             } else {
-                alert("O codigo esta incorreto")
+                codigoIn()
             }
         } else {
-            alert("As senhas nao batem")
+            senhaDif()
         }
     }
 
@@ -88,7 +91,7 @@
         console.log(`${idUser}`)
         console.log(`${senha}`)
         fetch("/usuarios/mudarSenha", {
-            method: "POST", 
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -104,9 +107,10 @@
 
             if (resposta.ok) {
                 console.log("Mudou a senha");
+                senhaOk()
                 apagarDadosES()
             } else {
-                alert("não mudou a senha");
+                erroCod()
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
@@ -117,7 +121,7 @@
     function apagarDadosES() {
         console.log("Apagar dados")
         fetch("/usuarios/apagarDadosES", {
-            method: "POST", 
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -130,13 +134,60 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                console.log("Mudou a senha");
+                console.log("Apagando dados no banco");
             } else {
-                alert("não mudou a senha");
+                alert("Não apagou os dados do banco");
             }
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
 
         });
+    }
+
+    function senhaDif() {
+        in_senha.classList.add("in_rs_erro")
+        in_senhaRep.classList.add("in_rs_erro")
+        divInfo.style.display = "block"
+        divInfo.classList.add("div_info_incorreta")
+        pInfo.innerHTML = "As senhas não batem"
+        setTimeout(function () {
+            divInfo.style.display = "none"
+            in_senhaRep.classList.remove("in_rs_erro")
+            in_senha.classList.remove("in_rs_erro")
+            divInfo.classList.remove("div_info_incorreta")
+        }, 2000)
+    }
+
+    function codigoIn() {
+        in_codigoUser.classList.add("in_rs_erro")
+        divInfo.classList.add("div_info_incorreta")
+        divInfo.style.display = "block"
+        pInfo.innerHTML = "O codigo está incorreto"
+        setTimeout(function () {
+            divInfo.style.display = "none"
+            in_codigoUser.classList.remove("in_rs_erro")
+            divInfo.classList.remove("div_info_incorreta")
+        },2000)
+    }
+
+    function erroCod(){
+        divInfo.classList.add("div_info_incorreta")
+        divInfo.style.display = "block"
+        pInfo.innerHTML = "Houve um erro inesperado"
+        setTimeout(function () {
+            divInfo.style.display = "none"
+            divInfo.classList.remove("div_info_incorreta")
+        },2000)
+    }
+
+    function senhaOk(){
+        divInfo.classList.add("div_info_correta")
+        divInfo.style.display = "block"
+        pInfo.innerHTML = "Sua senha foi alterada com sucesso"
+        setTimeout(function () {
+            divInfo.style.display = "none"
+            divInfo.classList.remove("div_info_correta")
+            window.location.href = "Login_SignUp.html"
+        },2000)
     }
 </script>

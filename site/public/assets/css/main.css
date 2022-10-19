@@ -2752,7 +2752,7 @@ section {
 
 .container-email{
   margin: 0 auto;
-  width: 30vw;
+  width: 40%;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -2760,15 +2760,76 @@ section {
   margin-top: 5%;
 }
 
-.container-email input{
-  margin-bottom: 5%;
-  height: 7vh;
+.container-email h1{
+  width: 100%;
+}
+
+.in_email{
+  height: 15%;
 }
 
 .btn-email{
-  width: 10vw;
-  background-color: rgb(2, 255, 2);
+  width: 20%;
+  color: white;
+  background-color: #0067B8;
   border-radius: 10px;
   margin: 0 auto;
-  height: 5vh;
+  height: 5%;
+  margin-top: 5%;
+}
+
+@media screen and (max-width: 790px){
+  .btn-email{
+    width: 40%;
+  }
+
+  .container-email{
+    width: 60%;
+  }
+}
+
+.div-erro{
+  color: red;
+  display: none;
+}
+
+.in_email2{
+  height: 15%;
+  border: red solid;
+}
+
+.in_email3{
+  height: 15%;
+  border: rgb(7, 255, 7) solid;
+}
+
+.in_rs{
+  margin-top: 4%;
+}
+
+.in_rs_erro{
+  border: solid red;
+}
+
+.div_info_incorreta{
+  background-color: rgba(0, 0, 0, 0.178);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  border: solid 1px red;
+}
+
+.div_info_correta{
+  background-color: rgba(0, 0, 0, 0.178);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3%;
+  border: solid 1px rgb(19, 255, 19);
+}
+
+.p_info{
+  font-size: 1.5em;
+  padding: 2% 0%;
 }

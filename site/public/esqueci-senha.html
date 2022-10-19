@@ -25,8 +25,9 @@
 <body>
     <div class="container-email">
         <h1>Digite seu email</h1>
-        <input id="email" type="text" placeholder="seuemail@dominio.com">
-        <button class="btn-email" onclick="validarEmail()">Enviar</button>
+        <input class="in_email" id="email" type="text" placeholder="seuemail@dominio.com">
+        <div id="divErro" class="div-erro"></div>
+        <button id="btnEnviar" class="btn-email" onclick="validarEmail()">Enviar</button>
     </div>
 </body>
 
@@ -38,7 +39,7 @@
     let idUser = ""
     function codigoRandom() {
         console.log("Codigo random")
-        if(codigo > 6){
+        if (codigo > 6) {
             codigo = ""
         }
         for (i = 0; i < 6; i++) {
@@ -53,17 +54,17 @@
         console.log(emailUser)
         Email.send(
             {
-            Host: "smtp.elasticemail.com",
-            Username: "ekran.contato@gmail.com",
-            Password: "743608085F2AAAC2AB57FD0F5D39D75E998D",
-            To: `${emailUser}`,
-            From: "ekran.contato@gmail.com",
-            Subject: "Mudança de senha",
-            text: "Plaintext version of the message",
-            Body: `Vimos que você esqueceu sua senha, clique no link ao lado para redefinir https://www.google.com/webhp?hl=pt-BR&sa=X&ved=0ahUKEwjy24T09db6AhVxrZUCHQsKBvMQPAgI Seu codigo é ${codigo}`,
-        }
+                Host: "smtp.elasticemail.com",
+                Username: "ekran.contato@gmail.com",
+                Password: "743608085F2AAAC2AB57FD0F5D39D75E998D",
+                To: `${emailUser}`,
+                From: "ekran.contato@gmail.com",
+                Subject: "Mudança de senha",
+                text: "Plaintext version of the message",
+                Body: `Vimos que você esqueceu sua senha, clique no link ao lado para redefinir https://www.google.com/webhp?hl=pt-BR&sa=X&ved=0ahUKEwjy24T09db6AhVxrZUCHQsKBvMQPAgI Seu codigo é ${codigo}`,
+            }
         ).then(
-            alert("Email enviado com sucesso")
+            emailCorreto()
         );
     }
 
@@ -93,6 +94,15 @@
                 })
             } else {
                 console.log("Email incorreto")
+                divErro.style.color = "red"
+                divErro.innerHTML = "Esse email não existe"
+                divErro.style.display = "block"
+                email.classList.add("in_email2")
+                setTimeout(function () {
+                    divErro.style.display = "none"
+                    email.classList.remove("in_email2")
+                    email.classList.add("in_email")
+                }, 2000)
             }
 
         }).catch(function (erro) {
@@ -148,5 +158,18 @@
 
         });
         sendEmail()
+    }
+
+    function emailCorreto() {
+        divErro.style.color = "green"
+        divErro.innerHTML = "O email foi enviado com sucesso"
+        divErro.style.display = "block"
+        email.classList.add("in_email3")
+        setTimeout(function () {
+            divErro.style.display = "none"
+            email.classList.remove("in_email3")
+            email.classList.add("in_email")
+            window.location.href = 'redefinir-senha.html'
+        }, 4000)
     }
 </script>
