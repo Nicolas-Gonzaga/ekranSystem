@@ -1,4 +1,6 @@
 package app
+import banco.Conexao
+import banco.Query
 import com.github.britooo.looca.api.core.Looca
 import java.time.LocalDate
 import java.time.LocalTime
@@ -7,13 +9,20 @@ import kotlin.random.Random
 import java.io.File
 
 fun main() {
+    val resposta = JOptionPane.showConfirmDialog(null, "Inserir valores na DB da nuvem?", "Database Selector", JOptionPane.YES_NO_OPTION)
+    val naNuvem = resposta == 0
+
+    val cursor = Query(Conexao().getJdbcTemplate(naNuvem))
+
+    if(!naNuvem) {cursor.createTable()}
+
     val looca = Looca()
-    val diskPartition: File = if (looca.sistema.sistemaOperacional == "Windows") {File("C:");} else {File("/")}
+    val particao: File = if (looca.sistema.sistemaOperacional == "Windows") {File("C:");} else {File("/")}
 
     val qntTotens = JOptionPane.showInputDialog("Quantos totens deseja simular além da sua máquina?").toInt()
 
     while(true) {
-        val disco = (diskPartition.freeSpace.toDouble()/1024/1024/1024) * 100 / (looca.grupoDeDiscos.discos[0].tamanho.toDouble()/1024/1024/1024)
+        val disco = (particao.freeSpace.toDouble()/1024/1024/1024) * 100 / (looca.grupoDeDiscos.discos[0].tamanho.toDouble()/1024/1024/1024)
         val ram = (looca.memoria.disponivel.toDouble()/1024/1024/1024) * 100 / (looca.memoria.total.toDouble()/1024/1024/1024)
         val valoresPadroes = mutableListOf<Double>(looca.processador.uso, disco, ram)
 
@@ -47,12 +56,11 @@ fun main() {
                 }
                 padraoFoi = true
             }
-            lista += "null"
-            lista += "null"
             lista += hora
             lista += data
-            mensagemFinal += "Computador ${i+1} \r\n $lista \r\n"
             fkTotem++
+            mensagemFinal += "Computador ${i+1} \r\n $lista \r\n"
+            cursor.insert(lista)
         }
         JOptionPane.showMessageDialog(null, mensagemFinal)
 
