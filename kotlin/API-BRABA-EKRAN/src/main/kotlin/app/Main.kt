@@ -1,7 +1,5 @@
 package app
 
-import javax.swing.JOptionPane
-
 open class Main {
     companion object {
         @JvmStatic

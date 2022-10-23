@@ -1,9 +1,8 @@
 package banco
 
-import org.springframework.jdbc.core.BeanPropertyRowMapper
 import org.springframework.jdbc.core.JdbcTemplate
 
-class Query (val jdbcTemplate: JdbcTemplate) {
+class Query (private val jdbcTemplate: JdbcTemplate) {
 
     fun createTable() {
         jdbcTemplate.execute("""
@@ -23,9 +22,8 @@ class Query (val jdbcTemplate: JdbcTemplate) {
 
     fun insert(valores:MutableList<String>) {
         jdbcTemplate.update("""
-            insert into Leitura (fkTotem, cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, horario, dia) values
-            (${valores[0]}, ${valores[1]}, ${valores[2]}, ${valores[3]}, 0, 0, '${valores[4]}', '${valores[5]}')
-        """)
+            insert into Leitura (fkTotem, cpuPercent, diskPercent, ramPercent, horario, dia) values
+            (?, ?, ?, ?, ?, ?)
+        """, valores[0], valores[1], valores[2], valores[3], valores[4], valores[5])
     }
-
 }
