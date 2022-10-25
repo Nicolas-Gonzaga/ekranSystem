@@ -31,15 +31,31 @@ foreign key (fkUnidade) references Unidade(idUnidade)
 );
 create table Leitura(
 idLeitura int primary key identity(1, 1),
+hora char(8),
+dia char(10),
 fkTotem int,
+foreign key (fkTotem) references Totem(idTotem)
+);
+create table loocaLeitura(
+idLeitura int primary key identity(1, 1),
 cpuPercent decimal(5,2),
 diskPercent decimal(5,2),
 ramPercent decimal(5,2),
 mbUpload decimal(7,3),
 mbDownload decimal(7,3),
-horario time(0),
-dia date,
-foreign key (fkTotem) references Totem(idTotem)
+fkLeitura int,
+foreign key (fkLeitura) references Leitura(idLeitura)
+);
+create table crawlerLeitura(
+idLeitura INT PRIMARY KEY identity(1, 1),
+nome VARCHAR(45),
+minimo DECIMAL(9,3),
+valor DECIMAL(9,3),
+maximo DECIMAL(9,3),
+fkLeitura int,
+foreign key (fkLeitura) references Leitura(idLeitura),
+fkSecao INT,
+foreign key (fkSecao) references crawlerSecao(idSecao)
 );
 
 insert into Perfil values
