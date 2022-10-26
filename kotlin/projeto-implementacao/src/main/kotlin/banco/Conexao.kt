@@ -17,6 +17,7 @@ class Conexao {
         dataSource.username = banco[2]
         dataSource.password = banco[3]
 
+        println("Conexão estabelecida com ${banco[1].substring(5, (banco[1].substring(5,banco[1].length)).indexOf(":")+5)} \r\n")
         return JdbcTemplate(dataSource)
     }
 }

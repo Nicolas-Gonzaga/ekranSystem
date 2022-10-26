@@ -17,6 +17,7 @@ fun main() {
     // SqlServer = 3
 
     val cursor = Query(Conexao().getJdbcTemplate(tipoBanco))
+    Thread.sleep(500)
 
     if(tipoBanco != 3) {QueryCreate(Conexao().getJdbcTemplate(tipoBanco)).createTable(tipoBanco)}
 
@@ -25,19 +26,30 @@ fun main() {
         val hora = LocalTime.now().toString().substring(0, 8)
         var data = "${LocalDate.now()}"
         data = data.substring(0, 4) + "/" + data.substring(5, 7) + "/" + data.substring(8, 10)
-        println("$fkTotem  $data  $hora")
+        println("Criando novo insert em Leitura: \r\n$fkTotem  $data  $hora \r\n")
+        Thread.sleep(500)
         val lista2 = JSONCrawlerKotlin(cursor, tipoBanco)
         val lista = APIBrabaEkran()
         cursor.insertLeitura(hora, data, fkTotem)
+        println("Iniciando processos de inserção do WebCrawler:\r\n")
+        println("Nome | Mínimo | Valor | Máximo | fkLeitura | fkSeção")
+        Thread.sleep(500)
         lista2.forEach {
             cursor.insertCrawler(it, cursor.selectIdLeitura(hora, data))
         }
+        println("\r\n\r\nInserção única do Looca:\r\n")
+        println("cpuPercent | diskPercent | ramPercent | fkLeitura")
+        Thread.sleep(500)
         cursor.insertLooca(lista, cursor.selectIdLeitura(hora, data))
         fkTotem++
+        if (fkTotem == 50003) {fkTotem = 50000}
+
+        println("RECOMEÇANDO O LOOP...\r\n")
     }
 }
 
 fun JSONCrawlerKotlin(cursor:Query, tipoBanco:Int):MutableList<List<String>> {
+    println("Iniciando API do WebCrawler na porta 8085...")
 
     val ls = mutableListOf<List<String>>()
 
@@ -126,6 +138,8 @@ fun JSONCrawlerKotlin(cursor:Query, tipoBanco:Int):MutableList<List<String>> {
 }
 
 fun APIBrabaEkran():MutableList<String> {
+    println("Iniciando API do Looca... \r\n")
+
     val looca = Looca()
     val particao: File = if (looca.sistema.sistemaOperacional == "Windows") {
         File("C:");} else {

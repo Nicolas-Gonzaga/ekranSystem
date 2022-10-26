@@ -33,12 +33,14 @@ class Query (private val jdbcTemplate: JdbcTemplate) {
             insert into loocaLeitura (cpuPercent, diskPercent, ramPercent, fkLeitura) values
             (?, ?, ?, ?)
         """, valores[0], valores[1], valores[2], fkLeitura)
+        println("${valores[0]} - ${valores[1]} - ${valores[2]} - $fkLeitura\r\n")
     }
     fun insertCrawler(valores:List<String>, fkLeitura:Int) {
         jdbcTemplate.update("""
             insert into crawlerLeitura (nome, minimo, valor, maximo, fkLeitura, fkSecao) values
             (?, ?, ?, ?, ?, ?)
         """, valores[0], valores[1], valores[2], valores[3], fkLeitura, valores[4])
+        print("${valores[0]} - ${valores[1]} - ${valores[2]} - ${valores[3]} - $fkLeitura - ${valores[4]}\r\n")
     }
 
     fun selectIdComponente(nome: String):Int {
