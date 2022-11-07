@@ -28,8 +28,8 @@ fun main() {
         data = data.substring(0, 4) + "/" + data.substring(5, 7) + "/" + data.substring(8, 10)
         println("Criando novo insert em Leitura: \r\n$fkTotem  $data  $hora \r\n")
         Thread.sleep(500)
-        val lista2 = JSONCrawlerKotlin(cursor, tipoBanco)
-        val lista = APIBrabaEkran()
+        val lista2 = jsonCrawlerKotlin(cursor, tipoBanco)
+        val lista = apiBrabaEkran()
         cursor.insertLeitura(hora, data, fkTotem)
         println("Iniciando processos de inserção do WebCrawler:\r\n")
         println("Nome | Mínimo | Valor | Máximo | fkLeitura | fkSeção")
@@ -48,7 +48,7 @@ fun main() {
     }
 }
 
-fun JSONCrawlerKotlin(cursor:Query, tipoBanco:Int):MutableList<List<String>> {
+fun jsonCrawlerKotlin(cursor:Query, tipoBanco:Int):MutableList<List<String>> {
     println("Iniciando API do WebCrawler na porta 8085...")
 
     val ls = mutableListOf<List<String>>()
@@ -137,7 +137,7 @@ fun JSONCrawlerKotlin(cursor:Query, tipoBanco:Int):MutableList<List<String>> {
     return ls
 }
 
-fun APIBrabaEkran():MutableList<String> {
+fun apiBrabaEkran():MutableList<String> {
     println("Iniciando API do Looca... \r\n")
 
     val looca = Looca()
