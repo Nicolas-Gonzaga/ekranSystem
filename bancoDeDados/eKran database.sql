@@ -32,18 +32,47 @@ sistemaOperacional varchar(2),
 fkUnidade int,
 foreign key (fkUnidade) references Unidade(idUnidade)
 )auto_increment = 50000;
+
 create table Leitura(
 idLeitura int primary key auto_increment,
 fkTotem int,
-cpuPercent decimal(5,2),
-diskPercent decimal(5,2),
-ramPercent decimal(5,2),
-mbUpload decimal(7,3),
-mbDownload decimal(7,3),
 horario time,
 dia date,
 foreign key (fkTotem) references Totem(idTotem)
 )auto_increment = 50;
+
+create table LoocaLeitura(
+  idLooca int primary key auto_increment,
+  cpuPercent decimal(5,2),
+  diskPercent decimal(5,2),
+  ramPercent decimal(5,2),
+  mbUpload decimal(7,3),
+  mbDownload decimal(7,3),
+  fkLeitura int,
+  foreign key (fkLeitura) references Leitura (idLeitura))auto_increment = 200;
+  
+create table CrawlerComponente(
+  idComponente int auto_increment primary key,
+  nome varchar(45));
+  
+create table CrawlerSecao(
+  idSecao int primary key auto_increment,
+  nome varchar(45),
+  fkComponente int,
+  fkSubsecao int,
+  foreign key (fkComponente) references CrawlerComponente (idComponente),
+  foreign key (fkSubsecao) references CrawlerSecao (idSecao));
+  
+create table CrawlerLeitura(
+  idCrawler int primary key auto_increment,
+  nome varchar(45),
+  minimo decimal(9,3),
+  valor decimal(9,3),
+  maximo decimal(9,3),
+  fkLeitura int,
+  fkSecao int,
+  foreign key (fkLeitura) references Leitura (idLeitura),
+  foreign key (fkSecao) references CrawlerSecao (idSecao));
 
 insert into Perfil values
 ('111','ADM'),
@@ -72,6 +101,7 @@ select * from Empresa;
 select * from Unidade;
 select * from Totem;
 select * from Leitura;
+
 
 create table esqueciSenha(
   codigo int primary key,
