@@ -94,3 +94,8 @@ function wrongLogin(){
         inputsLogin[2].classList.remove('wrong-pass')
     }, 2000)
 }
+function validarpagina(){
+    if(window.location.href =="../public/dashboardTeste.html"){
+        alert("Oi")
+    }
+}

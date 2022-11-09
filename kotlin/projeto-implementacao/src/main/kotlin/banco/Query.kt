@@ -18,13 +18,13 @@ class Query (private val jdbcTemplate: JdbcTemplate) {
     }
     fun insertSubsecao(nome:String, fkSecao:Int, fkComponente:Int) {
         jdbcTemplate.update("""
-            insert into crawlerSecao (nome, fkSecao, fkComponente) values
+            insert into crawlerSecao (nome, fksubsecao, fkComponente) values
             (?, ?, ?)
         """, nome, fkSecao, fkComponente)
     }
     fun insertLeitura(hora:String, dia:String, fkTotem:Int) {
         jdbcTemplate.update("""
-            insert into Leitura (hora, dia, fkTotem) values
+            insert into Leitura (horario, dia, fkTotem) values
             (?, ?, ?)
         """, hora, dia, fkTotem)
     }
@@ -73,7 +73,7 @@ class Query (private val jdbcTemplate: JdbcTemplate) {
     }
     fun selectIdLeitura(hora:String, data:String):Int {
         return jdbcTemplate.queryForObject(
-            "select idLeitura from Leitura where hora = ? and dia = ?",
+            "select idLeitura from Leitura where horario = ? and dia = ?",
             BeanPropertyRowMapper(dataLeitura::class.java),
             hora, data
         )!!.idLeitura
@@ -101,7 +101,7 @@ class QueryCreate (private val jdbcTemplate: JdbcTemplate) {
         ramPercent decimal(5,2),
         diskPercent decimal(5,2),
         mbUpload decimal(7,3),
-        mbDownload decimal(7,3)
+        mbDownload decimal(7,3),
         fkLeitura INT,
         foreign key (fkLeitura) references Leitura(idLeitura)
         );

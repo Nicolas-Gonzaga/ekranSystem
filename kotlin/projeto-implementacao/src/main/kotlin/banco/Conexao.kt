@@ -7,7 +7,7 @@ class Conexao {
     fun getJdbcTemplate(tipoBanco:Int): JdbcTemplate {
 
         val banco: MutableList<String> = when (tipoBanco) {
-            1 -> mutableListOf("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost:3306/leituraCrawler", "aluno", "sptech")
+            1 -> mutableListOf("com.mysql.cj.jdbc.Driver", "jdbc:mysql://localhost:3306/ekran", "aluno", "sptech")
             2 -> mutableListOf("org.h2.Driver", "jdbc:h2:./leituraCrawler", "sa", "")
             else -> mutableListOf("com.microsoft.sqlserver.jdbc.SQLServerDriver", "jdbc:sqlserver://dbekran.database.windows.net;databaseName=dbeKran", "eKranAdm", "1sis@grupo6")
         }
