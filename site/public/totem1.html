@@ -773,22 +773,27 @@ function obterDadosGrafico(id) {
   if (proximaAtualizacao != undefined) {
     clearTimeout(proximaAtualizacao);
   }
+  var fkTotem = 50000
+  fetch(`/medidas/totem/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+            plotarGrafico(resposta);
+          });
+        } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+      }
 
-  fetch(`/medidas/ultimas/${id}`, { cache: 'no-store' }).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (resposta) {
-        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-        resposta.reverse();
-        plotarGrafico(resposta);
-      });
-    } else {
-      console.error('Nenhum dado encontrado ou erro na API');
-    }
-  })
-    .catch(function (error) {
-      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-    });
-}
+   
+
+  
+      
 
 // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
 // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
