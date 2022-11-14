@@ -237,10 +237,10 @@
                   </div>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartBig111"></canvas>
-                </div>
+              <div class="card-body-cpu">
+                <div class="chart-area-cpu">
+                  <canvas id="chartBig11"></canvas>                
+                  </div>
               </div>
             </div>
           </div>
@@ -262,12 +262,12 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Desempenho %</h5>
-                <h3 class="card-title">Disco</h3>
+                <h5 class="card-category">Desempenho Kbps</h5>
+                <h3 class="card-title">Internet</h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="CountryChart"></canvas>
+                  <canvas id="chartLineGreen1"></canvas>
                 </div>
               </div>
             </div>
@@ -275,12 +275,12 @@
           <div class="col-lg-4">
             <div class="card card-chart">
               <div class="card-header">
-                <h5 class="card-category">Desempenho Kbps</h5>
-                <h3 class="card-title">Internet</h3>
+                <h5 class="card-category">Desempenho %</h5>
+                <h3 class="card-title">Disco</h3>
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chartLineGreen"></canvas>
+                  <canvas id="CountryChart1"></canvas>
                 </div>
               </div>
             </div>
@@ -562,6 +562,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
   <script src="assets/js/plugins/chartjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!--  Notifications Plugin    -->
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
@@ -697,6 +698,60 @@
 
 
 <script>
+    function alertas(empresa, componente, metrica, frase){
+const options = {  
+method: 'POST',  
+headers: {  
+accept: 'application/json',  
+Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIxNDc5MDEsImVtYWlsIjoiZWtyYW4uY29udGF0b0BnbWFpbC5jb20iLCJhcHBsaWNhdGlvbiI6MzAwMjAyMTU3fX0.VGdCGMvgQ2bYrUL_YKLK7zO99GBuEcVR9ADkNOjcuiFqh7KgjfsrLqEj86kbg0SgJMZ-J0smfL7Qepn0NltFCg',  
+'content-type': 'application/json'  
+},  
+body: JSON.stringify({  
+query: `mutation {           createCard(input: {             pipe_id:302731204,             title: "Card",             fields_attributes:[               {field_id: "nome_do_colaborador", field_value: "${empresa}"},{field_id: "cargo", field_value: "${componente}"},{field_id: "m_tricas", field_value: " ${frase}${metrica}"}             ],           }) {               card {                 title               }             }           }`  
+})  
+};  
+fetch('https://api.pipefy.com/graphql', options)  
+.then(response => response.json())  
+.then(response => console.log(response))  
+.catch(err => console.error(err));  
+}  
+function verificardisco(metrica){  
+var frase= ""  
+// incluir uma nova medida de temperatura  
+if(metrica>=60 && metrica <80){  
+frase = "Alerta: Disco está ficando sobrecarregado! Espaço livre: "  
+console.log('Cheguei aqui')  
+alertas("Ekran","Disco",metrica, frase)  
+} else if(metrica >=80){  
+frase = "Perigo: Disco sobrecarregado! Espaço livre: "  
+alertas("Ekran", "Disco", metrica, frase)  
+}  
+}  
+function verificarram(metrica){  
+var frase= ""  
+// incluir uma nova medida de temperatura  
+if(metrica>=60 && metrica <80){  
+frase = "Alerta: RAM está ficando sobrecarregado! Porcentagem de uso: "  
+console.log('Cheguei aqui')  
+alertas("Ekran","RAM",metrica, frase)  
+} else if(metrica >=80){  
+frase = "Perigo: RAM está sobrecarregado! Porcentagem de uso: "  
+alertas("Ekran", "RAM", metrica, frase)  
+}  
+}  
+function verificarcpu(metrica){  
+var frase= ""  
+// incluir uma nova medida de temperatura  
+if(metrica>=60 && metrica <80){  
+frase = "Alerta: "  
+console.log('Cheguei aqui')  
+alertas("Ekran","CPU",metrica, frase)  
+} else if(metrica >=80){  
+frase = "Perigo: "  
+alertas("Ekran", "CPU", metrica, frase)  
+}  
+}  
+
 function disk() {
   obterDadosGrafico()
   function obterDadosGrafico(id) {
@@ -747,7 +802,7 @@ function disk() {
 
 
     const myChart = new Chart(
-      document.getElementById('CountryChart'),
+      document.getElementById('CountryChart1'),
       config
     );
 
@@ -801,23 +856,23 @@ fetch(`/medidas/totem/${fkTotem}`, { cache: 'no-store' }).then(function (respons
 // A função *plotarGrafico* também invoca a função *atualizarGrafico*
 function plotarGrafico(resposta, id) {
   console.log('iniciando plotagem do gráfico...');
+  const fkTotem = 50000
 
   var dados = {
-    labels: [],
-    datasets: [
-      {
-        yAxisID: 'yAxis',
-        xAxisID: 'xAxis',
-        label: 'Porcentagem de uso da CPU',
-        borderColor: '#D346B1',
-        backgroundColor: 'rgba(211,70,177,0.01)',
-        fill: true,
-        data: []
-      }
-    ]
+        labels: [],
+        datasets: [
+          {
+            yAxisID: 'yAxis',
+            xAxisID: 'xAxis',
+            label: 'Porcentagem de uso da CPU',
+            borderColor: '#D346B1',
+            backgroundColor: 'rgba(211,70,177,0.01)',
+            fill: true,
+            data: []
+          }
+        ]
 
-  };
-
+      };
   var dados2 = {
     labels: [],
     datasets: [
@@ -857,19 +912,19 @@ function plotarGrafico(resposta, id) {
     ]
   };
 
-
-
   for (i = 0; i < resposta.length; i++) {
-    var registro = resposta[i];
-    dados.labels.push(registro.horarioF);
-    dados.datasets[0].data.push(registro.cpuPercent);
-    dados2.labels.push(registro.horarioF)
-    dados2.datasets[0].data.push(registro.ramPercent)
-    dados3.labels.push(registro.horarioF)
-    dados3.datasets[0].data.push(registro.mbDownload)
-    dados3.datasets[1].data.push(registro.mbUpload)
-  }
+        var registro = resposta[i];
+        dados.labels.push(registro.horarioF);
+        dados.datasets[0].data.push(registro.cpuPercent);
+        dados2.labels.push(registro.horarioF)
+        dados2.datasets[0].data.push(registro.ramPercent)
+        dados3.labels.push(registro.horarioF)
+        dados3.datasets[0].data.push(registro.mbDownload)
+        dados3.datasets[1].data.push(registro.mbUpload)
+      }
 
+
+  
   console.log(JSON.stringify(dados));
   console.log(JSON.stringify(dados2));
 
@@ -917,48 +972,51 @@ function plotarGrafico(resposta, id) {
           }
         }
    */
-
-
-  window.lineChart = new Chart(chartBig111, {
-    type: 'line',
-    data: dados,
-    options: {
-      plugins: {
-        legend: {
-          display: false,
-          labels: {
-            font: {
-              size: 70,
-              weight: "bold",
-              family: "arial"
+   if(dados == undefined){
+    res.status(400).send("Data undefined!")
+   };
+   
+window.lineChart = new Chart(chartBig11, {
+        type: 'line',
+        data: dados,
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+              labels: {
+                font: {
+                  size: 70,
+                  weight: "bold",
+                  family: "arial"
+                }
+              }
+            },
+          },
+          responsive: true,
+          animation: { duration: 1000 },
+          hoverMode: 'index',
+          stacked: false,
+          tooltips: {
+            backgroundColor: 'rgba(0, 0, 0, 0.703)',
+          },
+          scales: {
+            yAxis: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                stepSize: 20,
+                color: "rgba(255,255,255,0.6)",
+              }
+            },
+            xAxis: {
+              ticks: {
+                color: "rgba(255,255,255,0.6)",
+              }
             }
           }
-        },
-      },
-      responsive: true,
-      animation: { duration: 1000 },
-      hoverMode: 'index',
-      stacked: false,
-      tooltips: {
-        backgroundColor: 'rgba(0, 0, 0, 0.703)',
-      },
-      scales: {
-        yAxis: {
-          beginAtZero: true,
-          max: 100,
-          ticks: {
-            stepSize: 20,
-            color: "rgba(255,255,255,0.6)",
-          }
-        },
-        xAxis: {
-          ticks: {
-            color: "rgba(255,255,255,0.6)",
-          }
         }
-      }
-    }
-  })
+      })
+
 
   window.lineChart2 = new Chart(chartLinePurple, {
     type: 'line',
@@ -993,7 +1051,7 @@ function plotarGrafico(resposta, id) {
     }
   })
 
-  window.lineChart3 = new Chart(chartLineGreen, {
+  window.lineChart3 = new Chart(chartLineGreen1, {
     type: 'line',
     data: dados3,
     options: {
@@ -1076,7 +1134,7 @@ function plotarGrafico(resposta, id) {
           }
         }); */
 
-  setTimeout(() => atualizarGrafico(id, dados, dados2, dados3), 2000);
+  setTimeout(() => atualizarGrafico(fkTotem, dados, dados2, dados3), 2000);
 }
 
 
@@ -1085,14 +1143,14 @@ function plotarGrafico(resposta, id) {
 
 //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
 //     Para ajustar o "select", ajuste o comando sql em src/models
-function atualizarGrafico(id, dados, dados2, dados3) {
+function atualizarGrafico(fkTotem, dados, dados2, dados3) {
   console.log("ENTRANDO NO ATUALIZAR GRAFICO")
   console.log("---------------------------------")
   console.log(dados2)
   console.log("---------------------------------")
 
 
-  fetch(`/medidas/tempo-real/${id}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/medidas/tempo-real-totem/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
       response.json().then(function (novoRegistro) {
 
@@ -1129,7 +1187,7 @@ function atualizarGrafico(id, dados, dados2, dados3) {
         window.lineChart3.update();
 
         // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-        proximaAtualizacao = setTimeout(() => atualizarGrafico(id, dados, dados2, dados3), 2000);
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(fkTotem, dados, dados2, dados3), 2000);
       });
     } else {
       console.error('Nenhum dado encontrado ou erro na API');

@@ -107,6 +107,49 @@ function buscarMedidasEmTempoReal(idAquario) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+function buscarMedidasTempoRealporTotem(fkTotem) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top 1 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
+    from registros  
+    order by idRegistros desc`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        // if(local == "dashboardTeste.html"){
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit 1` */
+    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura where fkTotem = ${fkTotem} order by idLeitura desc limit 1`;
+    // } else if(window.location.href == "totem1.html"){
+    //     instrucaoSql = /* `select 
+    //     REGISTRO_TEMP, 
+    //     REGISTRO_UMID, 
+    //     REGISTRO_MOMENTO,
+    //     DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    // from registros  
+    // order by idRegistros desc limit 1` */
+    // `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura join totem on fkTotem = idTotem where fkTotem = 50000  order by idLeitura desc limit 1` ;
+
+    // 
+}
+    else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 function buscarUltimaMedidaDisco(idAquario){
     
@@ -145,5 +188,6 @@ module.exports = {
     buscarMedidasEmTempoReal,
     buscarUltimaMedidaDisco,
     buscarMedidaTotem,
+    buscarMedidasTempoRealporTotem
     
 }

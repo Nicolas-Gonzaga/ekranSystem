@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="assets/css/black-dashboard.css?v=1.0.0">
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="assets/demo/demo.css" rel="stylesheet" />
+  <script src="http://www.chartjs.org/dist/3.9.1/Chart.js"></script>+
 </head>
 
 <body class="">
@@ -235,9 +236,9 @@
                   </div>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="chart-area">
-                  <canvas id="chartBig1"></canvas>
+              <div class="card-body-cpu">
+                <div class="chart-area-cpu">
+                  <canvas id="chartBig11"></canvas>
                 </div>
               </div>
             </div>
@@ -252,7 +253,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chartLinePurple"></canvas>
+                  <canvas id="chartLinePurple2"></canvas>
                 </div>
               </div>
             </div>
@@ -265,7 +266,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="CountryChart"></canvas>
+                  <canvas id="CountryChart1"></canvas>
                 </div>
               </div>
             </div>
@@ -278,7 +279,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chartLineGreen"></canvas>
+                  <canvas id="chartLineGreen1"></canvas>
                 </div>
               </div>
             </div>
@@ -527,6 +528,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
   <script src="assets/js/plugins/chartjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!--  Notifications Plugin    -->
   <script src="assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
@@ -659,5 +661,507 @@
       });
   </script>
 </body>
-
+<script>
+function alertas(empresa, componente, metrica, frase){
+  const options = {  
+  method: 'POST',  
+  headers: {  
+  accept: 'application/json',  
+  Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyIjp7ImlkIjozMDIxNDc5MDEsImVtYWlsIjoiZWtyYW4uY29udGF0b0BnbWFpbC5jb20iLCJhcHBsaWNhdGlvbiI6MzAwMjAyMTU3fX0.VGdCGMvgQ2bYrUL_YKLK7zO99GBuEcVR9ADkNOjcuiFqh7KgjfsrLqEj86kbg0SgJMZ-J0smfL7Qepn0NltFCg',  
+  'content-type': 'application/json'  
+  },  
+  body: JSON.stringify({  
+  query: `mutation {           createCard(input: {             pipe_id:302731204,             title: "Card",             fields_attributes:[               {field_id: "nome_do_colaborador", field_value: "${empresa}"},{field_id: "cargo", field_value: "${componente}"},{field_id: "m_tricas", field_value: " ${frase}${metrica}"}             ],           }) {               card {                 title               }             }           }`  
+  })  
+  };  
+  fetch('https://api.pipefy.com/graphql', options)  
+  .then(response => response.json())  
+  .then(response => console.log(response))  
+  .catch(err => console.error(err));  
+  }  
+  function verificardisco(metrica){  
+  var frase= ""  
+  // incluir uma nova medida de temperatura  
+  if(metrica>=60 && metrica <80){  
+  frase = "Alerta: Disco está ficando sobrecarregado! Espaço livre: "  
+  console.log('Cheguei aqui')  
+  alertas("Ekran","Disco",metrica, frase)  
+  } else if(metrica >=80){  
+  frase = "Perigo: Disco sobrecarregado! Espaço livre: "  
+  alertas("Ekran", "Disco", metrica, frase)  
+  }  
+  }  
+  function verificarram(metrica){  
+  var frase= ""  
+  // incluir uma nova medida de temperatura  
+  if(metrica>=60 && metrica <80){  
+  frase = "Alerta: RAM está ficando sobrecarregado! Porcentagem de uso: "  
+  console.log('Cheguei aqui')  
+  alertas("Ekran","RAM",metrica, frase)  
+  } else if(metrica >=80){  
+  frase = "Perigo: RAM está sobrecarregado! Porcentagem de uso: "  
+  alertas("Ekran", "RAM", metrica, frase)  
+  }  
+  }  
+  function verificarcpu(metrica){  
+  var frase= ""  
+  // incluir uma nova medida de temperatura  
+  if(metrica>=60 && metrica <80){  
+  frase = "Alerta: "  
+  console.log('Cheguei aqui')  
+  alertas("Ekran","CPU",metrica, frase)  
+  } else if(metrica >=80){  
+  frase = "Perigo: "  
+  alertas("Ekran", "CPU", metrica, frase)  
+  }  
+  }  
+  
+  function disk() {
+    obterDadosGrafico()
+    function obterDadosGrafico(id) {
+      console.log("Entrei no obter")
+      fetch(`/medidas/ultimaDisco/${id}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            resposta.reverse();
+            plotarGrafico(resposta);
+          });
+        } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+    }
+  
+  
+  
+  
+    function plotarGrafico(resposta) {
+      console.log("Entrei no plotar")
+      const dados4 = {
+        labels: ['Livre', 'Ocupado'],
+        datasets: [{
+          backgroundColor: ['rgba(211,70,177,0.7)' , 'rgba(31,142,241,0.7)'],
+          borderColor: ['rgba(211,70,177,0.7)', 'rgba(31,142,241,0.7)'],
+          data: [],
+        }]
+      };
+      var registro = resposta[0]
+      console.log(registro.diskPercent)
+      var espacoOcupado = registro.diskPercent
+      dados4.datasets[0].data.push(registro.diskPercent);
+      var contaLivre = 100 - espacoOcupado
+      dados4.datasets[0].data.push(contaLivre)
+  
+      const config = {
+        type: 'pie',
+        data: dados4,
+        options: {}
+      };
+      let disco = contaLivre
+      
+  
+  
+      const myChart = new Chart(
+        document.getElementById('CountryChart1'),
+        config
+      );
+  
+    }
+  }
+  
+  
+  
+  let proximaAtualizacao;
+  
+  window.onload = disk(), obterDadosGrafico(1);
+  // O gráfico é construído com três funções:
+  // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+  // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+  // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+  
+  // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+  // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+  // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+  
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+  
+  function obterDadosGrafico(id) {
+    const fkTotem = 50001
+  
+  if (proximaAtualizacao != undefined) {
+    clearTimeout(proximaAtualizacao);
+  }
+  fetch(`/medidas/totem/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        console.log(fkTotem)
+        resposta.reverse();
+        plotarGrafico(resposta);
+      });
+    } else {
+      console.error('Nenhum dado encontrado ou erro na API');
+    }
+  })
+    .catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+  
+  }
+        
+  
+  // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+  // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+  // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+  function plotarGrafico(resposta, id) {
+    console.log('iniciando plotagem do gráfico...');
+    const fkTotem = 50001
+  
+    var dados = {
+          labels: [],
+          datasets: [
+            {
+              yAxisID: 'yAxis',
+              xAxisID: 'xAxis',
+              label: 'Porcentagem de uso da CPU',
+              borderColor: '#D346B1',
+              backgroundColor: 'rgba(211,70,177,0.01)',
+              fill: true,
+              data: []
+            }
+          ]
+  
+        };
+    var dados2 = {
+      labels: [],
+      datasets: [
+        {
+          yAxisID: 'yAxisRam',
+          xAxisID: 'xAxisRam',
+          label: 'Porcentagem de uso da RAM',
+          borderColor: 'rgba(31,142,241,1)',
+          backgroundColor: 'rgba(31,142,241,0.01)',
+          fill: true,
+          data: []
+        }
+      ]
+    };
+  
+    var dados3 = {
+      labels: [],
+      datasets: [
+        {
+          yAxisID: 'yAxisDown', 
+          xAxisID: 'xAxisDown',
+          label: 'Download',
+          borderColor: '#D346B1',
+          backgroundColor: 'rgba(211,70,177,0.01)',
+          fill: true,
+          data: []
+        },
+        {
+          yAxisID: 'yAxisUp',
+          xAxisID: 'xAxisUp',
+          label: 'Upload',
+          borderColor: 'rgba(31,142,241,1)',
+          backgroundColor: 'rgba(31,142,241,0.01)',
+          fill: true,
+          data: []
+        }
+      ]
+    };
+  
+    for (i = 0; i < resposta.length; i++) {
+          var registro = resposta[i];
+          dados.labels.push(registro.horarioF);
+          dados.datasets[0].data.push(registro.cpuPercent);
+          dados2.labels.push(registro.horarioF)
+          dados2.datasets[0].data.push(registro.ramPercent)
+          dados3.labels.push(registro.horarioF)
+          dados3.datasets[0].data.push(registro.mbDownload)
+          dados3.datasets[1].data.push(registro.mbUpload)
+        }
+  
+  
+    
+    console.log(JSON.stringify(dados));
+    console.log(JSON.stringify(dados2));
+  
+    /* var ctx = chartBig11.getContext('2d');  */
+    /*       var optionsTeste = {
+            options: {
+              responsive: true,
+              animation: { duration: 1000 },
+              hoverMode: 'index',
+              stacked: false,
+              title: {
+                display: false,
+                text: 'Dados capturados'
+              },
+              legend: {
+                display: false
+              },
+    
+              tooltips: {
+                backgroundColor: 'rgba(0, 0, 0, 0.703)',
+              },
+              scales: {
+                yAxis: {
+                  type: 'bar',
+                  display: true,
+                  position: 'left',
+                  beginAtZero: true,
+                  max: 30,
+                  min: 0,
+                    ticks: {
+                    fontColor: 'white',
+                    beginAtZero: true,
+                    max: 100,
+                    min: 0
+                  }, 
+    
+    
+                },
+                xAxes: [{
+                  ticks: {
+                    fontColor: 'white'
+                  }
+                }]
+              }
+            }
+          }
+     */
+     if(dados == undefined){
+      res.status(400).send("Data undefined!")
+     };
+     
+  window.lineChart = new Chart(chartBig11, {
+          type: 'line',
+          data: dados,
+          options: {
+            plugins: {
+              legend: {
+                display: false,
+                labels: {
+                  font: {
+                    size: 70,
+                    weight: "bold",
+                    family: "arial"
+                  }
+                }
+              },
+            },
+            responsive: true,
+            animation: { duration: 1000 },
+            hoverMode: 'index',
+            stacked: false,
+            tooltips: {
+              backgroundColor: 'rgba(0, 0, 0, 0.703)',
+            },
+            scales: {
+              yAxis: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  stepSize: 20,
+                  color: "rgba(255,255,255,0.6)",
+                }
+              },
+              xAxis: {
+                ticks: {
+                  color: "rgba(255,255,255,0.6)",
+                }
+              }
+            }
+          }
+        })
+  
+  
+    window.lineChart2 = new Chart(chartLinePurple2, {
+      type: 'line',
+      data: dados2,
+      options: {
+        plugins: {
+          legend: {
+            display: false
+          },
+        },
+        responsive: true,
+        animation: { duration: 1000 },
+        hoverMode: 'index',
+        stacked: false,
+        title: {
+          display: false,
+          text: 'Dados capturados'
+        },
+        legend: {
+          display: false
+        },
+  
+        tooltips: {
+          backgroundColor: 'rgba(0, 0, 0, 0.703)',
+        },
+        scales: {
+          yAxisRam: {
+            beginAtZero: true,
+            max: 100,
+          }
+        }
+      }
+    })
+  
+    window.lineChart3 = new Chart(chartLineGreen1, {
+      type: 'line',
+      data: dados3,
+      options: {
+        plugins: {
+          legend: {
+            display: true
+          },
+        },
+        responsive: true,
+        animation: { duration: 1000 },
+        hoverMode: 'index',
+        stacked: false,
+        title: {
+          display: false,
+          text: 'Dados capturados'
+        },
+        legend: {
+          display: false
+        },
+  
+        tooltips: {
+          backgroundColor: 'rgba(0, 0, 0, 0.703)',
+        },
+        scales: {
+          yAxisDown: {
+            beginAtZero: true,
+            max: 100,
+            display: false
+          },
+          xAxisDown: {
+            display: false
+          },
+          yAxisUp: {
+            beginAtZero: true,
+            max: 100,
+          },
+        }
+      }
+    })
+  
+    /*       window.grafico_barra = Chart.Line(ctx, {
+            data: dados,
+            options: {
+              responsive: true,
+              animation: { duration: 1000 },
+              hoverMode: 'index',
+              stacked: false,
+              title: {
+                display: false,
+                text: 'Dados capturados'
+              },
+              legend: {
+                display: false
+              },
+    
+              tooltips: {
+                backgroundColor: 'rgba(0, 0, 0, 0.703)',
+              },
+              scales: {
+                yAxes: [{
+                  type: 'linear',
+                  display: true,
+                  position: 'left',
+                  id: 'y-temperatura',
+                  ticks: {
+                    fontColor: 'white',
+                    beginAtZero: true,
+                    max: 100,
+                    min: 0
+                  },
+    
+    
+                }],
+                xAxes: [{
+                  ticks: {
+                    fontColor: 'white'
+                  }
+                }]
+              }
+            }
+          }); */
+  
+    setTimeout(() => atualizarGrafico(fkTotem, dados, dados2, dados3), 2000);
+  }
+  
+  
+  // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+  // buscando a última medida inserida em tabela contendo as capturas, 
+  
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+  function atualizarGrafico(fkTotem, dados, dados2, dados3) {
+    console.log("ENTRANDO NO ATUALIZAR GRAFICO")
+    console.log("---------------------------------")
+    console.log(dados2)
+    console.log("---------------------------------")
+  
+  
+    fetch(`/medidas/tempo-real-totem/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (novoRegistro) {
+  
+          console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+          console.log(`Dados atuais do gráfico: ${dados}`);
+          console.log(`Dados atuais do gráfico: ${dados2}`);
+  
+          // tirando e colocando valores no gráfico
+          dados.labels.shift(); // apagar o primeiro
+          dados.labels.push(novoRegistro[0].horarioF); // incluir um novo momento
+          dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
+          dados.datasets[0].data.push(novoRegistro[0].cpuPercent); 
+          let cpu = novoRegistro[0].cpuPercent// incluir uma nova medida de temperatura
+          setInterval(verificarcpu(cpu), 5000)
+          dados2.labels.shift();
+          dados2.labels.push(novoRegistro[0].horarioF);
+          dados2.datasets[0].data.shift();
+          dados2.datasets[0].data.push(novoRegistro[0].ramPercent);
+          let ram = novoRegistro[0].ramPercent
+          setInterval(verificarram(ram),5000)
+          dados3.labels.shift();
+          dados3.labels.push(novoRegistro[0].horarioF);
+          dados3.datasets[0].data.shift();
+          dados3.datasets[0].data.push(novoRegistro[0].mbDownload);
+          dados3.datasets[1].data.shift();
+          dados3.datasets[1].data.push(novoRegistro[0].mbUpload);
+  
+  
+          /* dados.datasets[0].data.shift(); */  // apagar o primeiro de temperatura
+          /*  dados.datasets[0].data.push(novoRegistro[0].grafico_zonas); */ // incluir uma nova medida de temperatura
+  
+          window.lineChart.update();
+          window.lineChart2.update();
+          window.lineChart3.update();
+  
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacao = setTimeout(() => atualizarGrafico(fkTotem, dados, dados2, dados3), 2000);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  
+  }
+</script>
 </html>

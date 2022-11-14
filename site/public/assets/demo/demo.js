@@ -349,7 +349,7 @@ demo = {
       }
     };
 
-    var ctx = document.getElementById("chartLinePurple").getContext("2d");
+    var ctx = document.getElementById("chartLinePurple1aaaa").getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
@@ -385,7 +385,7 @@ demo = {
     });
 
 
-    var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
+    var ctxGreen = document.getElementById("chartLineGreesssn").getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
@@ -470,7 +470,7 @@ demo = {
     // });
 
 
-    var ctx = document.getElementById("chartBig1").getContext('2d');
+    var ctx = document.getElementById("chartBig21").getContext('2d');
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
@@ -511,7 +511,7 @@ demo = {
     });
 
 
-    var ctx = document.getElementById("CountryChart").getContext("2d");
+    var ctx = document.getElementById("CountryChart11").getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
