@@ -20,26 +20,7 @@ function buscarUltimasMedidas(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
-function buscarTotem(req, res) {
 
-    const limite_linhas = 6;
-
-    var fkTotem = req.params.fkTotem;
-
-    console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
-
-    medidaModel.buscarTotem(fkTotem, limite_linhas).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
-}
 
 
 function buscarMedidasEmTempoReal(req, res) {
@@ -61,8 +42,30 @@ function buscarMedidasEmTempoReal(req, res) {
     });
 }
 
+function buscarMedidaTotem(req, res) {
+var fkTotem = req.params.fkTotem
+    console.log(fkTotem)
+    const limite_linhas = 6;
+
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.buscarMedidaTotem(fkTotem, limite_linhas).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function buscarUltimaMedidaDisco(req, res){
     var idAquario = req.params.idAquario;
+    
 
     console.log(`Recuperando medidas em tempo real`);
 
@@ -82,5 +85,6 @@ function buscarUltimaMedidaDisco(req, res){
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarUltimaMedidaDisco
+    buscarUltimaMedidaDisco,
+    buscarMedidaTotem,
 }

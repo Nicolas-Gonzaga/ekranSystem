@@ -41,11 +41,13 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <!-- Nucleo Icons -->
-  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" >
   <!-- CSS Files -->
   <link rel="stylesheet" href="assets/css/black-dashboard.css?v=1.0.0">
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="assets/demo/demo.css" rel="stylesheet" />
+  <link href="assets/demo/demo.css" rel="stylesheet" >
+  <script src="http://www.chartjs.org/dist/3.9.1/Chart.js"></script>+
+ 
 </head>
 
 <body class="">
@@ -237,7 +239,7 @@
               </div>
               <div class="card-body">
                 <div class="chart-area">
-                  <canvas id="chartBig1"></canvas>
+                  <canvas id="chartBig111"></canvas>
                 </div>
               </div>
             </div>
@@ -741,11 +743,11 @@ function disk() {
       options: {}
     };
     let disco = contaLivre
-    verificardisco(disco)
+    
 
 
     const myChart = new Chart(
-      document.getElementById('CountryChart1'),
+      document.getElementById('CountryChart'),
       config
     );
 
@@ -768,31 +770,30 @@ window.onload = disk(), obterDadosGrafico(1);
 
 //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
 //     Para ajustar o "select", ajuste o comando sql em src/models
+
 function obterDadosGrafico(id) {
+  const fkTotem = 50000
 
-  if (proximaAtualizacao != undefined) {
-    clearTimeout(proximaAtualizacao);
+if (proximaAtualizacao != undefined) {
+  clearTimeout(proximaAtualizacao);
+}
+fetch(`/medidas/totem/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
+  if (response.ok) {
+    response.json().then(function (resposta) {
+      console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+      console.log(fkTotem)
+      resposta.reverse();
+      plotarGrafico(resposta);
+    });
+  } else {
+    console.error('Nenhum dado encontrado ou erro na API');
   }
-  var fkTotem = 50000
-  fetch(`/medidas/totem/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
-        if (response.ok) {
-          response.json().then(function (resposta) {
-            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-            resposta.reverse();
-            plotarGrafico(resposta);
-          });
-        } else {
-          console.error('Nenhum dado encontrado ou erro na API');
-        }
-      })
-        .catch(function (error) {
-          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-      }
+})
+  .catch(function (error) {
+    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+  });
 
-   
-
-  
+}
       
 
 // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
@@ -918,8 +919,7 @@ function plotarGrafico(resposta, id) {
    */
 
 
-
-  window.lineChart = new Chart(chartBig11, {
+  window.lineChart = new Chart(chartBig111, {
     type: 'line',
     data: dados,
     options: {
@@ -960,7 +960,7 @@ function plotarGrafico(resposta, id) {
     }
   })
 
-  window.lineChart2 = new Chart(chartLinePurple1, {
+  window.lineChart2 = new Chart(chartLinePurple, {
     type: 'line',
     data: dados2,
     options: {
@@ -993,7 +993,7 @@ function plotarGrafico(resposta, id) {
     }
   })
 
-  window.lineChart3 = new Chart(chartLineGreen1, {
+  window.lineChart3 = new Chart(chartLineGreen, {
     type: 'line',
     data: dados3,
     options: {

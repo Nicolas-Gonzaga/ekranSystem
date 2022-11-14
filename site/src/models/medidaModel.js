@@ -32,8 +32,8 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function buscarTotem(fkTotem, limite_linhas) {
-
+function buscarMedidaTotem(fkTotem, limite_linhas) {
+    
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -53,7 +53,7 @@ function buscarTotem(fkTotem, limite_linhas) {
         date_format(momento, '%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit ${limite_linhas}` */
-    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura where fkTotem = ${fkTotem}order by fkLeitura desc limit ${limite_linhas}`;
+    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura where fkTotem = ${fkTotem} order by fkLeitura desc limit ${limite_linhas}`;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -143,5 +143,7 @@ function buscarUltimaMedidaDisco(idAquario){
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
-    buscarUltimaMedidaDisco
+    buscarUltimaMedidaDisco,
+    buscarMedidaTotem,
+    
 }
