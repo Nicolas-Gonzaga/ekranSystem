@@ -22,4 +22,8 @@ router.get("/ultimaDisco/:idArmazem", function (req, res) {
     medidaController.buscarUltimaMedidaDisco(req, res);
 })
 
+router.get("/mediaT1", function (req, res) {
+    medidaController.mediaT1(req, res);
+});
+
 module.exports = router;

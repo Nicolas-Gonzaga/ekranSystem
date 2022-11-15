@@ -8,6 +8,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 i = 0
+fkLeitura = 50 
 while (True):
     server = 'dbekran.database.windows.net'
     database = 'dbeKran'
@@ -67,33 +68,34 @@ while (True):
     hora = datetime.now().strftime('%H:%M')
     dia = date.today().strftime('%Y/%m/%d')
     count1 = cursor.execute(f"""
-        INSERT INTO Leitura (hora, dia, fkTotem)
+        INSERT INTO Leitura (horario, dia, fkTotem)
         VALUES ('{hora}','{dia}',{fkTotem})""").rowcount
 
     count = cursor.execute(f"""
-        INSERT INTO LoocaLeitura (cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload) 
-        VALUES ({float("%0.2f" % (cpuPercent[f]))},{ float("%0.2f" % (diskPercent[f]))},{float("%0.2f" % (ramPercent[f]))},{float("%0.3f" % (mbUpload[f]))},{float("%0.3f" % (mbDownload[f]))})""").rowcount
+        INSERT INTO LoocaLeitura (cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, fkLeitura) 
+        VALUES ({float("%0.2f" % (cpuPercent[f]))},{ float("%0.2f" % (diskPercent[f]))},{float("%0.2f" % (ramPercent[f]))},{float("%0.3f" % (mbUpload[f]))},{float("%0.3f" % (mbDownload[f]))}, {float(fkLeitura)})""").rowcount
 
     #import pdb; pdb.set_trace()
     cnxn.commit()
     print(f"Insert nuvem {i}")
     print("============================================================================")
 
-    sql1 = "INSERT INTO Leitura (horario, dia, fkTotem) VALUES (%s,%s,%s)"
-    values1 = [hora, dia, fkTotem]
+    sql1 = "INSERT INTO Leitura (fkTotem, horario, dia) VALUES (%s,%s,%s)"
+    values1 = [fkTotem, hora, dia]
 
-    sql = "INSERT INTO LoocaLeitura (cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload) VALUES (%s,%s,%s,%s,%s)"
+    sql = "INSERT INTO LoocaLeitura (cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, fkLeitura) VALUES(%s,%s,%s,%s,%s,%s)"
     values = [float("%0.2f" % (cpuPercent[f])), float("%0.2f" % (diskPercent[f])), float(
-        "%0.2f" % (ramPercent[f])), float("%0.3f" % (mbUpload[f])), float("%0.3f" % (mbDownload[f]))]
-    cursorLocal.execute(sql, values)
+        "%0.2f" % (ramPercent[f])), float("%0.3f" % (mbUpload[f])), float("%0.3f" % (mbDownload[f])), fkLeitura]
+    print(values)
     cursorLocal.execute(sql1, values1)
+    cursorLocal.execute(sql, values)
     print(f"Insert local {i}")
     print("============================================================================")
 
     #print('Rows inserted: ' + str(count))
-
     db_connection.commit()
     i+=1
+    fkLeitura += 1
     db_connection.close()
 
 

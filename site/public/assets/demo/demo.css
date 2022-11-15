@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .tim-row {
   margin-bottom: 20px;
 }
@@ -87,5 +89,64 @@
     height:55vh !important;
     width:75vw !important;
     margin: 0 auto ;
+  }
+}
+
+.carousel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.totem {
+  /* background-color: red; */
+  margin: 0 auto;
+  height: 35vh;
+  width: 35vw;
+  border: 2px solid white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2%;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.563)
+}
+
+.totem h1{
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.medias-componentes p{
+  margin-bottom: 5%;
+  font-size: 1.5em;
+}
+
+.menu-totens{
+  display: flex;
+  justify-content: right;
+}
+
+.menu-totens p{
+  margin: 0% 3%;
+  border: white 1px solid;
+  padding: 0.5% 1%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.menuTotemCurrent{
+  background-color: #0065B5;
+}
+
+@media screen and (max-width: 990px){
+  .totem{
+    width: 50vw;
+    height: 30vh;
+  }
+  .medias-componentes p{
+    margin-bottom: 5%;
+    font-size: 1em;
   }
 }
