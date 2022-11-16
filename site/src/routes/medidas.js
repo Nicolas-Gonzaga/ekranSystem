@@ -26,4 +26,12 @@ router.get("/mediaT1", function (req, res) {
     medidaController.mediaT1(req, res);
 });
 
+router.get("/mediaT2", function (req, res) {
+    medidaController.mediaT2(req, res);
+});
+
+router.get("/mediaT3", function (req, res) {
+    medidaController.mediaT3(req, res);
+});
+
 module.exports = router;

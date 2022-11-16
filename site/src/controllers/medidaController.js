@@ -116,11 +116,45 @@ function mediaT1(req, res) {
         });
     }
 
+    function mediaT2(req, res) {
+        console.log(`Recuperando medidas em tempo real`);
+    
+        medidaModel.mediaT2().then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+
+    function mediaT3(req, res) {
+        console.log(`Recuperando medidas em tempo real`);
+    
+        medidaModel.mediaT3().then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
     buscarUltimaMedidaDisco,
     buscarMedidaTotem,
     buscarMedidasTempoRealporTotem,
-    mediaT1
+    mediaT1,
+    mediaT2,
+    mediaT3
 }
