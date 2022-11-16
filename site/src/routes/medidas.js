@@ -7,6 +7,9 @@ var medidaController = require("../controllers/medidaController");
 router.get("/ultimas/:valorId", function (req, res) {
     medidaController.buscarUltimasMedidas(req, res);
 });
+router.post("/alertas", function (req, res) {
+    medidaController.alertar(req, res);
+})
 
 router.get("/tempo-real/:idArmazem", function (req, res) {
     medidaController.buscarMedidasEmTempoReal(req, res);

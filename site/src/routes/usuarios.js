@@ -28,6 +28,7 @@ router.post("/cadastrarEmpresa", function (req, res) {
     usuarioController.cadastrarEmpresa(req, res);
 })
 
+
 router.post("/cadastrarUnidade", function (req, res) {
     usuarioController.cadastrarUnidade(req, res);
 })
