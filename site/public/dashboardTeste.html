@@ -1007,10 +1007,12 @@
             var frase = ""
             // incluir uma nova medida de temperatura  
             if (metrica >= 60 && metrica < 80) {
+              Swal.fire("CUIDADO", "Disco está sobrecarregando!", "warning");
               frase = "Alerta: Disco está ficando sobrecarregado! Espaço livre: "
               console.log('Cheguei aqui')
               alertas("Ekran", "Disco", metrica, frase)
             } else if (metrica >= 80) {
+              Swal.fire("ALERTA", "Disco está sobrecarregada!", "danger");
               frase = "Perigo: Disco sobrecarregado! Espaço livre: "
               alertas("Ekran", "Disco", metrica, frase)
             }
@@ -1019,10 +1021,12 @@
             var frase = ""
             // incluir uma nova medida de temperatura  
             if (metrica >= 60 && metrica < 80) {
+              Swal.fire("CUIDADO", "RAM está ficando sobrecarregada!", "warning");
               frase = "Alerta: RAM está ficando sobrecarregado! Porcentagem de uso: "
               console.log('Cheguei aqui')
               alertas("Ekran", "RAM", metrica, frase)
             } else if (metrica >= 80) {
+              Swal.fire("ALERTA", "RAM está sobrecarregada!", "danger");
               frase = "Perigo: RAM está sobrecarregado! Porcentagem de uso: "
               alertas("Ekran", "RAM", metrica, frase)
             }
@@ -1031,10 +1035,12 @@
             var frase = ""
             // incluir uma nova medida de temperatura  
             if (metrica >= 60 && metrica < 80) {
+              Swal.fire("CUIDADO", "A temperatura está elevada!", "warning");
               frase = "Alerta: "
               console.log('Cheguei aqui')
               alertas("Ekran", "CPU", metrica, frase)
             } else if (metrica >= 80) {
+              Swal.fire("ALERTA", "A temperatura passou da ideal!", "danger");
               frase = "Perigo: "
               alertas("Ekran", "CPU", metrica, frase)
             }
