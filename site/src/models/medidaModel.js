@@ -6,13 +6,9 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top ${limite_linhas}
-        REGISTRO_TEMP, 
-        REGISTRO_UMID, 
-        REGISTRO_MOMENTO,
-        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
-    from registros  
-    order by idRegistros desc`;
+        instrucaoSql = `select top ${limite_linhas} cpuPercent, ramPercent, horario as horarioF 
+        from LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura order by fkLeitura 
+        desc;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = /* `select 
@@ -37,13 +33,9 @@ function buscarMedidaTotem(fkTotem, limite_linhas) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top ${limite_linhas}
-        REGISTRO_TEMP, 
-        REGISTRO_UMID, 
-        REGISTRO_MOMENTO,
-        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
-    from registros  
-    order by idRegistros desc`;
+        instrucaoSql = `select top ${limite_linhas} cpuPercent, ramPercent, horario as horarioF from 
+        LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura where fkTotem = ${fkTotem} 
+        order by fkLeitura;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = /* `select 
@@ -69,13 +61,8 @@ function buscarMedidasEmTempoReal(idAquario) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top 1 
-        REGISTRO_TEMP, 
-        REGISTRO_UMID, 
-        REGISTRO_MOMENTO,
-        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
-    from registros  
-    order by idRegistros desc`;
+        instrucaoSql = `select top 1 cpuPercent, ramPercent, horario as horarioF from 
+        LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura order by fkLeitura;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         // if(local == "dashboardTeste.html"){
@@ -112,13 +99,9 @@ function buscarMedidasTempoRealporTotem(fkTotem) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top 1 
-        REGISTRO_TEMP, 
-        REGISTRO_UMID, 
-        REGISTRO_MOMENTO,
-        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
-    from registros  
-    order by idRegistros desc`;
+        instrucaoSql = `select top 1 cpuPercent, ramPercent, horario as horarioF from 
+        LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura where fkTotem = ${fkTotem} 
+        order by Leitura.idLeitura;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         // if(local == "dashboardTeste.html"){
@@ -156,13 +139,7 @@ function buscarUltimaMedidaDisco(idAquario){
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top 1 
-        REGISTRO_TEMP, 
-        REGISTRO_UMID, 
-        REGISTRO_MOMENTO,
-        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
-    from registros  
-    order by idRegistros desc`;
+        instrucaoSql = `select top 1 diskPercent from LoocaLeitura join Leitura on Leitura.idLeitura = fkLeitura order by Leitura.idLeitura;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = /* `select 
@@ -187,13 +164,8 @@ function mediaT1(){
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top 1 
-        REGISTRO_TEMP, 
-        REGISTRO_UMID, 
-        REGISTRO_MOMENTO,
-        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
-    from registros  
-    order by idRegistros desc`;
+        instrucaoSql = `select Leitura.fkTotem, LoocaLeitura.idLeitura, LoocaLeitura.cpuPercent, LoocaLeitura.diskPercent, 
+        LoocaLeitura.ramPercent from LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura where Leitura.fkTotem = 50000;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = /* `select 

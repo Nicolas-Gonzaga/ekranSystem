@@ -81,13 +81,7 @@ function buscarId(email){
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top 1 
-        REGISTRO_TEMP, 
-        REGISTRO_UMID, 
-        REGISTRO_MOMENTO,
-        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
-    from registros  
-    order by idRegistros desc`;
+        instrucaoSql = `select idUsuario from Usuario where email = '${email}';`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = /* `select 
@@ -112,13 +106,7 @@ function buscarCod(){
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top 1 
-        REGISTRO_TEMP, 
-        REGISTRO_UMID, 
-        REGISTRO_MOMENTO,
-        CONVERT(varchar, REGISTRO_MOMENTO, 108) as momento_grafico
-    from registros  
-    order by idRegistros desc`;
+        instrucaoSql = `select * from esqueciSenha;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = /* `select 
@@ -156,7 +144,7 @@ function apagarDadosES() {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
-    truncate esqueciSenha;
+    truncate table esqueciSenha;
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
