@@ -198,6 +198,58 @@ function mediaT1(){
     return database.executar(instrucaoSql);
 }
 
+function mediaT2(){
+    
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select Leitura.fkTotem, LoocaLeitura.idLeitura, LoocaLeitura.cpuPercent, LoocaLeitura.diskPercent, 
+        LoocaLeitura.ramPercent from LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura where Leitura.fkTotem = 50001;`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit 1` */
+    `select fkTotem, idLeitura, cpuPercent, diskPercent, ramPercent from Leitura join LoocaLeitura on fkLeitura = idLeitura where fkTotem = 50000;`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function mediaT3(){
+    
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select Leitura.fkTotem, LoocaLeitura.idLeitura, LoocaLeitura.cpuPercent, LoocaLeitura.diskPercent, 
+        LoocaLeitura.ramPercent from LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura where Leitura.fkTotem = 50002;`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit 1` */
+    `select fkTotem, idLeitura, cpuPercent, diskPercent, ramPercent from Leitura join LoocaLeitura on fkLeitura = idLeitura where fkTotem = 50000;`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarUltimasMedidas,
@@ -206,5 +258,10 @@ module.exports = {
     buscarMedidaTotem,
     buscarMedidasTempoRealporTotem,
     mediaT1,
+<<<<<<< HEAD
     alertar
+=======
+    mediaT2,
+    mediaT3
+>>>>>>> c899d3e197d699df8e5a2131be7ce0b74466ef41
 }

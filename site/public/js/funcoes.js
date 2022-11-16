@@ -186,11 +186,23 @@ function FmenuTotem3() {
 
 
 let dadosDiscot1 = []
+let dadosDiscot2 = []
+let dadosDiscot3 = []
 let dadosRamt1 = []
+let dadosRamt2 = []
+let dadosRamt3 = []
 let dadosCput1 = []
+let dadosCput2 = []
+let dadosCput3 = []
 let mediaCput1 = 0
+let mediaCput2 = 0
+let mediaCput3 = 0
 let mediaRamt1 = 0
+let mediaRamt2 = 0
+let mediaRamt3 = 0
 let mediaDiscot1 = 0
+let mediaDiscot2 = 0
+let mediaDiscot3 = 0
 function mediaT1() {
     fetch(`/medidas/mediaT1`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
@@ -200,8 +212,53 @@ function mediaT1() {
                 for (i = 0; i < resposta.length; i++) {
                     dadosCput1.push(resposta[i].cpuPercent)
                     dadosDiscot1.push(resposta[i].diskPercent)
-                    dadosRamt1.push(resposta[1].ramPercent)
+                    dadosRamt1.push(resposta[i].ramPercent)
                 }
+                
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function mediaT2() {
+    fetch(`/medidas/mediaT2`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                console.log(dadosCput1)
+                for (i = 0; i < resposta.length; i++) {
+                    dadosCput2.push(resposta[i].cpuPercent)
+                    dadosDiscot2.push(resposta[i].diskPercent)
+                    dadosRamt2.push(resposta[i].ramPercent)
+                }
+                
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function mediaT3() {
+    fetch(`/medidas/mediaT3`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                console.log(dadosCput1)
+                for (i = 0; i < resposta.length; i++) {
+                    dadosCput3.push(resposta[i].cpuPercent)
+                    dadosDiscot3.push(resposta[i].diskPercent)
+                    dadosRamt3.push(resposta[i].ramPercent)
+                }
+                contaMedias()
                 
             });
         } else {
@@ -215,21 +272,53 @@ function mediaT1() {
 
 function contaMedias(){
     dadosCput1 = dadosCput1.map(Number)
+    dadosCput2 = dadosCput2.map(Number)
+    dadosCput3 = dadosCput3.map(Number)
     dadosRamt1 = dadosRamt1.map(Number)
+    dadosRamt2 = dadosRamt2.map(Number)
+    dadosRamt3 = dadosRamt3.map(Number)
     dadosDiscot1 = dadosDiscot1.map(Number)
+    dadosDiscot2 = dadosDiscot2.map(Number)
+    dadosDiscot3 = dadosDiscot3.map(Number)
     for(i=0;i<dadosCput1.length;i++){
         mediaCput1+=dadosCput1[i]
-    }
-    for(i=0;i<dadosRamt1.length;i++){
         mediaRamt1+=dadosRamt1[i]
-    }
-    for(i=0;i<dadosDiscot1.length;i++){
         mediaDiscot1+=dadosDiscot1[i]
     }
-    mediaCput1 = (mediaCput1/dadosCput1.length).toFixed(2)
+
+
+    for(i=0;i<dadosCput2.length;i++){
+        mediaCput2+=dadosCput2[i]
+        mediaRamt2+=dadosRamt2[i]
+        mediaDiscot2+=dadosDiscot2[i]
+    }
+    for(i=0;i<dadosCput3.length;i++){
+        mediaCput3+=dadosCput3[i]
+        mediaRamt3+=dadosRamt3[i]
+        mediaDiscot3+=dadosDiscot3[i]
+    }
+     mediaCput1 = (mediaCput1/dadosCput1.length).toFixed(2)
+    mediaCput2 = (mediaCput2/dadosCput2.length).toFixed(2)
+    mediaCput3 = (mediaCput3/dadosCput3.length).toFixed(2)
     mediaRamt1 = (mediaRamt1/dadosRamt1.length).toFixed(2)
+    mediaRamt2 = (mediaRamt2/dadosRamt2.length).toFixed(2)
+    mediaRamt3 = (mediaRamt3/dadosRamt3.length).toFixed(2)
     mediaDiscot1 = (mediaDiscot1/dadosDiscot1.length).toFixed(2)
+    mediaDiscot2 = (mediaDiscot2/dadosDiscot2.length).toFixed(2)
+    mediaDiscot3 = (mediaDiscot3/dadosDiscot3.length).toFixed(2)
     mediaT1Cpu.innerHTML = mediaCput1
+    mediaT2Cpu.innerHTML = mediaCput2
+    mediaT3Cpu.innerHTML = mediaCput3
     mediaT1Ram.innerHTML = mediaRamt1
+    mediaT2Ram.innerHTML = mediaRamt2
+    mediaT3Ram.innerHTML = mediaRamt3
     mediaT1Disco.innerHTML = mediaDiscot1
+    mediaT2Disco.innerHTML = mediaDiscot2
+    mediaT3Disco.innerHTML = mediaDiscot3  
+}
+
+function mediasGeral(){
+    mediaT1()
+    mediaT2()
+    mediaT3()
 }
