@@ -1,14 +1,19 @@
 import psutil
 import mysql.connector
+import pyodbc
 import time
 from mysql.connector import errorcode
+import datetime
+from datetime import date
+from datetime import datetime
+
 
 i = 0
 while True: 
     i += 1
     try:
         db_connection = mysql.connector.connect(
-            host='localhost', user='root', password='HEnriquecam01', database='ekran')
+            host='localhost', user='aluno', password='sptech', database='ekran')
     except mysql.connector.Error as error:
         if error.errno == errorcode.ER_BAD_DB_ERROR:
             print("Não encontrei o banco")
@@ -20,10 +25,12 @@ while True:
     cursor = db_connection.cursor()
     print(i, "Inserindo no banco:")
     print("------------------------------------------")
+    hora = datetime.now().strftime('%H:%M')
+    dia = date.today().strftime('%Y/%m/%d')
     # print("PID | Nome | CpuPercent | MemoryPercent")
     for x in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
-        values = [x.info['pid'], x.info['name'], "%0.2f" % x.info['cpu_percent'], "%0.2f" % x.info['memory_percent']]
-        sql = "INSERT INTO Leitura (PID, Nome, CpuPercent, MemoryPercent) VALUES (%s,%s,%s,%s)"
+        values = [x.info['pid'], x.info['name'], "%0.2f" % x.info['cpu_percent'], "%0.2f" % x.info['memory_percent'], hora, dia]
+        sql = "INSERT INTO Processos (PID, Nome, CpuPercent, MemoryPercent, hora, dia) VALUES (%s,%s,%s,%s,%s,%s)"
         print(values)
         cursor.execute(sql, values)
         db_connection.commit()

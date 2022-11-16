@@ -15,7 +15,7 @@ senha varchar(15),
 fkEmpresa int,
 foreign key (fkEmpresa) references Empresa(idEmpresa),
 fkPerfil int,
-foreign key (fkPerfil) references Perfil(idPerfil)
+foreign key (fkPerfil) references Perfil(idPerfil) 
 );
 create table Unidade(
 idUnidade int primary key identity(20000, 1),
