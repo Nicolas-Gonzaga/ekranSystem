@@ -1,12 +1,11 @@
-import psutil
-import mysql.connector
-import pyodbc
-import time
-from mysql.connector import errorcode
 import datetime
-from datetime import date
-from datetime import datetime
+import time
+from datetime import date, datetime
 
+import mysql.connector
+import psutil
+import pyodbc
+from mysql.connector import errorcode
 
 i = 0
 while True: 
@@ -28,7 +27,7 @@ while True:
     # print("PID | Nome | CpuPercent | MemoryPercent")
     for x in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
         values = [x.info['pid'], x.info['name'], "%0.2f" % x.info['cpu_percent'], "%0.2f" % x.info['memory_percent'], hora, dia]
-        count = cursor.execute = ("""INSERT INTO Processos (PID, Nome, CpuPercent, MemoryPercent, hora, dia) VALUES (?,?,?,?,?,?)""", 'SQL Server Express New 20', 'SQLEXPRESS New 20', 0, 0, CURRENT_TIMESTAMP).rowcount
+        count = cursor.execute = ("""INSERT INTO Processos (PID, Nome, CpuPercent, MemoryPercent, hora, dia) VALUES (?,?,?,?,?,?)""").rowcount
         cnxn.commit()
         
         time.sleep(0.1)
