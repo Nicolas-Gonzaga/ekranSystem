@@ -178,7 +178,7 @@
                   <p class="d-lg-none">
                     Log out
                   </p>
-                </a>
+                </a>p
                 <ul class="dropdown-menu dropdown-navbar">
                   <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a></li>
                   <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a></li>
@@ -729,7 +729,10 @@
 
 function verificar(metrica, componente) {
   const fkTotem = 50000
+
             var frase = ""
+            var empresa = sessionStorage.fkEmpresa
+
             // incluir uma nova medida de temperatura 
             if(metrica >=70){
               if (metrica >= 70 && metrica < 80) {

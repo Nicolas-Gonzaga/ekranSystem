@@ -192,10 +192,7 @@ module.exports = {
     buscarMedidaTotem,
     buscarMedidasTempoRealporTotem,
     mediaT1,
-<<<<<<< HEAD
-    alertar
-=======
-    mediaT2,
+    alertar,
+     mediaT2,
     mediaT3
->>>>>>> c899d3e197d699df8e5a2131be7ce0b74466ef41
 }

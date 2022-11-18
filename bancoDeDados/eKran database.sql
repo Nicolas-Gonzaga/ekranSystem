@@ -113,3 +113,5 @@ insert into Usuario (nome, email, senha, fkEmpresa, fkPerfil) values
 SELECT * FROM usuario WHERE email = 'adm' AND senha = '123' AND fkPerfil = 111;
 -- truncate Leitura;
 -- truncate Leitura;
+create table alerta ( idAlerta int auto_increment, fkTotem int, primary key(idAlerta, fkTotem),
+empresa varchar(45), componente varchar(20), metrica decimal(5,2),  descricao varchar(100), foreign key(fkTotem) references Totem (idTotem));

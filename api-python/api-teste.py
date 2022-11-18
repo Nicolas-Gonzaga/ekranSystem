@@ -1,10 +1,7 @@
 from statistics import mean
-import subprocess
 import time
 import psutil
 import datetime 
-import functools
-import operator
 import pyodbc 
 import textwrap
 import datetime
@@ -54,7 +51,7 @@ def teste():
             try:
             # Executando comando SQL   
                 crsr.execute('''
-            INSERT INTO Temperatura_Pedro (PID, Nome, CpuPercent, MemoryPercent, datahora) VALUES (?, ?, ?, ?, ?)
+            INSERT INTO Processos (PID, Nome, CpuPercent, MemoryPercent, datahora) VALUES (?, ?, ?, ?, ?)
             ''', pid, Nome, CpuPercent, MemoryPercent, datahora)
                     # Commit de mudanÃ§as no banco de dados
                 crsr.commit()
