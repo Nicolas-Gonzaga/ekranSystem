@@ -57,6 +57,15 @@ foreign key (fkLeitura) references Leitura(idLeitura),
 fkSecao INT,
 foreign key (fkSecao) references crawlerSecao(idSecao)
 );
+create table geolocalizationLeitura(
+idLocalization INT PRIMARY KEY identity(1, 1),
+latitude DECIMAL(9,7),
+longitude DECIMAL(10,7),
+dia CHAR(10),
+hora CHAR(8),
+fkTotem INT,
+foreign key (fkTotem) references Totem(idTotem)
+);
 
 insert into Perfil values
 ('111','ADM'),
