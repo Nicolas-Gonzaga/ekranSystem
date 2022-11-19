@@ -19,18 +19,18 @@ while (True):
     cursor = cnxn.cursor()
 
 
-    try:
-        db_connection = mysql.connector.connect(
-            host='localhost', user='usuario', password='urubu100', database='ekran')
-    except mysql.connector.Error as error:
-        if error.errno == errorcode.ER_BAD_DB_ERROR:
-            print("Não encontrei o banco")
-        elif error.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print("Credenciais erradas")
-        else:
-            print(error)
+    #try:
+    #    db_connection = mysql.connector.connect(
+    #        host='localhost', user='usuario', password='urubu100', database='ekran')
+    #except mysql.connector.Error as error:
+    #    if error.errno == errorcode.ER_BAD_DB_ERROR:
+    #        print("Não encontrei o banco")
+    #    elif error.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+    #        print("Credenciais erradas")
+    #    else:
+    #        print(error)
 
-    cursorLocal = db_connection.cursor()
+    #cursorLocal = db_connection.cursor()
 
     # Processador
     arrayAtual = psutil.cpu_percent(interval=3, percpu=True)
@@ -80,22 +80,21 @@ while (True):
     print(f"Insert nuvem {i}")
     print("============================================================================")
 
-    sql1 = "INSERT INTO Leitura (fkTotem, horario, dia) VALUES (%s,%s,%s)"
-    values1 = [fkTotem, hora, dia]
+    #sql1 = "INSERT INTO Leitura (fkTotem, horario, dia) VALUES (%s,%s,%s)"
+    #values1 = [fkTotem, hora, dia]
 
-    sql = "INSERT INTO LoocaLeitura (cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, fkLeitura) VALUES(%s,%s,%s,%s,%s,%s)"
-    values = [float("%0.2f" % (cpuPercent[f])), float("%0.2f" % (diskPercent[f])), float(
-        "%0.2f" % (ramPercent[f])), float("%0.3f" % (mbUpload[f])), float("%0.3f" % (mbDownload[f])), fkLeitura]
-    print(values)
-    cursorLocal.execute(sql1, values1)
-    cursorLocal.execute(sql, values)
-    print(f"Insert local {i}")
-    print("============================================================================")
+    #sql = "INSERT INTO LoocaLeitura (cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, fkLeitura) VALUES(%s,%s,%s,%s,%s,%s)"
+    #values = [float("%0.2f" % (cpuPercent[f])), float("%0.2f" % (diskPercent[f])), float(
+    #    "%0.2f" % (ramPercent[f])), float("%0.3f" % (mbUpload[f])), float("%0.3f" % (mbDownload[f])), fkLeitura]
+    #print(values)
+    #cursorLocal.execute(sql1, values1)
+    #cursorLocal.execute(sql, values)
+    #print(f"Insert local {i}")
+    #print("============================================================================")
 
-    #print('Rows inserted: ' + str(count))
-    db_connection.commit()
+    #db_connection.commit()
     i+=1
     fkLeitura += 1
-    db_connection.close()
+    #db_connection.close()
 
 

@@ -148,6 +148,27 @@ function mediaT1(req, res) {
         });
     }
 
+    function dadosHistorico(req, res) {
+
+        const limite_linhas = 3;
+    
+        var fkTotem = req.params.fkTotem
+    
+    
+        medidaModel.dadosHistorico(limite_linhas, fkTotem).then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+    }
+    
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
@@ -156,5 +177,6 @@ module.exports = {
     buscarMedidasTempoRealporTotem,
     mediaT1,
     mediaT2,
-    mediaT3
+    mediaT3,
+    dadosHistorico
 }

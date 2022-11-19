@@ -184,37 +184,21 @@ function FmenuTotem3() {
     contT3++
 }
 
-
-let dadosDiscot1 = []
-let dadosDiscot2 = []
-let dadosDiscot3 = []
-let dadosRamt1 = []
-let dadosRamt2 = []
-let dadosRamt3 = []
-let dadosCput1 = []
-let dadosCput2 = []
-let dadosCput3 = []
-let mediaCput1 = 0
-let mediaCput2 = 0
-let mediaCput3 = 0
-let mediaRamt1 = 0
-let mediaRamt2 = 0
-let mediaRamt3 = 0
-let mediaDiscot1 = 0
-let mediaDiscot2 = 0
-let mediaDiscot3 = 0
+let dadosTotem1 = { cpuT1: [], ramT1: [], discoT1: [] }
+let dadosTotem2 = { cpuT2: [], ramT2: [], discoT2: [] }
+let dadosTotem3 = { cpuT3: [], ramT3: [], discoT3: [] }
+let medias = { cpuMediaT1: Number([]), ramMediaT1: Number([]), discoMediaT1: Number([]), cpuMediaT2: Number([]), ramMediaT2: Number([]), discoMediaT2: Number([]), cpuMediaT3: Number([]), ramMediaT3: Number([]), discoMediaT3: Number([]), }
 function mediaT1() {
     fetch(`/medidas/mediaT1`, { cache: 'no-store' }).then(function (response) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                console.log(dadosCput1)
                 for (i = 0; i < resposta.length; i++) {
-                    dadosCput1.push(resposta[i].cpuPercent)
-                    dadosDiscot1.push(resposta[i].diskPercent)
-                    dadosRamt1.push(resposta[i].ramPercent)
+                    dadosTotem1.cpuT1.push(resposta[i].cpuPercent)
+                    dadosTotem1.ramT1.push(resposta[i].ramPercent)
+                    dadosTotem1.discoT1.push(resposta[i].diskPercent)
                 }
-                
+
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -230,13 +214,12 @@ function mediaT2() {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                console.log(dadosCput1)
                 for (i = 0; i < resposta.length; i++) {
-                    dadosCput2.push(resposta[i].cpuPercent)
-                    dadosDiscot2.push(resposta[i].diskPercent)
-                    dadosRamt2.push(resposta[i].ramPercent)
+                    dadosTotem2.cpuT2.push(resposta[i].cpuPercent)
+                    dadosTotem2.ramT2.push(resposta[i].ramPercent)
+                    dadosTotem2.discoT2.push(resposta[i].diskPercent)
                 }
-                
+
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -252,14 +235,13 @@ function mediaT3() {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                console.log(dadosCput1)
                 for (i = 0; i < resposta.length; i++) {
-                    dadosCput3.push(resposta[i].cpuPercent)
-                    dadosDiscot3.push(resposta[i].diskPercent)
-                    dadosRamt3.push(resposta[i].ramPercent)
+                    dadosTotem3.cpuT3.push(resposta[i].cpuPercent)
+                    dadosTotem3.ramT3.push(resposta[i].ramPercent)
+                    dadosTotem3.discoT3.push(resposta[i].diskPercent)
                 }
                 contaMedias()
-                
+
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -270,55 +252,116 @@ function mediaT3() {
         });
 }
 
-function contaMedias(){
-    dadosCput1 = dadosCput1.map(Number)
-    dadosCput2 = dadosCput2.map(Number)
-    dadosCput3 = dadosCput3.map(Number)
-    dadosRamt1 = dadosRamt1.map(Number)
-    dadosRamt2 = dadosRamt2.map(Number)
-    dadosRamt3 = dadosRamt3.map(Number)
-    dadosDiscot1 = dadosDiscot1.map(Number)
-    dadosDiscot2 = dadosDiscot2.map(Number)
-    dadosDiscot3 = dadosDiscot3.map(Number)
-    for(i=0;i<dadosCput1.length;i++){
-        mediaCput1+=dadosCput1[i]
-        mediaRamt1+=dadosRamt1[i]
-        mediaDiscot1+=dadosDiscot1[i]
+function contaMedias() {
+    for (i = 0; i < dadosTotem1.cpuT1.length; i++) {
+        medias.cpuMediaT1 += dadosTotem1.cpuT1[i]
+        medias.ramMediaT1 += dadosTotem1.ramT1[i]
+        medias.discoMediaT1 += dadosTotem1.discoT1[i]
     }
 
+    for (i = 0; i < dadosTotem2.cpuT2.length; i++) {
+        medias.cpuMediaT2 += dadosTotem2.cpuT2[i]
+        medias.ramMediaT2 += dadosTotem2.ramT2[i]
+        medias.discoMediaT2 += dadosTotem2.discoT2[i]
+    }
+    for (i = 0; i < dadosTotem3.cpuT3.length; i++) {
+        medias.cpuMediaT3 += dadosTotem3.cpuT3[i]
+        medias.ramMediaT3 += dadosTotem3.ramT3[i]
+        medias.discoMediaT3 += dadosTotem3.discoT3[i]
+    }
 
-    for(i=0;i<dadosCput2.length;i++){
-        mediaCput2+=dadosCput2[i]
-        mediaRamt2+=dadosRamt2[i]
-        mediaDiscot2+=dadosDiscot2[i]
-    }
-    for(i=0;i<dadosCput3.length;i++){
-        mediaCput3+=dadosCput3[i]
-        mediaRamt3+=dadosRamt3[i]
-        mediaDiscot3+=dadosDiscot3[i]
-    }
-     mediaCput1 = (mediaCput1/dadosCput1.length).toFixed(2)
-    mediaCput2 = (mediaCput2/dadosCput2.length).toFixed(2)
-    mediaCput3 = (mediaCput3/dadosCput3.length).toFixed(2)
-    mediaRamt1 = (mediaRamt1/dadosRamt1.length).toFixed(2)
-    mediaRamt2 = (mediaRamt2/dadosRamt2.length).toFixed(2)
-    mediaRamt3 = (mediaRamt3/dadosRamt3.length).toFixed(2)
-    mediaDiscot1 = (mediaDiscot1/dadosDiscot1.length).toFixed(2)
-    mediaDiscot2 = (mediaDiscot2/dadosDiscot2.length).toFixed(2)
-    mediaDiscot3 = (mediaDiscot3/dadosDiscot3.length).toFixed(2)
-    mediaT1Cpu.innerHTML = mediaCput1
-    mediaT2Cpu.innerHTML = mediaCput2
-    mediaT3Cpu.innerHTML = mediaCput3
-    mediaT1Ram.innerHTML = mediaRamt1
-    mediaT2Ram.innerHTML = mediaRamt2
-    mediaT3Ram.innerHTML = mediaRamt3
-    mediaT1Disco.innerHTML = mediaDiscot1
-    mediaT2Disco.innerHTML = mediaDiscot2
-    mediaT3Disco.innerHTML = mediaDiscot3  
+    medias.cpuMediaT1 = (medias.cpuMediaT1 / dadosTotem1.cpuT1.length).toFixed(2)
+    medias.ramMediaT1 = (medias.ramMediaT1 / dadosTotem1.ramT1.length).toFixed(2)
+    medias.discoMediaT1 = (medias.discoMediaT1 / dadosTotem1.discoT1.length).toFixed(2)
+    medias.cpuMediaT2 = (medias.cpuMediaT2 / dadosTotem2.cpuT2.length).toFixed(2)
+    medias.ramMediaT2 = (medias.ramMediaT2 / dadosTotem2.ramT2.length).toFixed(2)
+    medias.discoMediaT2 = (medias.discoMediaT2 / dadosTotem2.discoT2.length).toFixed(2)
+    medias.cpuMediaT3 = (medias.cpuMediaT3 / dadosTotem3.cpuT3.length).toFixed(2)
+    medias.ramMediaT3 = (medias.ramMediaT3 / dadosTotem3.ramT3.length).toFixed(2)
+    medias.discoMediaT3 = (medias.discoMediaT3 / dadosTotem3.discoT3.length).toFixed(2)
+    mediaT1Cpu.innerHTML = medias.cpuMediaT1
+    mediaT2Cpu.innerHTML = medias.cpuMediaT2
+    mediaT3Cpu.innerHTML = medias.cpuMediaT3
+    mediaT1Ram.innerHTML = medias.ramMediaT1
+    mediaT2Ram.innerHTML = medias.ramMediaT2
+    mediaT3Ram.innerHTML = medias.ramMediaT3
+    mediaT1Disco.innerHTML = medias.discoMediaT1
+    mediaT2Disco.innerHTML = medias.discoMediaT2
+    mediaT3Disco.innerHTML = medias.discoMediaT3
 }
 
-function mediasGeral(){
+function mediasGeral() {
     mediaT1()
     mediaT2()
     mediaT3()
 }
+
+let fkTotem = 50000
+let dadosHistT1 = { cpu: [], ram: [], disco: [], hora: [], dia: [] }
+let dadosHistT2 = { cpu: [], ram: [], disco: [], hora: [], dia: [] }
+let dadosHistT3 = { cpu: [], ram: [], disco: [], hora: [], dia: [] }
+function buscarDadosHistorico(fkTotem) {
+    fetch(`/medidas/dadosHistorico/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos Histórico 1: ${JSON.stringify(resposta)}`);
+                for(i=0;i<resposta.length;i++){
+                dadosHistT1.cpu.push(resposta[i].cpuPercent)
+                dadosHistT1.ram.push(resposta[i].ramPercent)
+                dadosHistT1.disco.push(resposta[i].diskPercent)
+                dadosHistT1.dia.push(resposta[i].dia)
+                dadosHistT1.hora.push(resposta[i].horario)
+                }
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+    fkTotem = 50001
+    fetch(`/medidas/dadosHistorico/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos Histórico 2: ${JSON.stringify(resposta)}`);
+                for(i=0;i<resposta.length;i++){
+                    dadosHistT2.cpu.push(resposta[i].cpuPercent)
+                    dadosHistT2.ram.push(resposta[i].ramPercent)
+                    dadosHistT2.disco.push(resposta[i].diskPercent)
+                    dadosHistT2.dia.push(resposta[i].dia)
+                    dadosHistT2.hora.push(resposta[i].horario)
+                    }
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+
+    fkTotem = 50002
+    fetch(`/medidas/dadosHistorico/${fkTotem}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos Histórico 3: ${JSON.stringify(resposta)}`);
+                for(i=0;i<resposta.length;i++){
+                    dadosHistT3.cpu.push(resposta[i].cpuPercent)
+                    dadosHistT3.ram.push(resposta[i].ramPercent)
+                    dadosHistT3.disco.push(resposta[i].diskPercent)
+                    dadosHistT3.dia.push(resposta[i].dia)
+                    dadosHistT3.hora.push(resposta[i].horario)
+                    }
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+

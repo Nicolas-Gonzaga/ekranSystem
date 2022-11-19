@@ -237,6 +237,34 @@ function mediaT3(){
     return database.executar(instrucaoSql);
 }
 
+function dadosHistorico(limite_linhas, fkTotem) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top ${limite_linhas} dia, horario, fkTotem, cpuPercent, ramPercent, diskPercent from Leitura 
+        join LoocaLeitura on Leitura.idLeitura = LoocaLeitura.fkLeitura 
+        where convert(date, dia) = convert(date, getdate()) and fkTotem = ${fkTotem};`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        date_format(momento, '%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit ${limite_linhas}` */
+    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura order by fkLeitura desc limit ${limite_linhas}`;
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarUltimasMedidas,
@@ -246,5 +274,6 @@ module.exports = {
     buscarMedidasTempoRealporTotem,
     mediaT1,
     mediaT2,
-    mediaT3
+    mediaT3,
+    dadosHistorico
 }

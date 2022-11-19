@@ -34,4 +34,8 @@ router.get("/mediaT3", function (req, res) {
     medidaController.mediaT3(req, res);
 });
 
+router.get("/dadosHistorico/:fkTotem", function (req, res) {
+    medidaController.dadosHistorico(req, res);
+});
+
 module.exports = router;
