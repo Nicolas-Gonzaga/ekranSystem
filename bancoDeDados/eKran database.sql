@@ -73,6 +73,16 @@ create table CrawlerLeitura(
   fkSecao int,
   foreign key (fkLeitura) references Leitura (idLeitura),
   foreign key (fkSecao) references CrawlerSecao (idSecao));
+  
+create table geolocalizationLeitura(
+idLocalization int primary key auto_increment,
+latitude decimal(9,7),
+longitude decimal(10,7),
+dia char(10),
+hora char(8),
+fkTotem int,
+foreign key (fkTotem) references Totem(idTotem)
+);
 
 insert into Perfil values
 ('111','ADM'),
@@ -101,7 +111,7 @@ select * from Empresa;
 select * from Unidade;
 select * from Totem;
 select * from Leitura;
-
+select * from geolocalizationLeitura;
 
 create table esqueciSenha(
   codigo int primary key,
@@ -113,3 +123,5 @@ insert into Usuario (nome, email, senha, fkEmpresa, fkPerfil) values
 SELECT * FROM usuario WHERE email = 'adm' AND senha = '123' AND fkPerfil = 111;
 -- truncate Leitura;
 -- truncate Leitura;
+create table alerta ( idAlerta int auto_increment, fkTotem int, primary key(idAlerta, fkTotem),
+empresa varchar(45), componente varchar(20), metrica decimal(5,2),  descricao varchar(100), foreign key(fkTotem) references Totem (idTotem));

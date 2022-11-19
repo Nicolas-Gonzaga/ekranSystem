@@ -20,7 +20,44 @@ function buscarUltimasMedidas(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
+function alertar(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var metrica = req.body.metricaServer;
+    var frase = req.body.fraseServer;
+    var componente = req.body.componenteServer;
+    var totem = req.body.fkTotemServer;
 
+    // Faça as validações dos valores
+
+    if (metrica== undefined) {
+        res.status(400).send("Dados não chegaram aqui.");
+    } else if (frase == undefined) {
+        res.status(400).send("Frase não chegou aqui.");
+    } 
+     else if (componente == undefined) {
+        res.status(400).send("Componente não chegou aqui.");
+    } 
+     else if (totem == undefined) {
+        res.status(400).send("Totem não definido.");
+    } 
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+
+    medidaModel.alertar(metrica, frase, componente, totem)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nNão passa da controller! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 
 function buscarMedidasEmTempoReal(req, res) {
@@ -178,5 +215,8 @@ module.exports = {
     mediaT1,
     mediaT2,
     mediaT3,
-    dadosHistorico
+    dadosHistorico,
+    alertar,
+    mediaT2,
+    mediaT3
 }

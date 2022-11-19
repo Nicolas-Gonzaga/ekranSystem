@@ -1,37 +1,67 @@
-import datetime
+from statistics import mean
 import time
-from datetime import date, datetime
-
-import mysql.connector
 import psutil
-import pyodbc
-from mysql.connector import errorcode
+import datetime 
+import pyodbc 
+import textwrap
+import datetime
+def Conexao():
 
-i = 0
-while True: 
-    i += 1
-    server = 'dbekran.database.windows.net'
-    database = 'dbeKran'
-    username = 'eKranAdm'
-    password = '1sis@grupo6'
-    cnxn = pyodbc.connect('DRIVER={SQL Server};SERVER='+server +
-                        ';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD=' + password)
-    cursor = cnxn.cursor()
+        # variaveis de conexao
+        driver ='{ODBC Driver 18 for SQL Server}'
+        server_name = 'dbekran'
+        database_name = 'ekran'
+        server = '{server_name}.database.windows.net,1433'.format(server_name=server_name)
+        username = 'eKranAdm'
+        password = '1sis@grupo6'
+        # definindo banco url 
+        connection_string = textwrap.dedent('''
+        Driver={driver};
+        Server={server};
+        Database={database};
+        Uid={username};
+        Pwd={password};
+        Encrypt=yes;
+        TrustedServerCertificate=no;
+        Connection Timeout=10;
+        '''.format(
+            driver=driver,
+            server=server,
+            database=database_name,
+            username=username,
+            password=password
+        )) 
 
+        cnxn:pyodbc.Connection = pyodbc.connect(connection_string) 
 
+        global crsr
+        crsr = cnxn.cursor()
+        print("Conectado ao banco de dados: Ekran")
+
+def teste():
     
-    print(i, "Inserindo no banco:")
-    print("------------------------------------------")
-    hora = datetime.now().strftime('%H:%M')
-    dia = date.today().strftime('%Y/%m/%d')
-    # print("PID | Nome | CpuPercent | MemoryPercent")
-    for x in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
-        values = [x.info['pid'], x.info['name'], "%0.2f" % x.info['cpu_percent'], "%0.2f" % x.info['memory_percent'], hora, dia]
-        count = cursor.execute = ("""INSERT INTO Processos (PID, Nome, CpuPercent, MemoryPercent, hora, dia) VALUES (?,?,?,?,?,?)""").rowcount
-        cnxn.commit()
-        
-        time.sleep(0.1)
+        for x in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
+            datahora = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+            pid = x.info['pid']
+            Nome = x.info['name']
+            CpuPercent = "%0.2f" % x.info['cpu_percent']
+            MemoryPercent = "%0.2f" % x.info['memory_percent']
+           
+            
+            try:
+            # Executando comando SQL   
+                crsr.execute('''
+            INSERT INTO Processos (PID, Nome, CpuPercent, MemoryPercent, datahora) VALUES (?, ?, ?, ?, ?)
+            ''', pid, Nome, CpuPercent, MemoryPercent, datahora)
+                    # Commit de mudanÃ§as no banco de dados
+                crsr.commit()
+                print("Leitura inserida na tabela Processos")
 
-    
-
-    time.sleep(3)
+            except pyodbc.Error as err:
+                crsr.roolback()
+                print("Something went wrong: {}".format(err))
+            
+Conexao()
+while True:
+    teste()
+    time.sleep(5)
