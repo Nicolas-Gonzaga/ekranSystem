@@ -1,16 +1,15 @@
 from statistics import mean
 import time
 import psutil
-import datetime 
 import pyodbc 
 import textwrap
-import datetime
+from datetime import datetime 
 def Conexao():
 
         # variaveis de conexao
         driver ='{ODBC Driver 18 for SQL Server}'
         server_name = 'dbekran'
-        database_name = 'ekran'
+        database_name = 'dbeKran'
         server = '{server_name}.database.windows.net,1433'.format(server_name=server_name)
         username = 'eKranAdm'
         password = '1sis@grupo6'
@@ -41,7 +40,8 @@ def Conexao():
 def teste():
     
         for x in psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']):
-            datahora = datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')
+            datahora = datetime.now()
+            formato = datahora.strftime('%d/%m/%Y %H:%M:%S')
             pid = x.info['pid']
             Nome = x.info['name']
             CpuPercent = "%0.2f" % x.info['cpu_percent']
@@ -58,7 +58,7 @@ def teste():
                 print("Leitura inserida na tabela Processos")
 
             except pyodbc.Error as err:
-                crsr.roolback()
+                crsr.rollback()
                 print("Something went wrong: {}".format(err))
             
 Conexao()
