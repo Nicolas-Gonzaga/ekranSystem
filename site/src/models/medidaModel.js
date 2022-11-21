@@ -289,5 +289,6 @@ module.exports = {
     alertar,
     mediaT2,
     mediaT3,
-    dadosHistorico
+    dadosHistorico,
+    buscarMedidasTempoRealMapas
 }

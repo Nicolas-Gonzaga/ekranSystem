@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <script>
+        carregarTotem = window.location.search
+        carregarTotem = carregarTotem.substring(1, carregarTotem.length)
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <title>Mapas | Dashboard</title>
+</head>
+<body>
+    <a href="mapaDash.html?geral">geral dos totens</a>
+    <a href="mapaDash.html?totem1">totem1</a>
+    <a href="mapaDash.html?totem2">totem2</a>
+    <a href="mapaDash.html?totem3">totem3</a>
+    <p id="idd"></p>
+    <div id="teste" style="width: 600px; transition: 1000ms;">
+        <p id="map" style="height: 400px;"></p>
+    </div>
+    <button onclick="fechar()">fechar</button>
+</body>
+</html>
+<script>
+    idd.innerHTML = carregarTotem
+
+    cordes = []
+    selectMapasDash()
+
+    // Inicio o mapa após todas as configurações e cálculos
+    function criarMapa(cords) {
+    // Descobrir qual totem está sendo usado pelo URL, e então coletar os valores por SELECTs no banco. Valores mocados temporariamente
+    if (carregarTotem == "totem1") {
+        cords = [cords[0]]
+    } else if (carregarTotem == "totem2") {
+        cords = [cords[1]]
+    } else if (carregarTotem == "totem3") {
+        cords = [cords[2]]
+    }
+    centro = []
+    for (i = 0; i < cords.length; i++) {
+        console.log(cords[i])
+        centro.push([cords[i].latitude, cords[i].longitude])
+    }
+
+    if (cords.length > 1) {
+        centroMapa = L.polygon(centro).getBounds().getCenter()
+    } else {
+        centroMapa = {lat: cords[0].latitude, lng: cords[0].longitude}
+    }
+    console.log(centroMapa)
+
+    maiorDistancia = 0
+    for (i = 0; i < cords.length; i++) {
+        if (centroMapa.lat >= cords[i].latitude) {deltaY = centroMapa.lat - cords[i].latitude} else {deltaY = cords[i].latitude - centroMapa.lat}
+        if (centroMapa.lng >= cords[i].longitude) {deltaX = centroMapa.lng - cords[i].longitude} else {deltaX = cords[i].longitude - centroMapa.lng}
+        distancia = ((deltaY**2) + (deltaX**2))**1/2
+        if (distancia > maiorDistancia) {
+            maiorDistancia = distancia
+        }
+    }
+    console.log(`Maior distância a partir do centro: ${maiorDistancia}`)
+
+    // Defino o zoom baseado na distância que eu acabei de coletar, o mapa não pode ser responsivo por esse motivo. Os valores teriam que mudar
+    // TODO: Depois do front configurar direito isso aqui
+    if (maiorDistancia >= 0) {
+        zoomMapa = 15
+        if (maiorDistancia > 0) {
+            zoomMapa = 10
+            if (maiorDistancia > 0.130) {
+                zoomMapa = 9
+                if (maiorDistancia > 0.375) {
+                    zoomMapa = 8
+                    if (maiorDistancia > 1.375) {
+                        zoomMapa = 3
+                        if (maiorDistancia > 22000) {
+                            zoomMapa = 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    var LeafIcon = L.Icon.extend({
+        options: {
+            iconSize: [50, 50],
+            iconAnchor: [24, 50]
+        }
+    })
+        console.log(centroMapa)
+        var map = L.map('map').setView([centroMapa.lat, centroMapa.lng], zoomMapa)
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map)
+        for (i = 0; i < cords.length; i++) {
+            var greenIcon = new LeafIcon({iconUrl: "./assets/img/totemAeroporto.png"})
+            L.marker([cords[i].latitude, cords[i].longitude], {icon: greenIcon}).addTo(map)
+            L.circle([cords[i].latitude, cords[i].longitude], {
+                color: '#0087ff',
+                fillColor: '#0bc9f4',
+                fillOpacity: 0.2,
+                radius: 1.708,
+            }).addTo(map)
+        }
+    }
+
+    function fechar() {
+        teste.style.width = '0px'
+    }
+
+    function selectMapasDash() {
+        var valores = 50000
+        fetch(`/medidas/tempo-real-mapas/${valores}`, {
+            method: "GET"
+        }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    cordes.push(resposta[0])
+                    var valores = 50001
+                    fetch(`/medidas/tempo-real-mapas/${valores}`, {
+                        method: "GET"
+                    }).then(function (response) {
+                        if (response.ok) {
+                            response.json().then(function (resposta) {
+                                cordes.push(resposta[0])
+                                var valores = 50002
+                                fetch(`/medidas/tempo-real-mapas/${valores}`, {
+                                    method: "GET"
+                                }).then(function (response) {
+                                    if (response.ok) {
+                                        response.json().then(function (resposta) {
+                                            cordes.push(resposta[0])
+                                            console.log(cordes)
+                                            criarMapa(cordes)
+                                        })
+                                    }
+                                })
+                            })
+                        }
+                    })
+                })
+            }
+        })
+    }
+</script>
