@@ -27,12 +27,15 @@
 <script>
     idd.innerHTML = carregarTotem
 
-    cordes = []
     selectMapasDash()
-
+    
     // Inicio o mapa após todas as configurações e cálculos
     function criarMapa(cords) {
     // Descobrir qual totem está sendo usado pelo URL, e então coletar os valores por SELECTs no banco. Valores mocados temporariamente
+    cords[1].latitude *= 1.01
+    cords[1].longitude *= 1.01
+    cords[2].latitude *= 0.99
+    cords[2].longitude *= 0.99
     if (carregarTotem == "totem1") {
         cords = [cords[0]]
     } else if (carregarTotem == "totem2") {
@@ -103,7 +106,7 @@
                 color: '#0087ff',
                 fillColor: '#0bc9f4',
                 fillOpacity: 0.2,
-                radius: 1.708,
+                radius: cords[i].precisao,
             }).addTo(map)
         }
     }
@@ -113,6 +116,7 @@
     }
 
     function selectMapasDash() {
+        cordes = []
         var valores = 50000
         fetch(`/medidas/tempo-real-mapas/${valores}`, {
             method: "GET"

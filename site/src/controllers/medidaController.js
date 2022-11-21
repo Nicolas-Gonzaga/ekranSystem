@@ -226,23 +226,21 @@ function mediaT1(req, res) {
         });
     }
 
-    function buscarMedidasTempoRealMapas(fkTotem) {
+    function buscarMedidasTempoRealMapas(req, res) {
     
-        instrucaoSql = ''
+        var fkTotem = req.params.fkTotem
     
-        if (process.env.AMBIENTE_PROCESSO == "producao") {
-            instrucaoSql = `select top 1 * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc`
-    
-        } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-            instrucaoSql = `select * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc limit 1`
-        }
-        else {
-            console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
-            return
-        }
-    
-        console.log("Executando a instrução SQL: \n" + instrucaoSql);
-        return database.executar(instrucaoSql);
+        medidaModel.buscarMedidasTempoRealMapas(fkTotem).then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
     }
     
     
