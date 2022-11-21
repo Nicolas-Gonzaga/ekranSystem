@@ -55,15 +55,15 @@ function buscarMedidaTotem(fkTotem, limite_linhas) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function alertar(metrica, frase, componente, totem) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verificar():",metrica, frase, componente, totem);
+function alertar(metrica, frase, componente, totem, empresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verificar():",metrica, frase, componente, totem, empresa);
     
     
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
 
-        INSERT INTO Alerta (componente,metrica, descricao, fkTotem) VALUES ( '${componente}', '${metrica}', '${frase}', '${totem}');
+        INSERT INTO alerta ( empresa, componente,metrica, descricao, fkTotem) VALUES ( '${empresa}', '${componente}', '${metrica}', '${frase}', '${totem}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -277,7 +277,29 @@ function dadosHistorico(limite_linhas, fkTotem) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+function buscarEmpresa(empresa) {
+    instrucaoSql = ''
 
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top 1 diskPercent from LoocaLeitura join Leitura on Leitura.idLeitura = fkLeitura order by Leitura.idLeitura;`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit 1` */
+    `select nomeEmpresa from empresa where idEmpresa = '${empresa}'`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     buscarUltimasMedidas,
@@ -290,5 +312,5 @@ module.exports = {
     mediaT2,
     mediaT3,
     dadosHistorico,
-    buscarMedidasTempoRealMapas
+    buscarEmpresa
 }

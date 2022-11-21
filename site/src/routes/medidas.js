@@ -20,6 +20,9 @@ router.get("/tempo-real-totem/:fkTotem", function (req, res) {
 router.get("/totem/:fkTotem", function (req, res) {
     medidaController.buscarMedidaTotem(req, res);
 })
+router.get("/empresa/:fkEmpresa", function (req, res) {
+    medidaController.buscarEmpresa(req, res);
+})
 
 router.get("/ultimaDisco/:idArmazem", function (req, res) {
     medidaController.buscarUltimaMedidaDisco(req, res);

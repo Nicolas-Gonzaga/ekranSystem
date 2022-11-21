@@ -705,6 +705,9 @@
 
 <script>
   function alertas(empresa, componente, metrica, frase) {
+    
+	
+
     const options = {
       method: 'POST',
       headers: {
@@ -729,10 +732,11 @@
 
 function verificar(metrica, componente) {
   const fkTotem = 50000
+  
 
             var frase = ""
+          
             var empresa = sessionStorage.fkEmpresa
-
             // incluir uma nova medida de temperatura 
             if(metrica >=70){
               if (metrica >= 70 && metrica < 80) {
@@ -744,13 +748,28 @@ function verificar(metrica, componente) {
               Swal.fire("ALERTA", `${componente} está sobrecarregada!`, "danger");
               frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
             }
-            alertas("Ekran", componente, metrica, frase)
+            
+            
         
               console.log("INICIANDO O FETCH");
 
               
 			// Enviando o valor da nova input
-			fetch("/medidas/alertas", {
+ var empresa = sessionStorage.FK_EMPRESA
+        fetch(`/medidas/empresa/${empresa}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+          response.json().then(function (resposta) {
+            console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+            alertas(resposta,componente,metrica,frase);
+          });
+        } else {
+          console.error('Nenhum dado encontrado ou erro na API');
+        }
+      })
+        .catch(function (error) {
+          console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+        fetch("/medidas/alertas", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -761,8 +780,8 @@ function verificar(metrica, componente) {
 					metricaServer: metrica,
 					fraseServer: frase,
           componenteServer: componente,
-          fkTotemServer: fkTotem
-
+          fkTotemServer: fkTotem,
+          empresaServer: empresa
 					
 				})
 			}).then(function (resposta) {
@@ -779,13 +798,12 @@ function verificar(metrica, componente) {
 				console.log(`#ERRO: ${resposta}`);
 
 			});
-
-			return false;
-            
     
-        }
+
+		return false;
 
       }
+    }
 
   function disk() {
     obterDadosGrafico()

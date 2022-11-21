@@ -20,12 +20,33 @@ function buscarUltimasMedidas(req, res) {
         res.status(500).json(erro.sqlMessage);
     });
 }
+function buscarEmpresa(req, res) {
+    
+    var empresa = req.params.empresa;
+
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.buscarMedidasEmTempoReal(empresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+    }
+
+
 function alertar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var metrica = req.body.metricaServer;
     var frase = req.body.fraseServer;
     var componente = req.body.componenteServer;
     var totem = req.body.fkTotemServer;
+    var empresa = req.body.empresaserver;
 
     // Faça as validações dos valores
 
@@ -42,7 +63,7 @@ function alertar(req, res) {
     } 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
 
-    medidaModel.alertar(metrica, frase, componente, totem)
+    medidaModel.alertar(metrica, frase, componente, totem, empresa)
         .then(
             function (resultado) {
                 res.json(resultado);
@@ -239,5 +260,6 @@ module.exports = {
     alertar,
     mediaT2,
     mediaT3,
-    buscarMedidasTempoRealMapas
+    buscarMedidasTempoRealMapas,
+    buscarEmpresa
 }
