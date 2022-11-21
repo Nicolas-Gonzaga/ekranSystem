@@ -277,10 +277,28 @@ function dadosHistorico(limite_linhas, fkTotem) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+
+function buscarMedidasTempoRealMapas(fkTotem) {
+
+    instrucaoSql = ''
+// select max(idLocalization) from geolocalizationLeitura GROUP BY fkTotem
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top 1 * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc`
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `select * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc limit 1`
+    }
+    else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 function buscarEmpresa(empresa) {
     instrucaoSql = ''
 
-<<<<<<< HEAD
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top 1 diskPercent from LoocaLeitura join Leitura on Leitura.idLeitura = fkLeitura order by Leitura.idLeitura;`;
 
@@ -294,30 +312,13 @@ function buscarEmpresa(empresa) {
     order by idRegistros desc limit 1` */
     `select nomeEmpresa from empresa where idEmpresa = '${empresa}'`;
     } else {
-=======
-function buscarMedidasTempoRealMapas(fkTotem) {
-
-    instrucaoSql = ''
-// select max(idLocalization) from geolocalizationLeitura GROUP BY fkTotem
-    if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top 1 * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc`
-
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc limit 1`
-    }
-    else {
->>>>>>> 6455a8e801e0f189b98eb280f83faf55acc5fd21
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
     }
 
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+    console.log("Executando a instrução SQL: \n" + instrucaoSql)
+    return database.executar(instrucaoSql)
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 6455a8e801e0f189b98eb280f83faf55acc5fd21
 
 module.exports = {
     buscarUltimasMedidas,
@@ -330,5 +331,6 @@ module.exports = {
     mediaT2,
     mediaT3,
     dadosHistorico,
+    buscarMedidasTempoRealMapas,
     buscarEmpresa
 }
