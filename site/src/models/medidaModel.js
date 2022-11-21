@@ -278,6 +278,25 @@ function dadosHistorico(limite_linhas, fkTotem) {
     return database.executar(instrucaoSql);
 }
 
+function buscarMedidasTempoRealMapas(fkTotem) {
+
+    instrucaoSql = ''
+// select max(idLocalization) from geolocalizationLeitura GROUP BY fkTotem
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top 1 * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc`
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `select * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc limit 1`
+    }
+    else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
     buscarUltimasMedidas,
