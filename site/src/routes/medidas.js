@@ -44,8 +44,8 @@ router.get("/dadosHistorico/:fkTotem", function (req, res) {
     medidaController.dadosHistorico(req, res);
 });
 
-router.get("/tempo-real-mapas/:fkTotem", function (req, res) {
-    medidaController.buscarMedidasTempoRealMapas(req, res)
+router.get("/static-mapas", function (req, res) {
+    medidaController.buscarMedidasMapas(req, res)
 })
 
 module.exports = router;

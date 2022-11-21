@@ -212,7 +212,6 @@ function mediaT1(req, res) {
     
         var fkTotem = req.params.fkTotem
     
-    
         medidaModel.dadosHistorico(limite_linhas, fkTotem).then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
@@ -226,11 +225,9 @@ function mediaT1(req, res) {
         });
     }
 
-    function buscarMedidasTempoRealMapas(req, res) {
+    function buscarMedidasMapas(req, res) {
     
-        var fkTotem = req.params.fkTotem
-    
-        medidaModel.buscarMedidasTempoRealMapas(fkTotem).then(function (resultado) {
+        medidaModel.buscarMedidasMapas().then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {
@@ -258,6 +255,6 @@ module.exports = {
     alertar,
     mediaT2,
     mediaT3,
-    buscarMedidasTempoRealMapas,
+    buscarMedidasMapas,
     buscarEmpresa
 }

@@ -278,18 +278,11 @@ function dadosHistorico(limite_linhas, fkTotem) {
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasTempoRealMapas(fkTotem) {
-
-    instrucaoSql = ''
-// select max(idLocalization) from geolocalizationLeitura GROUP BY fkTotem
+function buscarMedidasMapas() {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top 1 * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc`
-
-    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
-        instrucaoSql = `select * from geolocalizationLeitura where fkTotem = ${fkTotem} order by idLocalization desc limit 1`
-    }
-    else {
-        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        instrucaoSql = `select t1.* from geolocalizationLeitura t1 inner join (select max(idLocalization) as idLocalization from geolocalizationLeitura GROUP BY fkTotem) t2 on t1.idLocalization = t2.idLocalization`
+    } else {
+        console.log("\nEsta API só suporta rodar em ambiente cloud\n");
         return
     }
 
@@ -331,6 +324,6 @@ module.exports = {
     mediaT2,
     mediaT3,
     dadosHistorico,
-    buscarMedidasTempoRealMapas,
+    buscarMedidasMapas,
     buscarEmpresa
 }
