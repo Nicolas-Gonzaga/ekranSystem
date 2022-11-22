@@ -22,11 +22,12 @@ function buscarUltimasMedidas(req, res) {
 }
 function buscarEmpresa(req, res) {
     
-    var empresa = req.params.empresa;
+    var fkempresa = req.params.empresa;
 
     console.log(`Recuperando medidas em tempo real`);
+    console.log(fkempresa)
 
-    medidaModel.buscarMedidasEmTempoReal(empresa).then(function (resultado) {
+    medidaModel.buscarEmpresa(fkempresa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -46,7 +47,7 @@ function alertar(req, res) {
     var frase = req.body.fraseServer;
     var componente = req.body.componenteServer;
     var totem = req.body.fkTotemServer;
-    var empresa = req.body.empresaserver;
+    var fkempresa= req.body.empresaServer;
 
     // Faça as validações dos valores
 
@@ -63,7 +64,7 @@ function alertar(req, res) {
     } 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
 
-    medidaModel.alertar(metrica, frase, componente, totem, empresa)
+    medidaModel.alertar(metrica, frase, componente, totem, fkempresa)
         .then(
             function (resultado) {
                 res.json(resultado);

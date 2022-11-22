@@ -692,49 +692,72 @@
       .then(response => console.log(response))
       .catch(err => console.error(err));
   }
-  function verificardisco(metrica) {
-    var frase = ""
-    // incluir uma nova medida de temperatura  
-    if (metrica >= 60 && metrica < 80) {
-      Swal.fire("CUIDADO", "Disco está sobrecarregando!", "warning");
-      frase = "Alerta: Disco está ficando sobrecarregado! Espaço livre: "
-      console.log('Cheguei aqui')
-      alertas("Ekran", "Disco", metrica, frase)
-    } else if (metrica >= 80) {
-      Swal.fire("ALERTA", "Disco está sobrecarregada!", "danger");
-      frase = "Perigo: Disco sobrecarregado! Espaço livre: "
-      alertas("Ekran", "Disco", metrica, frase)
-    }
-  }
-  function verificarram(metrica) {
-    var frase = ""
-    // incluir uma nova medida de temperatura  
-    if (metrica >= 60 && metrica < 80) {
-      Swal.fire("CUIDADO", "RAM está ficando sobrecarregada!", "warning");
-      frase = "Alerta: RAM está ficando sobrecarregado! Porcentagem de uso: "
-      console.log('Cheguei aqui')
-      alertas("Ekran", "RAM", metrica, frase)
-    } else if (metrica >= 80) {
-      Swal.fire("ALERTA", "RAM está sobrecarregada!", "danger");
-      frase = "Perigo: RAM está sobrecarregado! Porcentagem de uso: "
-      alertas("Ekran", "RAM", metrica, frase)
-    }
-  }
-  function verificarcpu(metrica) {
-    var frase = ""
-    // incluir uma nova medida de temperatura  
-    if (metrica >= 60 && metrica < 80) {
-      Swal.fire("CUIDADO", "A temperatura está elevada!", "warning");
-      frase = "Alerta: "
-      console.log('Cheguei aqui')
-      alertas("Ekran", "CPU", metrica, frase)
-    } else if (metrica >= 80) {
-      Swal.fire("ALERTA", "A temperatura passou da ideal!", "danger");
-      frase = "Perigo: "
-      alertas("Ekran", "CPU", metrica, frase)
-    }
-  }
+  function verificar(metrica, componente) {
+  const fkTotem = 50001
+  
+  
+  var empresa = sessionStorage.FK_EMPRESA
+  var nome = sessionStorage.NOME_EMPRESA
+            var frase = ""
+          
+            
+            // incluir uma nova medida de temperatura 
+            if(metrica >=70){
+              if (metrica >= 70 && metrica < 80) {
+                Swal.fire("CUIDADO", `${componente} está ficando sobrecarregada!`, "warning");
+                frase = `Alerta: O ${componente} do totem ${fkTotem}está ficando sobrecarregado! Porcentagem de uso: `
+                console.log('Cheguei aqui')
+                
+              } else if (metrica >= 80) {
+                Swal.fire("ALERTA", `${componente} está sobrecarregada!`, "danger");
+                frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
+              }
+              alertas(nome,componente,metrica,frase);
+            
+            
+        
+            console.log("INICIANDO O FETCH");
+            
+              
+			// Enviando o valor da nova input
+        fetch("/medidas/alertas", {
+				method: "POST",
+				headers: {
+          "Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+					// Agora vá para o arquivo routes/usuario.js
+					metricaServer: metrica,
+					fraseServer: frase,
+          componenteServer: componente,
+          fkTotemServer: fkTotem,
+          empresaServer: empresa
+					
+				})
+			}).then(function (resposta) {
+				console.log("entrei no fetch");
+				console.log("resposta: ", resposta);
+        
+				if (resposta.ok) {
+                console.log("Inserts feitos com sucesso");
+                
+              } else {
+                console.log("Erro nos inserts");
+				}
+			}).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
 
+			});
+    
+      
+      return false;
+      
+    }
+
+  }
+  
+  
   function disk() {
     obterDadosGrafico()
     function obterDadosGrafico(id) {
