@@ -280,7 +280,15 @@ function dadosHistorico(limite_linhas, fkTotem) {
 
 function buscarMedidasMapas() {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select t1.* from geolocalizationLeitura t1 inner join (select max(idLocalization) as idLocalization from geolocalizationLeitura GROUP BY fkTotem) t2 on t1.idLocalization = t2.idLocalization`
+        instrucaoSql = `select t1.*, t4.idUnidade, t4.localUnidade, t5.nomeEmpresa from geolocalizationLeitura t1
+        inner join (select max(idLocalization) as idLocalization from geolocalizationLeitura GROUP BY fkTotem) t2
+            on t1.idLocalization = t2.idLocalization
+        join Totem t3
+            on t3.idTotem = t1.fkTotem
+        join Unidade t4
+            on t3.fkUnidade = t4.idUnidade
+        join Empresa t5
+            on t4.fkEmpresa = t5.idEmpresa`
     } else {
         console.log("\nEsta API só suporta rodar em ambiente cloud\n");
         return

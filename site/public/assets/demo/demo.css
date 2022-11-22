@@ -150,3 +150,49 @@
     font-size: 1em;
   }
 }
+
+
+.postcard {
+  width: 1100px;
+  height: 475px;
+}
+
+.postcardPlaceholder {
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+}
+
+.postcardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.3s;
+  transform-style: preserve-3d;
+}
+
+.virado {
+  transform: rotateY(180deg);
+}
+
+.postcardFront, .postcardBack {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.postcardBack {
+  background-color: red;
+  color: white;
+  transform: rotateY(180deg)
+}
+
+.postcardBtn {
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+  top: 5px;
+}
