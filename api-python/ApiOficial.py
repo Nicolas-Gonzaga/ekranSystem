@@ -1,27 +1,23 @@
 import psutil
-# import pyodbc
+import pyodbc
 import mysql.connector
-from mysql.connector import errorcode
+#from mysql.connector import errorcode
 import datetime
 from datetime import date
 from datetime import datetime
 #https://learn.microsoft.com/pt-br/azure/azure-sql/database/connect-query-python?view=azuresql
-# cnxn = pyodbc.connect('DRIVER={Devart ODBC Driver for SQLAzure};'
-#         'Server=dbekran.database.windows.net;'
-#         'Database=dbeKran;Port=3306;'
-#         'User ID=eKranAdm;Password=1sis@grupo6'
-#         'Trusted_connection = yes;')
-#         cursor = cnxn.cursor()
+cnxn = pyodbc.connect('Driver={ODBC Driver 13 for SQL Server};Server=tcp:dbekran.database.windows.net,1433;Database=dbeKran;Uid=eKranAdm;Pwd=1sis@grupo6;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+cursor = cnxn.cursor()
 
-# config = {
-#   'host':'dbekran',
-#   'user':'eKranAdm@dbeKran',
-#   'password':'1sis@grupo6',
-#   'database':'dbeKran',
-#   'client_flags': [mysql.connector.ClientFlag.SSL],
-#   'ssl_ca': './DigiCertGlobalRootG2.crt.pem'
-# }
-# conn = ''
+config = {
+   'host':'dbekran',
+   'user':'eKranAdm@dbeKran',
+   'password':'1sis@grupo6',
+   'database':'dbeKran',
+   'client_flags': [mysql.connector.ClientFlag.SSL],
+   'ssl_ca': './DigiCertGlobalRootG2.crt.pem'
+ }
+conn = ''
 i = 0
 while True:
     i += 1
@@ -39,17 +35,7 @@ while True:
     # else:
     #     cursor = conn.cursor()
 
-    try:
-        db_connection = mysql.connector.connect(
-            host='localhost', user='ekran', password='urubu100', database='ekran')
-    except mysql.connector.Error as error:
-        if error.errno == errorcode.ER_BAD_DB_ERROR:
-            print("Não encontrei o banco")
-        elif error.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            print("Credenciais erradas")
-        else:
-            print(error)
-
+   
     # Processador
     arrayAtual = psutil.cpu_percent(interval=3, percpu=True)
     psutilCpuPercent = 0
@@ -79,17 +65,19 @@ while True:
     mbUpload = [psutilMbUpload, psutilMbUpload * 1.1, psutilMbUpload * 0.95]
     mbDownload = [psutilMbDownload, psutilMbDownload *
                   1.1, psutilMbDownload * 0.95]
+    
+    hora = datetime.now().strftime('%H:%M')
+    dia = date.today().strftime('%Y/%m/%d')
 
     print("------------------------------------------")
 
-    cursor = db_connection.cursor()
+    #cursor = db_connection.cursor()
     # cursor = conn.cursor()
     fkTotem = 50000
     f = 0
     while f < len(cpuPercent):
-        hora = datetime.now().strftime('%H:%M')
-        dia = date.today().strftime('%Y/%m/%d')
-        sql = "INSERT INTO Leitura (fkTotem, cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, horario, dia) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"
+       
+        sql = "INSERT INTO Leitura (fkTotem, cpuPercent, diskPercent, ramPercent, mbUpload, mbDownload, horario, dia) VALUES (?,?,?,?,?,?,?,?)"
         values = [fkTotem, float("%0.2f" % (cpuPercent[f])), float("%0.2f" % (diskPercent[f])), float(
             "%0.2f" % (ramPercent[f])), float("%0.3f" % (mbUpload[f])), float("%0.3f" % (mbDownload[f])), hora, dia]
         print(values)
@@ -100,7 +88,5 @@ while True:
     print(i, "valor inserindo no banco.")
     print("------------------------------------------")
     print("\r")
-    db_connection.commit()
-    db_connection.close()
-    # conn.commit()
+    cnxn.commit()
     # conn.close()
