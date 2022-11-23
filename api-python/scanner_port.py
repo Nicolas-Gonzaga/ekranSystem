@@ -3,6 +3,10 @@ import mysql.connector
 from mysql.connector import errorcode
 import time
 import pyodbc
+import datetime
+from datetime import date
+from datetime import datetime
+
 
 #----------------------------------------------------------------------------------------------------------
 #Iniciando a conexão com a Azure
@@ -70,6 +74,9 @@ while True:
             status_porta.append(1)
         else:
              status_porta.append(0)
+        
+        hora = datetime.now().strftime('%H:%M')
+        dia = date.today().strftime('%Y/%m/%d')
 
 # ---------------------------------------------------------------------
 
@@ -80,12 +87,14 @@ while True:
     fkTotem = 5000
 
     while fkTotem <= 5002:
+        
     
             for i, portaAtual in enumerate(portas):
+             
                  
                 cursor = cnxn.cursor()
-                sql = "INSERT INTO porta (fkTotem, portaAberta, porta, statusPorta) VALUES (?,?,?,?)"
-                values = [fkTotem,portas_aberta, portaAtual,status_porta[i]]
+                sql = "INSERT INTO porta (fkTotem, portaAberta, porta, statusPorta,horario,dia) VALUES (?,?,?,?,?,?)"
+                values = [fkTotem,portas_aberta, portaAtual,status_porta[i],hora,dia]
                 print(values)
                 cursor.execute(sql, values)
 
