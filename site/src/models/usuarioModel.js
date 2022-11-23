@@ -12,7 +12,7 @@ function listar() {
 function logar(logemail, logpass, logpermissoes) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function logar(): ", logemail, logpass, logpermissoes)
     var instrucao = `
-        SELECT * FROM usuario WHERE email = '${logemail}' AND senha = '${logpass}' AND fkPerfil = ${logpermissoes};
+        SELECT usuario.*, empresa.nomeEmpresa FROM usuario join empresa on fkEmpresa = idEmpresa WHERE email = '${logemail}' AND senha = '${logpass}' AND fkPerfil = ${logpermissoes};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

@@ -223,6 +223,7 @@
 					sessionStorage.EMAIL_USUARIO = json.email
 					sessionStorage.PERMISSOES = json.fkPerfil
 					sessionStorage.ID_USUARIO = json.idUsuario
+					sessionStorage.NOME_EMPRESA = json.nomeEmpresa
 
 
 					setTimeout(function () {
@@ -231,7 +232,7 @@
 						} else if (logPermissoes == "222") {
 							window.location = "../funDash.html";
 						} else if (logPermissoes == "333") {
-							window.location = "../cadEmpresa.html";
+							window.location = "../dashboardTeste.html";
 						} else {
 							window.location = "../";
 						}
