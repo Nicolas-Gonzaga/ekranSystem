@@ -255,7 +255,7 @@ function dadosHistorico(limite_linhas, fkTotem) {
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        instrucaoSql = `select top ${limite_linhas} dia, horario, fkTotem, cpuPercent, ramPercent, diskPercent from Leitura 
+        instrucaoSql = `select top 6 dia, horario, fkTotem, cpuPercent, ramPercent, diskPercent from Leitura 
         join LoocaLeitura on Leitura.idLeitura = LoocaLeitura.fkLeitura 
         where convert(date, dia) = convert(date, getdate()) and fkTotem = ${fkTotem};`;
 

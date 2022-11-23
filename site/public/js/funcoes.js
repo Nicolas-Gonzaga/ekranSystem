@@ -305,12 +305,13 @@ function buscarDadosHistorico(fkTotem) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos Histórico 1: ${JSON.stringify(resposta)}`);
-                for(i=0;i<resposta.length;i++){
-                dadosHistT1.cpu.push(resposta[i].cpuPercent)
-                dadosHistT1.ram.push(resposta[i].ramPercent)
-                dadosHistT1.disco.push(resposta[i].diskPercent)
-                dadosHistT1.dia.push(resposta[i].dia)
-                dadosHistT1.hora.push(resposta[i].horario)
+                resposta.reverse()
+                for (i = 0; i < resposta.length; i++) {
+                    dadosHistT1.cpu.push(resposta[i].cpuPercent)
+                    dadosHistT1.ram.push(resposta[i].ramPercent)
+                    dadosHistT1.disco.push(resposta[i].diskPercent)
+                    dadosHistT1.dia.push(resposta[i].dia)
+                    dadosHistT1.hora.push(resposta[i].horario)
                 }
             });
         } else {
@@ -326,13 +327,14 @@ function buscarDadosHistorico(fkTotem) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos Histórico 2: ${JSON.stringify(resposta)}`);
-                for(i=0;i<resposta.length;i++){
+                resposta.reverse()
+                for (i = 0; i < resposta.length; i++) {
                     dadosHistT2.cpu.push(resposta[i].cpuPercent)
                     dadosHistT2.ram.push(resposta[i].ramPercent)
                     dadosHistT2.disco.push(resposta[i].diskPercent)
                     dadosHistT2.dia.push(resposta[i].dia)
                     dadosHistT2.hora.push(resposta[i].horario)
-                    }
+                }
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -347,13 +349,14 @@ function buscarDadosHistorico(fkTotem) {
         if (response.ok) {
             response.json().then(function (resposta) {
                 console.log(`Dados recebidos Histórico 3: ${JSON.stringify(resposta)}`);
-                for(i=0;i<resposta.length;i++){
+                resposta.reverse()
+                for (i = 0; i < resposta.length; i++) {
                     dadosHistT3.cpu.push(resposta[i].cpuPercent)
                     dadosHistT3.ram.push(resposta[i].ramPercent)
                     dadosHistT3.disco.push(resposta[i].diskPercent)
                     dadosHistT3.dia.push(resposta[i].dia)
                     dadosHistT3.hora.push(resposta[i].horario)
-                    }
+                }
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -365,3 +368,37 @@ function buscarDadosHistorico(fkTotem) {
 }
 
 
+function teste() {
+    for (i = 0; i < dadosHistT1.cpu.length; i++) {
+        cpu = [tdTotem1Cpu0, tdTotem1Cpu1, tdTotem1Cpu2,tdTotem1Cpu3, tdTotem1Cpu4, tdTotem1Cpu5]
+        ram = [tdTotem1Ram0, tdTotem1Ram1, tdTotem1Ram2, tdTotem1Ram3, tdTotem1Ram4, tdTotem1Ram5]
+        disco = [tdTotem1Disco0, tdTotem1Disco1, tdTotem1Disco2, tdTotem1Disco3, tdTotem1Disco4, tdTotem1Disco5]
+        hora = [tdTotem1Hora0, tdTotem1Hora1, tdTotem1Hora2, tdTotem1Hora3, tdTotem1Hora4, tdTotem1Hora5]
+        cpu[i].innerHTML = `${dadosHistT1.cpu[i]}%`
+        ram[i].innerHTML = `${dadosHistT1.ram[i]}%`
+        disco[i].innerHTML = `${dadosHistT1.disco[i]}%`
+        hora[i].innerHTML = dadosHistT1.hora[i]
+    }
+
+    for (i = 0; i < dadosHistT2.cpu.length; i++) {
+        cpu = [tdTotem2Cpu0, tdTotem2Cpu1, tdTotem2Cpu2,tdTotem2Cpu3, tdTotem2Cpu4, tdTotem2Cpu5]
+        ram = [tdTotem2Ram0, tdTotem2Ram1, tdTotem2Ram2, tdTotem2Ram3, tdTotem2Ram4, tdTotem2Ram5]
+        disco = [tdTotem2Disco0, tdTotem2Disco1, tdTotem2Disco2, tdTotem2Disco3, tdTotem2Disco4, tdTotem2Disco5]
+        hora = [tdTotem2Hora0, tdTotem2Hora1, tdTotem2Hora2, tdTotem2Hora3, tdTotem2Hora4, tdTotem2Hora5]
+        cpu[i].innerHTML = `${dadosHistT2.cpu[i]}%`
+        ram[i].innerHTML = `${dadosHistT2.ram[i]}%`
+        disco[i].innerHTML = `${dadosHistT2.disco[i]}%`
+        hora[i].innerHTML = dadosHistT2.hora[i]
+    }
+
+    for (i = 0; i < dadosHistT3.cpu.length; i++) {
+        cpu = [tdTotem3Cpu0, tdTotem3Cpu1, tdTotem3Cpu2,tdTotem3Cpu3, tdTotem3Cpu4, tdTotem3Cpu5]
+        ram = [tdTotem3Ram0, tdTotem3Ram1, tdTotem3Ram2, tdTotem3Ram3, tdTotem3Ram4, tdTotem3Ram5]
+        disco = [tdTotem3Disco0, tdTotem3Disco1, tdTotem3Disco2, tdTotem3Disco3, tdTotem3Disco4, tdTotem3Disco5]
+        hora = [tdTotem3Hora0, tdTotem3Hora1, tdTotem3Hora2, tdTotem3Hora3, tdTotem3Hora4, tdTotem3Hora5]
+        cpu[i].innerHTML = `${dadosHistT3.cpu[i]}%`
+        ram[i].innerHTML = `${dadosHistT3.ram[i]}%`
+        disco[i].innerHTML = `${dadosHistT3.disco[i]}%`
+        hora[i].innerHTML = dadosHistT3.hora[i]
+    }
+}
