@@ -48,4 +48,9 @@ router.get("/static-mapas", function (req, res) {
     medidaController.buscarMedidasMapas(req, res)
 })
 
+router.get("/processos", function (req, res) {
+    medidaController.processos(req, res)
+})
+
+
 module.exports = router;
