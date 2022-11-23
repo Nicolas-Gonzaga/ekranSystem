@@ -18,7 +18,7 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
         date_format(momento, '%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit ${limite_linhas}` */
-    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura order by fkLeitura desc limit ${limite_linhas}`;
+            `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura order by fkLeitura desc limit ${limite_linhas}`;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -29,7 +29,7 @@ function buscarUltimasMedidas(idAquario, limite_linhas) {
     return database.executar(instrucaoSql);
 }
 function buscarMedidaTotem(fkTotem, limite_linhas) {
-    
+
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -45,7 +45,7 @@ function buscarMedidaTotem(fkTotem, limite_linhas) {
         date_format(momento, '%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit ${limite_linhas}` */
-    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura where fkTotem = ${fkTotem} order by fkLeitura desc limit ${limite_linhas}`;
+            `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura where fkTotem = ${fkTotem} order by fkLeitura desc limit ${limite_linhas}`;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -55,15 +55,15 @@ function buscarMedidaTotem(fkTotem, limite_linhas) {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-function alertar(metrica, frase, componente, totem) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verificar():",metrica, frase, componente, totem);
-    
-    
+function alertar(metrica, frase, componente, totem, fkempresa) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function verificar():", metrica, frase, componente, totem, fkempresa);
+
+
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucao = `
 
-        INSERT INTO Alerta (componente,metrica, descricao, fkTotem) VALUES ( '${componente}', '${metrica}', '${frase}', '${totem}');
+        INSERT INTO alerta ( empresa, componente,metrica, descricao, fkTotem) VALUES ( (select nomeEmpresa from empresa where idEmpresa = ${fkempresa}), '${componente}', '${metrica}', '${frase}', '${totem}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
@@ -86,19 +86,19 @@ function buscarMedidasEmTempoReal(idAquario) {
         DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit 1` */
-    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura order by idLeitura desc limit 1`;
-    // } else if(window.location.href == "totem1.html"){
-    //     instrucaoSql = /* `select 
-    //     REGISTRO_TEMP, 
-    //     REGISTRO_UMID, 
-    //     REGISTRO_MOMENTO,
-    //     DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
-    // from registros  
-    // order by idRegistros desc limit 1` */
-    // `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura join totem on fkTotem = idTotem where fkTotem = 50000  order by idLeitura desc limit 1` ;
+            `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura order by idLeitura desc limit 1`;
+        // } else if(window.location.href == "totem1.html"){
+        //     instrucaoSql = /* `select 
+        //     REGISTRO_TEMP, 
+        //     REGISTRO_UMID, 
+        //     REGISTRO_MOMENTO,
+        //     DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+        // from registros  
+        // order by idRegistros desc limit 1` */
+        // `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura join totem on fkTotem = idTotem where fkTotem = 50000  order by idLeitura desc limit 1` ;
 
-    // 
-}
+        // 
+    }
     else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -125,19 +125,19 @@ function buscarMedidasTempoRealporTotem(fkTotem) {
         DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit 1` */
-    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura where fkTotem = ${fkTotem} order by idLeitura desc limit 1`;
-    // } else if(window.location.href == "totem1.html"){
-    //     instrucaoSql = /* `select 
-    //     REGISTRO_TEMP, 
-    //     REGISTRO_UMID, 
-    //     REGISTRO_MOMENTO,
-    //     DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
-    // from registros  
-    // order by idRegistros desc limit 1` */
-    // `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura join totem on fkTotem = idTotem where fkTotem = 50000  order by idLeitura desc limit 1` ;
+            `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura where fkTotem = ${fkTotem} order by idLeitura desc limit 1`;
+        // } else if(window.location.href == "totem1.html"){
+        //     instrucaoSql = /* `select 
+        //     REGISTRO_TEMP, 
+        //     REGISTRO_UMID, 
+        //     REGISTRO_MOMENTO,
+        //     DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+        // from registros  
+        // order by idRegistros desc limit 1` */
+        // `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura join totem on fkTotem = idTotem where fkTotem = 50000  order by idLeitura desc limit 1` ;
 
-    // 
-}
+        // 
+    }
     else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -147,8 +147,8 @@ function buscarMedidasTempoRealporTotem(fkTotem) {
     return database.executar(instrucaoSql);
 }
 
-function buscarUltimaMedidaDisco(idAquario){
-    
+function buscarUltimaMedidaDisco(idAquario) {
+
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -162,7 +162,7 @@ function buscarUltimaMedidaDisco(idAquario){
         DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit 1` */
-    `select diskPercent from LoocaLeitura join Leitura on idLeitura = fkLeitura order by idLeitura desc limit 1;`;
+            `select diskPercent from LoocaLeitura join Leitura on idLeitura = fkLeitura order by idLeitura desc limit 1;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -172,8 +172,8 @@ function buscarUltimaMedidaDisco(idAquario){
     return database.executar(instrucaoSql);
 }
 
-function mediaT1(){
-    
+function mediaT1() {
+
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -188,7 +188,7 @@ function mediaT1(){
         DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit 1` */
-    `select fkTotem, idLeitura, cpuPercent, diskPercent, ramPercent from Leitura join LoocaLeitura on fkLeitura = idLeitura where fkTotem = 50000;`;
+            `select fkTotem, idLeitura, cpuPercent, diskPercent, ramPercent from Leitura join LoocaLeitura on fkLeitura = idLeitura where fkTotem = 50000;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -198,8 +198,8 @@ function mediaT1(){
     return database.executar(instrucaoSql);
 }
 
-function mediaT2(){
-    
+function mediaT2() {
+
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -214,7 +214,7 @@ function mediaT2(){
         DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit 1` */
-    `select fkTotem, idLeitura, cpuPercent, diskPercent, ramPercent from Leitura join LoocaLeitura on fkLeitura = idLeitura where fkTotem = 50000;`;
+            `select fkTotem, idLeitura, cpuPercent, diskPercent, ramPercent from Leitura join LoocaLeitura on fkLeitura = idLeitura where fkTotem = 50000;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -224,8 +224,8 @@ function mediaT2(){
     return database.executar(instrucaoSql);
 }
 
-function mediaT3(){
-    
+function mediaT3() {
+
     instrucaoSql = ''
 
     if (process.env.AMBIENTE_PROCESSO == "producao") {
@@ -240,7 +240,7 @@ function mediaT3(){
         DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit 1` */
-    `select fkTotem, idLeitura, cpuPercent, diskPercent, ramPercent from Leitura join LoocaLeitura on fkLeitura = idLeitura where fkTotem = 50000;`;
+            `select fkTotem, idLeitura, cpuPercent, diskPercent, ramPercent from Leitura join LoocaLeitura on fkLeitura = idLeitura where fkTotem = 50000;`;
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
         return
@@ -267,7 +267,7 @@ function dadosHistorico(limite_linhas, fkTotem) {
         date_format(momento, '%H:%i:%s') as momento_grafico
     from registros  
     order by idRegistros desc limit ${limite_linhas}` */
-    `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura order by fkLeitura desc limit ${limite_linhas}`;
+            `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura order by fkLeitura desc limit ${limite_linhas}`;
 
     } else {
         console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
@@ -278,6 +278,60 @@ function dadosHistorico(limite_linhas, fkTotem) {
     return database.executar(instrucaoSql);
 }
 
+function buscarMedidasMapas() {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select t1.*, t4.idUnidade, t4.localUnidade, t5.nomeEmpresa from geolocalizationLeitura t1
+        inner join (select max(idLocalization) as idLocalization from geolocalizationLeitura GROUP BY fkTotem) t2
+            on t1.idLocalization = t2.idLocalization
+        join Totem t3
+            on t3.idTotem = t1.fkTotem
+        join Unidade t4
+            on t3.fkUnidade = t4.idUnidade
+        join Empresa t5
+            on t4.fkEmpresa = t5.idEmpresa`
+    } else {
+        console.log("\nEsta API só suporta rodar em ambiente cloud\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function buscarEmpresa(fkempresa) {
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select top 1 diskPercent from LoocaLeitura join Leitura on Leitura.idLeitura = fkLeitura order by Leitura.idLeitura;`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = /* `select 
+        REGISTRO_TEMP, 
+        REGISTRO_UMID, 
+        REGISTRO_MOMENTO,
+        DATE_FORMAT(REGISTRO_MOMENTO,'%H:%i:%s') as momento_grafico
+    from registros  
+    order by idRegistros desc limit 1` */
+            `select nomeEmpresa from empresa where idEmpresa = ${fkempresa}`;
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql)
+    return database.executar(instrucaoSql)
+}
+
+function processos() {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select * from Processos as t1 join (select distinct Nome, max(id) as id from Processos group by Nome) as t2 on t1.id = t2.id;`
+    } else {
+        console.log("\nEsta API só suporta rodar em ambiente cloud\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     buscarUltimasMedidas,
@@ -289,5 +343,8 @@ module.exports = {
     alertar,
     mediaT2,
     mediaT3,
-    dadosHistorico
+    dadosHistorico,
+    buscarMedidasMapas,
+    buscarEmpresa,
+    processos
 }

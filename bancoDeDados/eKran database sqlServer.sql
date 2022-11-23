@@ -61,6 +61,7 @@ create table geolocalizationLeitura(
 idLocalization INT PRIMARY KEY identity(1, 1),
 latitude DECIMAL(9,7),
 longitude DECIMAL(10,7),
+precisao DECIMAL(5,3),
 dia CHAR(10),
 hora CHAR(8),
 fkTotem INT,

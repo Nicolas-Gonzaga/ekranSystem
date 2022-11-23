@@ -20,6 +20,9 @@ router.get("/tempo-real-totem/:fkTotem", function (req, res) {
 router.get("/totem/:fkTotem", function (req, res) {
     medidaController.buscarMedidaTotem(req, res);
 })
+router.get("/empresa/:fkEmpresa", function (req, res) {
+    medidaController.buscarEmpresa(req, res);
+})
 
 router.get("/ultimaDisco/:idArmazem", function (req, res) {
     medidaController.buscarUltimaMedidaDisco(req, res);
@@ -40,5 +43,14 @@ router.get("/mediaT3", function (req, res) {
 router.get("/dadosHistorico/:fkTotem", function (req, res) {
     medidaController.dadosHistorico(req, res);
 });
+
+router.get("/static-mapas", function (req, res) {
+    medidaController.buscarMedidasMapas(req, res)
+})
+
+router.get("/processos", function (req, res) {
+    medidaController.processos(req, res)
+})
+
 
 module.exports = router;

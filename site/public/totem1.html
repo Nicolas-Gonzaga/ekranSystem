@@ -95,15 +95,32 @@
             </a>
           </li>
           <li>
+            <a href="dashProcessos.html">
+              <i class="tim-icons icon-single-copy-04"></i>
+              <p>Processos</p>
+            </a>
+          <li>
             <a href="tables.html">
               <i class="tim-icons icon-single-copy-04"></i>
               <p>Histórico</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="dash_seguranca.html">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Segurança</p>
             </a>
           </li>
           <li>
             <a href="funcionario.html">
               <i class="tim-icons icon-badge"></i>
               <p>Cadastrar funcionário</p>
+            </a>
+          </li>
+          <li >
+            <a href="mapaDash.html?totens">
+              <i class="tim-icons icon-square-pin"></i>
+              <p>Mapas</p>
             </a>
           </li>
           <li>
@@ -705,6 +722,9 @@
 
 <script>
   function alertas(empresa, componente, metrica, frase) {
+    
+	
+
     const options = {
       method: 'POST',
       headers: {
@@ -729,64 +749,69 @@
 
 function verificar(metrica, componente) {
   const fkTotem = 50000
-
+  
+  
+  var empresa = sessionStorage.FK_EMPRESA
+  var nome = sessionStorage.NOME_EMPRESA
             var frase = ""
-            var empresa = sessionStorage.fkEmpresa
-
+          
+            
             // incluir uma nova medida de temperatura 
             if(metrica >=70){
               if (metrica >= 70 && metrica < 80) {
-              Swal.fire("CUIDADO", `${componente} está ficando sobrecarregada!`, "warning");
-              frase = `Alerta: O ${componente} do totem ${fkTotem}está ficando sobrecarregado! Porcentagem de uso: `
-              console.log('Cheguei aqui')
-              
-            } else if (metrica >= 80) {
-              Swal.fire("ALERTA", `${componente} está sobrecarregada!`, "danger");
-              frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
-            }
-            alertas("Ekran", componente, metrica, frase)
+                Swal.fire("CUIDADO", `${componente} está ficando sobrecarregada!`, "warning");
+                frase = `Alerta: O ${componente} do totem ${fkTotem}está ficando sobrecarregado! Porcentagem de uso: `
+                console.log('Cheguei aqui')
+                
+              } else if (metrica >= 80) {
+                Swal.fire("ALERTA", `${componente} está sobrecarregada!`, "danger");
+                frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
+              }
+              alertas(nome,componente,metrica,frase);
+            
+            
         
-              console.log("INICIANDO O FETCH");
-
+            console.log("INICIANDO O FETCH");
+            
               
 			// Enviando o valor da nova input
-			fetch("/medidas/alertas", {
+        fetch("/medidas/alertas", {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/json"
+          "Content-Type": "application/json"
 				},
 				body: JSON.stringify({
-					// crie um atributo que recebe o valor recuperado aqui
+          // crie um atributo que recebe o valor recuperado aqui
 					// Agora vá para o arquivo routes/usuario.js
 					metricaServer: metrica,
 					fraseServer: frase,
           componenteServer: componente,
-          fkTotemServer: fkTotem
-
+          fkTotemServer: fkTotem,
+          empresaServer: empresa
 					
 				})
 			}).then(function (resposta) {
 				console.log("entrei no fetch");
 				console.log("resposta: ", resposta);
-
+        
 				if (resposta.ok) {
                 console.log("Inserts feitos com sucesso");
-				
-				} else {
-					console.log("Erro nos inserts");
+                
+              } else {
+                console.log("Erro nos inserts");
 				}
 			}).catch(function (resposta) {
-				console.log(`#ERRO: ${resposta}`);
+        console.log(`#ERRO: ${resposta}`);
 
 			});
-
-			return false;
-            
     
-        }
+      
+      return false;
+      
+    }
 
-      }
-
+  }
+  
   function disk() {
     obterDadosGrafico()
     function obterDadosGrafico(id) {
@@ -835,7 +860,7 @@ function verificar(metrica, componente) {
       };
       let disco = contaLivre
 
-setIntervalverificar(disco, "disco")
+setTimeout(verificar(disco, "disco"), 10000)
 
       const myChart = new Chart(
         document.getElementById('CountryChart1'),
@@ -1200,13 +1225,13 @@ setIntervalverificar(disco, "disco")
           dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
           dados.datasets[0].data.push(novoRegistro[0].cpuPercent);
           let cpu = novoRegistro[0].cpuPercent// incluir uma nova medida de temperatura
-          setInterval(verificar(cpu, "cpu"), 60000)
+          setTimeout(verificar(cpu, "cpu"), 60000)
           dados2.labels.shift();
           dados2.labels.push(novoRegistro[0].horarioF);
           dados2.datasets[0].data.shift();
           dados2.datasets[0].data.push(novoRegistro[0].ramPercent);
           let ram = novoRegistro[0].ramPercent
-          setInterval(verificar(ram,"ram"), 60000)
+          setTimeout(verificar(ram,"ram"), 60000)
           dados3.labels.shift();
           dados3.labels.push(novoRegistro[0].horarioF);
           dados3.datasets[0].data.shift();

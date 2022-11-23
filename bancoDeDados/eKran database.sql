@@ -78,6 +78,7 @@ create table geolocalizationLeitura(
 idLocalization int primary key auto_increment,
 latitude decimal(9,7),
 longitude decimal(10,7),
+precisao decimal(5,3),
 dia char(10),
 hora char(8),
 fkTotem int,
