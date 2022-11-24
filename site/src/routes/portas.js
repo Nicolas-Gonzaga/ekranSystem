@@ -5,7 +5,7 @@ var router = express.Router();
 var portasController = require("../controllers/portasController");
 
 
-router.post("/coletandoPortas", function (req, res) {
+router.get("/coletandoPortas", function (req, res) {
     portasController.coletandoPortas(req, res);
 })
 
