@@ -332,6 +332,11 @@ function processos() {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+function coletandoPortas() {
+    var instrucao = `select top 9 portaAberta, horario from porta order by idPorta desc;`;
+    return database.executar(instrucao);
+}
+
 
 module.exports = {
     buscarUltimasMedidas,
@@ -346,5 +351,6 @@ module.exports = {
     dadosHistorico,
     buscarMedidasMapas,
     buscarEmpresa,
-    processos
+    processos,
+    coletandoPortas,
 }
