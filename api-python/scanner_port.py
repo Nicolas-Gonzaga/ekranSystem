@@ -65,7 +65,7 @@ while True:
 
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client.settimeout(0.1)
-        codigo = client.connect_ex (('10.18.33.192', porta))
+        codigo = client.connect_ex (('192.168.15.2', porta))
 
 
         if codigo == 10035:
