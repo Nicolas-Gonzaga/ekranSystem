@@ -297,6 +297,34 @@ function buscarMedidasMapas() {
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
+function variacaoCordsMapas(valor) {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select t1.* from geolocalizationLeitura t1
+        inner join (select max(idLocalization) as idLocalization from geolocalizationLeitura GROUP BY fkTotem, dia) t2
+            on t1.idLocalization = t2.idLocalization${valor};`
+    } else {
+        console.log("\nEsta API só suporta rodar em ambiente cloud\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function temperaturaComparativaMapas() {
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        // terminei isso aqui nao............................. ~joca
+        // esse select ta muito dificil de dar certo to indo dormir ate amanha gente ~joca
+        instrucaoSql = `select top 5 t1.minimo, t1.maximo, t2.dia from crawlerLeitura t1 join Leitura t2 on t2.idLeitura = t1.fkLeitura where nome = 'Cpu Package' order by t2.dia desc;`
+    } else {
+        console.log("\nEsta API só suporta rodar em ambiente cloud\n")
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function buscarEmpresa(fkempresa) {
     instrucaoSql = ''
 
@@ -337,7 +365,6 @@ function coletandoPortas() {
     return database.executar(instrucao);
 }
 
-
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
@@ -353,4 +380,6 @@ module.exports = {
     buscarEmpresa,
     processos,
     coletandoPortas,
+    variacaoCordsMapas,
+    temperaturaComparativaMapas
 }

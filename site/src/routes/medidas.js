@@ -48,6 +48,10 @@ router.get("/static-mapas", function (req, res) {
     medidaController.buscarMedidasMapas(req, res)
 })
 
+router.get("/variacao-cords/:valor", function (req, res) {
+    medidaController.variacaoCordsMapas(req, res)
+})
+
 router.get("/processos", function (req, res) {
     medidaController.processos(req, res)
 })

@@ -548,3 +548,63 @@
         }
     })
 </script>
+<script>
+  if (carregarTotem == "totens") {
+    enviado = ""
+  } else {
+    enviado = ` where fkTotem = ${carregarTotem}`
+  }
+  fetch(`/medidas/variacao-cords/${enviado}`, {
+    method: "GET"
+  }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        console.log(resposta)
+      })
+    }
+  })
+</script>
+<script>
+  // NINGUEM DESCOMENTA ISSO PELO AMOR DE DEUS!!!!!111!! ~joca
+
+
+    // data = new Date()
+    // ano = String(data.getFullYear())
+    // mes = String(data.getMonth()+1)
+    // dia = String(data.getDate())
+    // dataFinal = `${ano}-${mes}-${dia}`
+    // if (dia > 4) {
+    //     dia -= 4
+    // } else {
+    //     dia += 26
+    //     if (mes > 1) {
+    //         mes -= 1
+    //     } else {
+    //         mes += 11
+    //         ano -= 1
+    //     }
+    // }
+    // dataInicial = `${ano}-${mes}-${dia}`
+    // fetch("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/-23.5668698,-46.6608874/${dataInicial}/${dataFinal}?unitGroup=us&key=HRNW8DH3UCLBY3XJ2N3XT2EX&contentType=json", {
+    //     "method": "GET",
+    //     "headers": {}
+    // })
+    // .then(response => {
+    // if (!response.ok) {
+    //     throw response
+    // }
+    // return response.json()
+    // })
+    // .then(response => {
+    // console.log(response)
+    // })
+    // .catch((errorResponse) => {
+    // if (errorResponse.text) {
+    //     errorResponse.text().then( errorMessage => {
+    //         console.log(errorMessage)
+    //     })
+    // } else {
+    //     console.log("Erro maluco") 
+    // }
+    // })
+</script>
