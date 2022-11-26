@@ -315,7 +315,11 @@ function temperaturaComparativaMapas() {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         // terminei isso aqui nao............................. ~joca
         // esse select ta muito dificil de dar certo to indo dormir ate amanha gente ~joca
-        instrucaoSql = `select top 5 t1.minimo, t1.maximo, t2.dia from crawlerLeitura t1 join Leitura t2 on t2.idLeitura = t1.fkLeitura where nome = 'Cpu Package' order by t2.dia desc;`
+        instrucaoSql = `select t1.minimo, t1.maximo, t2.dia, t2.fkTotem from crawlerLeitura t1
+        join Leitura t2
+        on t1.fkLeitura = t2.idLeitura
+        join (select fkTotem, max(horario) as horario, dia from crawlerLeitura, Leitura where crawlerLeitura.fkLeitura = Leitura.idLeitura group by dia, fkTotem) t3
+        on t2.dia = t3.dia and t2.horario = t3.horario where t1.nome = 'Cpu Core' order by t2.dia desc;`
     } else {
         console.log("\nEsta API só suporta rodar em ambiente cloud\n")
         return

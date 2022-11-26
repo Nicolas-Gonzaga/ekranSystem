@@ -563,6 +563,19 @@
       })
     }
   })
+
+  fetch(`/medidas/tempTotens`, {
+    method: "GET"
+  }).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (resposta) {
+        for(i = 0; resposta.length; i++) {
+          console.log("/medidas/tempTotens")
+          console.log(resposta[i])
+        }
+      })
+    }
+  })
 </script>
 <script>
   // NINGUEM DESCOMENTA ISSO PELO AMOR DE DEUS!!!!!111!! ~joca
