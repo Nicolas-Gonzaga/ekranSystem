@@ -35,7 +35,7 @@ function buscarMedidaTotem(fkTotem, limite_linhas) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top ${limite_linhas} cpuPercent, ramPercent, horario as horarioF from 
         LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura where fkTotem = ${fkTotem} 
-        order by fkLeitura;`;
+        order by fkLeitura desc;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         instrucaoSql = /* `select 
@@ -114,7 +114,7 @@ function buscarMedidasTempoRealporTotem(fkTotem) {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
         instrucaoSql = `select top 1 cpuPercent, ramPercent, horario as horarioF from 
         LoocaLeitura join Leitura on fkLeitura = Leitura.idLeitura where fkTotem = ${fkTotem} 
-        order by Leitura.idLeitura;`;
+        order by Leitura.idLeitura desc;`;
 
     } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
         // if(local == "dashboardTeste.html"){

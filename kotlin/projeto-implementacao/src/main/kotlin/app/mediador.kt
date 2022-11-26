@@ -11,7 +11,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 fun main() {
-    val tipoBanco = 1
+    val tipoBanco = 3   
     // MySQL = 1
     // H2 = 2
     // SqlServer = 3

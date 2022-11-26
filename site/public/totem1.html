@@ -721,7 +721,7 @@
 
 
 <script>
-  function alertas(empresa, componente, metrica, frase) {
+  function alertas(empresa, componente, metrica, frase, descricao) {
     
 	
 
@@ -733,7 +733,7 @@
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        query: `mutation {           createCard(input: {             pipe_id:302731204,             title: "Card",             fields_attributes:[               {field_id: "nome_do_colaborador", field_value: "${empresa}"},{field_id: "cargo", field_value: "${componente}"},{field_id: "m_tricas", field_value: " ${frase}${metrica}"}             ],           }) {               card {                 title               }             }           }`,
+        query: `mutation {           createCard(input: {             pipe_id:302731204,             title: "Card",             fields_attributes:[               {field_id: "nome_do_colaborador", field_value: "${empresa}"},{field_id: "cargo", field_value: "${frase}${descricao}${metrica}"},{field_id: "m_tricas", field_value:"${componente}: ${metrica}" }             ],           }) {               card {                 title               }             }           }`,
        
 
       })
@@ -754,20 +754,27 @@ function verificar(metrica, componente) {
   var empresa = sessionStorage.FK_EMPRESA
   var nome = sessionStorage.NOME_EMPRESA
             var frase = ""
-          
+            var dataAtual = new Date();
+            var dia = dataAtual.getDate();
+            var mes = (dataAtual.getMonth() + 1);
+            var ano = dataAtual.getFullYear();
+            var horas = dataAtual.getHours();
+            var minutos = dataAtual.getMinutes();
+                      
+            var descricao = `O ${componente} do totem ${fkTotem}está ficando sobrecarregado Momento  do alerta: dia ${dia}/${mes}/${ano} às ${horas}:${minutos}. Porcentagem de uso:`
             
             // incluir uma nova medida de temperatura 
             if(metrica >=70){
               if (metrica >= 70 && metrica < 80) {
                 Swal.fire("CUIDADO", `${componente} está ficando sobrecarregada!`, "warning");
-                frase = `Alerta: O ${componente} do totem ${fkTotem}está ficando sobrecarregado! Porcentagem de uso: `
+                frase = `Alerta  `
                 console.log('Cheguei aqui')
                 
               } else if (metrica >= 80) {
                 Swal.fire("ALERTA", `${componente} está sobrecarregada!`, "danger");
-                frase = `Perigo: O ${componente} do totem ${fkTotem} está sobrecarregado! Porcentagem de uso:`
+                frase = `Perigo `
               }
-              alertas(nome,componente,metrica,frase);
+              alertas(nome,componente,metrica,frase, descricao);
             
             
         
