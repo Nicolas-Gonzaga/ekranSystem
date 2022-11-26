@@ -240,7 +240,6 @@ function mediaT3() {
                     dadosTotem3.ramT3.push(resposta[i].ramPercent)
                     dadosTotem3.discoT3.push(resposta[i].diskPercent)
                 }
-                contaMedias()
 
             });
         } else {
@@ -294,7 +293,18 @@ function mediasGeral() {
     mediaT1()
     mediaT2()
     mediaT3()
+    setTimeout(function () {
+        contaMedias()
+    }, 3000)
 }
+
+function hist() {
+    buscarDadosHistorico(fkTotem)
+    setTimeout(function () {
+        atribuindoHist()
+    }, 1000)
+}
+
 
 let fkTotem = 50000
 let dadosHistT1 = { cpu: [], ram: [], disco: [], hora: [], dia: [] }
@@ -368,7 +378,7 @@ function buscarDadosHistorico(fkTotem) {
 }
 
 
-function teste() {
+function atribuindoHist() {
     for (i = 0; i < dadosHistT1.cpu.length; i++) {
         cpu = [tdTotem1Cpu0, tdTotem1Cpu1, tdTotem1Cpu2,tdTotem1Cpu3, tdTotem1Cpu4, tdTotem1Cpu5]
         ram = [tdTotem1Ram0, tdTotem1Ram1, tdTotem1Ram2, tdTotem1Ram3, tdTotem1Ram4, tdTotem1Ram5]
@@ -402,3 +412,4 @@ function teste() {
         hora[i].innerHTML = dadosHistT3.hora[i]
     }
 }
+
