@@ -198,6 +198,7 @@ function mediaT1() {
                     dadosTotem1.ramT1.push(resposta[i].ramPercent)
                     dadosTotem1.discoT1.push(resposta[i].diskPercent)
                 }
+                mediaT2()
 
             });
         } else {
@@ -219,7 +220,7 @@ function mediaT2() {
                     dadosTotem2.ramT2.push(resposta[i].ramPercent)
                     dadosTotem2.discoT2.push(resposta[i].diskPercent)
                 }
-
+                mediaT3()
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -240,7 +241,7 @@ function mediaT3() {
                     dadosTotem3.ramT3.push(resposta[i].ramPercent)
                     dadosTotem3.discoT3.push(resposta[i].diskPercent)
                 }
-
+                contaMedias()
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -287,22 +288,6 @@ function contaMedias() {
     mediaT1Disco.innerHTML = medias.discoMediaT1
     mediaT2Disco.innerHTML = medias.discoMediaT2
     mediaT3Disco.innerHTML = medias.discoMediaT3
-}
-
-function mediasGeral() {
-    mediaT1()
-    mediaT2()
-    mediaT3()
-    setTimeout(function () {
-        contaMedias()
-    }, 3000)
-}
-
-function hist() {
-    buscarDadosHistorico(fkTotem)
-    setTimeout(function () {
-        atribuindoHist()
-    }, 1000)
 }
 
 
@@ -367,6 +352,7 @@ function buscarDadosHistorico(fkTotem) {
                     dadosHistT3.dia.push(resposta[i].dia)
                     dadosHistT3.hora.push(resposta[i].horario)
                 }
+                atribuindoHist()
             });
         } else {
             console.error('Nenhum dado encontrado ou erro na API');
@@ -380,7 +366,7 @@ function buscarDadosHistorico(fkTotem) {
 
 function atribuindoHist() {
     for (i = 0; i < dadosHistT1.cpu.length; i++) {
-        cpu = [tdTotem1Cpu0, tdTotem1Cpu1, tdTotem1Cpu2,tdTotem1Cpu3, tdTotem1Cpu4, tdTotem1Cpu5]
+        cpu = [tdTotem1Cpu0, tdTotem1Cpu1, tdTotem1Cpu2, tdTotem1Cpu3, tdTotem1Cpu4, tdTotem1Cpu5]
         ram = [tdTotem1Ram0, tdTotem1Ram1, tdTotem1Ram2, tdTotem1Ram3, tdTotem1Ram4, tdTotem1Ram5]
         disco = [tdTotem1Disco0, tdTotem1Disco1, tdTotem1Disco2, tdTotem1Disco3, tdTotem1Disco4, tdTotem1Disco5]
         hora = [tdTotem1Hora0, tdTotem1Hora1, tdTotem1Hora2, tdTotem1Hora3, tdTotem1Hora4, tdTotem1Hora5]
@@ -391,7 +377,7 @@ function atribuindoHist() {
     }
 
     for (i = 0; i < dadosHistT2.cpu.length; i++) {
-        cpu = [tdTotem2Cpu0, tdTotem2Cpu1, tdTotem2Cpu2,tdTotem2Cpu3, tdTotem2Cpu4, tdTotem2Cpu5]
+        cpu = [tdTotem2Cpu0, tdTotem2Cpu1, tdTotem2Cpu2, tdTotem2Cpu3, tdTotem2Cpu4, tdTotem2Cpu5]
         ram = [tdTotem2Ram0, tdTotem2Ram1, tdTotem2Ram2, tdTotem2Ram3, tdTotem2Ram4, tdTotem2Ram5]
         disco = [tdTotem2Disco0, tdTotem2Disco1, tdTotem2Disco2, tdTotem2Disco3, tdTotem2Disco4, tdTotem2Disco5]
         hora = [tdTotem2Hora0, tdTotem2Hora1, tdTotem2Hora2, tdTotem2Hora3, tdTotem2Hora4, tdTotem2Hora5]
@@ -402,7 +388,7 @@ function atribuindoHist() {
     }
 
     for (i = 0; i < dadosHistT3.cpu.length; i++) {
-        cpu = [tdTotem3Cpu0, tdTotem3Cpu1, tdTotem3Cpu2,tdTotem3Cpu3, tdTotem3Cpu4, tdTotem3Cpu5]
+        cpu = [tdTotem3Cpu0, tdTotem3Cpu1, tdTotem3Cpu2, tdTotem3Cpu3, tdTotem3Cpu4, tdTotem3Cpu5]
         ram = [tdTotem3Ram0, tdTotem3Ram1, tdTotem3Ram2, tdTotem3Ram3, tdTotem3Ram4, tdTotem3Ram5]
         disco = [tdTotem3Disco0, tdTotem3Disco1, tdTotem3Disco2, tdTotem3Disco3, tdTotem3Disco4, tdTotem3Disco5]
         hora = [tdTotem3Hora0, tdTotem3Hora1, tdTotem3Hora2, tdTotem3Hora3, tdTotem3Hora4, tdTotem3Hora5]
@@ -413,3 +399,57 @@ function atribuindoHist() {
     }
 }
 
+function nomeEmpresa() {
+    spanNomeEmpresa.innerHTML = sessionStorage.NOME_EMPRESA
+}
+
+
+let alertas = { componente: [], metrica: [], descricao: [], horario: [], totem: [] }
+function buscarDadosAlertas() {
+    const empresa = sessionStorage.NOME_EMPRESA
+    fetch(`/medidas/dadosAlertas/${empresa}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos Alertas : ${JSON.stringify(resposta)}`);
+                resposta.reverse()
+                for (i = 0; i < resposta.length; i++) {
+                    alertas.componente.push(resposta[i].componente)
+                    alertas.metrica.push(resposta[i].metrica)
+                    alertas.descricao.push(resposta[i].descricao)
+                    alertas.totem.push(resposta[i].fkTotem)
+                    alertas.horario.push(resposta[i].horario)
+                }
+                histAlertas()
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function histAlertas() {
+    for (i = 0; i < alertas.totem.length; i++) {
+        let totem = alertas.totem[i]
+        if (totem == 50000) {
+            alertas.totem[i] = 1
+        }
+        if (totem == 50001) {
+            alertas.totem[i] = 2
+        }
+        if (totem == 50002) {
+            alertas.totem[i] = 3
+        }
+    }
+    let tdAlerta = [tdAlerta1, tdAlerta2, tdAlerta3, tdAlerta4, tdAlerta5, tdAlerta6]
+
+    for (i = 0; i < 6; i++) {
+        tdAlerta[i].innerHTML = `<p class="title">ESTADO DE ${alertas.descricao[i]} TOTEM ${alertas.totem[i]} - ${alertas.horario[i]}</p>
+    <p class="text-muted">${alertas.metrica[i]}% ${alertas.componente[i]}</p>`
+    }
+    if (alertas.descricao.length > 7) {
+        maisAlertas.innerHTML = `<p><a href="../tables.html">Você tem mais ${(alertas.descricao.length) - 6} alertas</a></p>`
+    }
+}

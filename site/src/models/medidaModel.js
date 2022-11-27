@@ -369,6 +369,26 @@ function coletandoPortas() {
     return database.executar(instrucao);
 }
 
+function dadosAlertas(empresa) {
+
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select componente, metrica, descricao, fkTotem, format(horario, 'hh:mm:ss') as horario from alerta where format(horario, 'dd-MM-yyyy') =  format(getdate(),'dd-MM-yyyy') and empresa = '${empresa}';`;
+
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql =
+            `select cpuPercent, ramPercent, horario, date_format(horario, '%H:%i') as horarioF from LoocaLeitura join Leitura on fkLeitura = idLeitura order by fkLeitura desc limit ${limite_linhas}`;
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     buscarUltimasMedidas,
     buscarMedidasEmTempoReal,
@@ -385,5 +405,6 @@ module.exports = {
     processos,
     coletandoPortas,
     variacaoCordsMapas,
-    temperaturaComparativaMapas
+    temperaturaComparativaMapas,
+    dadosAlertas
 }

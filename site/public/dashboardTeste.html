@@ -58,7 +58,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body onload="mediasGeral(), hist()">
+<body onload="nomeEmpresa(), mediaT1(), buscarDadosHistorico(fkTotem), buscarDadosAlertas()">
   <div class="wrapper">
     <div class="sidebar">
       <!--
@@ -160,7 +160,8 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" id="totem" href="javascript:void(0)">Dashboard - id 10001</a>
+            <a class="navbar-brand" id="totem" href="javascript:void(0)">Dashboard - <span
+                id="spanNomeEmpresa">--</span></a>
           </div>
           <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -381,8 +382,8 @@
                                 </div>
                               </td>
                               <td>
-                                <p class="title">ESTADO CRÍTICO TOTEM 1 - 18:30:22</p>
-                                <p class="text-muted">100% RAM</p>
+<!--                                 <p class="title">ESTADO CRÍTICO TOTEM 1 - 18:30:22</p>
+                                <p class="text-muted">100% RAM</p> -->
                               </td>
                               <td class="td-actions text-right">
                                 <!-- <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
@@ -399,9 +400,9 @@
                                   </label>
                                 </div>
                               </td>
-                              <td>
-                                <p class="title">ESTADO DE ALERTA TOTEM 3 - 15:28:43</p>
-                                <p class="text-muted">87% CPU</p>
+                              <td id="tdAlerta1">
+<!--                                 <p class="title">ESTADO DE ALERTA TOTEM 3 - 15:28:43</p>
+                                <p class="text-muted">87% CPU</p> -->
                               </td>
                               <td class="td-actions text-right">
                               </td>
@@ -414,9 +415,9 @@
                                   </label>
                                 </div>
                               </td>
-                              <td>
-                                <p class="title">ESTADO CRÍTICO TOTEM 2 - 15:18:22</p>
-                                <p class="text-muted">100% CPU</p>
+                              <td id="tdAlerta2">
+<!--                                 <p class="title">ESTADO CRÍTICO TOTEM 2 - 15:18:22</p>
+                                <p class="text-muted">100% CPU</p> -->
                               </td>
                               <td class="td-actions text-right">
                               </td>
@@ -429,9 +430,9 @@
                                   </label>
                                 </div>
                               </td>
-                              <td>
-                                <p class="title">ESTADO DE ALERTA TOTEM 1 - 13:34:24</p>
-                                <p class="text-muted">85% RAM</p>
+                              <td id="tdAlerta3">
+<!--                                 <p class="title">ESTADO DE ALERTA TOTEM 1 - 13:34:24</p>
+                                <p class="text-muted">85% RAM</p> -->
                               </td>
                               <td class="td-actions text-right">
                               </td>
@@ -444,9 +445,9 @@
                                   </label>
                                 </div>
                               </td>
-                              <td>
-                                <p class="title">ESTADO DE ALERTA TOTEM 2 - 12:43:15</p>
-                                <p class="text-muted">98% DISCO</p>
+                              <td id="tdAlerta4">
+<!--                                 <p class="title">ESTADO DE ALERTA TOTEM 2 - 12:43:15</p>
+                                <p class="text-muted">98% DISCO</p> -->
                               </td>
                               <td class="td-actions text-right">
                               </td>
@@ -459,9 +460,9 @@
                                   </label>
                                 </div>
                               </td>
-                              <td>
-                                <p class="title">ESTADO DE ALERTA TOTEM 3 - 12:30:25</p>
-                                <p class="text-muted">100% DISCO</p>
+                              <td id="tdAlerta5">
+<!--                                 <p class="title">ESTADO DE ALERTA TOTEM 3 - 12:30:25</p>
+                                <p class="text-muted">100% DISCO</p> -->
                               </td>
                               <td class="td-actions text-right">
                               </td>
@@ -474,15 +475,16 @@
                                   </label>
                                 </div>
                               </td>
-                              <td>
-                                <p class="title">ESTADO DE ALERTA TOTEM 1 - 08:45:23</p>
-                                <p class="text-muted">85% CPU</p>
+                              <td id="tdAlerta6">
+<!--                                 <p class="title">ESTADO DE ALERTA TOTEM 1 - 08:45:23</p>
+                                <p class="text-muted">85% CPU</p> -->
                               </td>
                               <td class="td-actions text-right">
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                        <div id="maisAlertas"></div>
                       </div>
                     </div>
                   </div>
@@ -1008,6 +1010,8 @@
             });
         </script>
 </body>
+
+
 <!--   Core JS Files   -->
 <script src="assets/js/core/jquery.min.js"></script>
 <script src="assets/js/core/popper.min.js"></script>
@@ -1151,4 +1155,5 @@
       application: "black-dashboard-free"
     });
 </script>
+
 </html>

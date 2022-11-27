@@ -21,7 +21,7 @@ function buscarUltimasMedidas(req, res) {
     });
 }
 function buscarEmpresa(req, res) {
-    
+
     var fkempresa = req.params.empresa;
 
     console.log(`Recuperando medidas em tempo real`);
@@ -38,7 +38,7 @@ function buscarEmpresa(req, res) {
         console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
         res.status(500).json(erro.sqlMessage);
     });
-    }
+}
 
 
 function alertar(req, res) {
@@ -47,21 +47,21 @@ function alertar(req, res) {
     var frase = req.body.fraseServer;
     var componente = req.body.componenteServer;
     var totem = req.body.fkTotemServer;
-    var fkempresa= req.body.empresaServer;
+    var fkempresa = req.body.empresaServer;
 
     // Faça as validações dos valores
 
-    if (metrica== undefined) {
+    if (metrica == undefined) {
         res.status(400).send("Dados não chegaram aqui.");
     } else if (frase == undefined) {
         res.status(400).send("Frase não chegou aqui.");
-    } 
-     else if (componente == undefined) {
+    }
+    else if (componente == undefined) {
         res.status(400).send("Componente não chegou aqui.");
-    } 
-     else if (totem == undefined) {
+    }
+    else if (totem == undefined) {
         res.status(400).send("Totem não definido.");
-    } 
+    }
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
 
     medidaModel.alertar(metrica, frase, componente, totem, fkempresa)
@@ -120,7 +120,7 @@ function buscarMedidasTempoRealporTotem(req, res) {
 }
 
 function buscarMedidaTotem(req, res) {
-var fkTotem = req.params.fkTotem
+    var fkTotem = req.params.fkTotem
     console.log(fkTotem)
     const limite_linhas = 6;
 
@@ -140,9 +140,9 @@ var fkTotem = req.params.fkTotem
     });
 }
 
-function buscarUltimaMedidaDisco(req, res){
+function buscarUltimaMedidaDisco(req, res) {
     var idAquario = req.params.idAquario;
-    
+
 
     console.log(`Recuperando medidas em tempo real`);
 
@@ -160,150 +160,169 @@ function buscarUltimaMedidaDisco(req, res){
 }
 
 function mediaT1(req, res) {
-        console.log(`Recuperando medidas em tempo real`);
-    
-        medidaModel.mediaT1().then(function (resultado) {
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.mediaT1().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function mediaT2(req, res) {
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.mediaT2().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function mediaT3(req, res) {
+    console.log(`Recuperando medidas em tempo real`);
+
+    medidaModel.mediaT3().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function dadosHistorico(req, res) {
+
+    const limite_linhas = 3;
+
+    var fkTotem = req.params.fkTotem
+
+    medidaModel.dadosHistorico(limite_linhas, fkTotem).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function buscarMedidasMapas(req, res) {
+
+    medidaModel.buscarMedidasMapas().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function variacaoCordsMapas(req, res) {
+    var valor = req.params.valor
+
+    medidaModel.variacaoCordsMapas(valor).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function temperaturaComparativaMapas(req, res) {
+    medidaModel.temperaturaComparativaMapas(valor).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function processos(req, res) {
+
+    medidaModel.processos().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+function coletandoPortas(req, res) {
+
+    medidaModel.coletandoPortas()
+        .then(function (resultado) {
             if (resultado.length > 0) {
                 res.status(200).json(resultado);
             } else {
                 res.status(204).send("Nenhum resultado encontrado!")
             }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
-    }
-
-    function mediaT2(req, res) {
-        console.log(`Recuperando medidas em tempo real`);
-    
-        medidaModel.mediaT2().then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
             }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
-    }
+        );
+}
 
-    function mediaT3(req, res) {
-        console.log(`Recuperando medidas em tempo real`);
-    
-        medidaModel.mediaT3().then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
-    }
+function dadosAlertas(req, res) {
 
-    function dadosHistorico(req, res) {
+    const limite_linhas = 3;
 
-        const limite_linhas = 3;
-    
-        var fkTotem = req.params.fkTotem
-    
-        medidaModel.dadosHistorico(limite_linhas, fkTotem).then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
-    }
+    const empresa = req.params.empresa
 
-    function buscarMedidasMapas(req, res) {
-    
-        medidaModel.buscarMedidasMapas().then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
-    }
+    medidaModel.dadosAlertas(empresa).then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
-    function variacaoCordsMapas(req, res) {
-        var valor = req.params.valor
 
-        medidaModel.variacaoCordsMapas(valor).then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        })
-    }
-
-    function temperaturaComparativaMapas(req, res) {
-        medidaModel.temperaturaComparativaMapas(valor).then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        })
-    }
-
-    function processos(req, res) {
-    
-        medidaModel.processos().then(function (resultado) {
-            if (resultado.length > 0) {
-                res.status(200).json(resultado);
-            } else {
-                res.status(204).send("Nenhum resultado encontrado!")
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-            console.log("Houve um erro ao buscar as ultimas medidas.", erro.sqlMessage);
-            res.status(500).json(erro.sqlMessage);
-        });
-    }
-    function coletandoPortas(req, res) {
-    
-        medidaModel.coletandoPortas()
-            .then(function (resultado) {
-                if (resultado.length > 0) {
-                    res.status(200).json(resultado);
-                } else {
-                    res.status(204).send("Nenhum resultado encontrado!")
-                }
-            }).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
-    
-    
 
 module.exports = {
     buscarUltimasMedidas,
@@ -312,8 +331,6 @@ module.exports = {
     buscarMedidaTotem,
     buscarMedidasTempoRealporTotem,
     mediaT1,
-    mediaT2,
-    mediaT3,
     dadosHistorico,
     alertar,
     mediaT2,
@@ -323,5 +340,6 @@ module.exports = {
     processos,
     coletandoPortas,
     variacaoCordsMapas,
-    temperaturaComparativaMapas
+    temperaturaComparativaMapas,
+    dadosAlertas
 }

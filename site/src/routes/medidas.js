@@ -56,7 +56,6 @@ router.get("/variacao-cords/:valor", function (req, res) {
     medidaController.temperaturaComparativaMapas(req, res)
 })
 
-
 router.get("/processos", function (req, res) {
     medidaController.processos(req, res)
 })
@@ -64,5 +63,8 @@ router.get("/coletandoPortas", function (req, res) {
     medidaController.coletandoPortas(req, res);
 })
 
+router.get("/dadosAlertas/:empresa", function (req, res) {
+    medidaController.dadosAlertas(req, res)
+})
 
 module.exports = router;
