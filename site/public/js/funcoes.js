@@ -445,7 +445,7 @@ function histAlertas() {
     }
     let tdAlerta = [tdAlerta1, tdAlerta2, tdAlerta3, tdAlerta4, tdAlerta5, tdAlerta6]
 
-    for (i = 0; i < 6; i++) {
+    for (i = 0; i < alertas.descricao.length; i++) {
         tdAlerta[i].innerHTML = `<p class="title">ESTADO DE ${alertas.descricao[i]} TOTEM ${alertas.totem[i]} - ${alertas.horario[i]}</p>
     <p class="text-muted">${alertas.metrica[i]}% ${alertas.componente[i]}</p>`
     }
