@@ -67,37 +67,19 @@ while True:
 
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client.settimeout(0.1)
-            codigo = client.connect_ex (('192.168.15.6', portaAtual))
+            codigo = client.connect_ex (('10.18.33.192', portaAtual))
 
             
             hora = datetime.now().strftime('%H:%M')
             dia = date.today().strftime('%Y/%m/%d')
        
-
-            def frequencia(quantidade): 
-                    freq = {}
-
-                    for item in np.unique(np.array(quantidade)):
-                    
-                        freq[item] = np.where(np.array(quantidade)==item)[0].shape[0]
-
-                    for key, value in freq.items(): 
-                        print (" % d : % d"%(key, value)) 
-                
-            quantidade = [] 
-
-            qtd_portas = frequencia(quantidade)
-
             if codigo == 10035:
                     
                     portas_aberta += 1
                     status_porta.append(1)
-                    quantidade.append(portaAtual)
             else:
                     status_porta.append(0)
-               
                 
-            print (quantidade)
 
     # ---------------------------------------------------------------------------------------------------------------
 
