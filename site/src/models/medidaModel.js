@@ -313,13 +313,13 @@ function variacaoCordsMapas(valor) {
 
 function temperaturaComparativaMapas() {
     if (process.env.AMBIENTE_PROCESSO == "producao") {
-        // terminei isso aqui nao............................. ~joca
-        // esse select ta muito dificil de dar certo to indo dormir ate amanha gente ~joca
-        instrucaoSql = `select t1.minimo, t1.maximo, t2.dia, t2.fkTotem from crawlerLeitura t1
-        join Leitura t2
-        on t1.fkLeitura = t2.idLeitura
-        join (select fkTotem, max(horario) as horario, dia from crawlerLeitura, Leitura where crawlerLeitura.fkLeitura = Leitura.idLeitura group by dia, fkTotem) t3
-        on t2.dia = t3.dia and t2.horario = t3.horario where t1.nome = 'Cpu Core' order by t2.dia desc;`
+        instrucaoSql = `select t2.minimo, t2.maximo, t1.dia, t2.nome from
+        (select idLeitura, t1.horario, t1.dia from
+            (select fkTotem, max(horario) as horario, dia from crawlerLeitura, Leitura where crawlerLeitura.fkLeitura = Leitura.idLeitura group by dia, fkTotem)
+        t1 join Leitura t2
+        on t1.horario = t2.horario and t1.dia = t2.dia) t1
+        join crawlerLeitura t2
+        on t1.idLeitura = t2.fkLeitura where nome = 'CPU Core'`
     } else {
         console.log("\nEsta API só suporta rodar em ambiente cloud\n")
         return
