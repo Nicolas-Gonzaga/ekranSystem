@@ -6,6 +6,7 @@ import pyodbc
 import datetime
 from datetime import date
 from datetime import datetime
+import numpy as np
 
 
 #----------------------------------------------------------------------------------------------------------
@@ -56,52 +57,71 @@ while True:
 
     portas = [3333,23,8080,443,21,3333,22,3389,3306]
 
+
     portas_aberta = 0
     status_porta = []
 
-
-    for porta in portas: 
-
-
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.settimeout(0.1)
-        codigo = client.connect_ex (('192.168.15.2', porta))
+  
+    for i, portaAtual in enumerate(portas): 
 
 
-        if codigo == 10035:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.settimeout(0.1)
+            codigo = client.connect_ex (('192.168.15.6', portaAtual))
+
             
-            portas_aberta += 1
-            status_porta.append(1)
-        else:
-             status_porta.append(0)
-        
-        hora = datetime.now().strftime('%H:%M')
-        dia = date.today().strftime('%Y/%m/%d')
+            hora = datetime.now().strftime('%H:%M')
+            dia = date.today().strftime('%Y/%m/%d')
+       
 
-# ---------------------------------------------------------------------
+            def frequencia(quantidade): 
+                    freq = {}
 
-#Realizando os inserts no banco de dados
+                    for item in np.unique(np.array(quantidade)):
+                    
+                        freq[item] = np.where(np.array(quantidade)==item)[0].shape[0]
 
-#--------------------------------------------------------------------------------------------------------
+                    for key, value in freq.items(): 
+                        print (" % d : % d"%(key, value)) 
+                
+            quantidade = [] 
+
+            qtd_portas = frequencia(quantidade)
+
+            if codigo == 10035:
+                    
+                    portas_aberta += 1
+                    status_porta.append(1)
+                    quantidade.append(portaAtual)
+            else:
+                    status_porta.append(0)
+               
+                
+            print (quantidade)
+
+    # ---------------------------------------------------------------------------------------------------------------
+
+    #Realizando os inserts no banco de dados
+
+    #----------------------------------------------------------------------------------------------------------------
 
     fkTotem = 5000
 
     while fkTotem <= 5002:
+            
         
-    
-            for i, portaAtual in enumerate(portas):
-             
-                 
-                cursor = cnxn.cursor()
-                sql = "INSERT INTO porta (fkTotem, portaAberta, porta, statusPorta,horario,dia) VALUES (?,?,?,?,?,?)"
-                values = [fkTotem,portas_aberta, portaAtual,status_porta[i],hora,dia]
-                print(values)
-                cursor.execute(sql, values)
+                for i, portaAtual in enumerate(portas):                
+                    
+                    cursor = cnxn.cursor()
+                    sql = "INSERT INTO porta (fkTotem, portaAberta, porta, statusPorta,horario,dia) VALUES (?,?,?,?,?,?)"
+                    values = [fkTotem,portas_aberta, portaAtual,status_porta[i],hora,dia]
+                    print(values)
+                    cursor.execute(sql, values)
 
-            fkTotem+=1
-    
-    #------------------------------------------------------------------------------------------------------------       
-            print(i, "valores inseridos no banco.")
-            print("------------------------------------------")
-            print("\r")
-            cnxn.commit()
+                fkTotem+=1
+        
+        #------------------------------------------------------------------------------------------------------------       
+                print(i, "valores inseridos no banco.")
+                print("------------------------------------------")
+                print("\r")
+                cnxn.commit()
