@@ -445,11 +445,16 @@ function histAlertas() {
     }
     let tdAlerta = [tdAlerta1, tdAlerta2, tdAlerta3, tdAlerta4, tdAlerta5, tdAlerta6]
 
-    for (i = 0; i < alertas.descricao.length; i++) {
-        tdAlerta[i].innerHTML = `<p class="title">ESTADO DE ${alertas.descricao[i]} TOTEM ${alertas.totem[i]} - ${alertas.horario[i]}</p>
-    <p class="text-muted">${alertas.metrica[i]}% ${alertas.componente[i]}</p>`
-    }
     if (alertas.descricao.length > 7) {
+        for (i = 0; i < 6; i++) {
+            tdAlerta[i].innerHTML = `<p class="title">ESTADO DE ${alertas.descricao[i]} TOTEM ${alertas.totem[i]} - ${alertas.horario[i]}</p>
+        <p class="text-muted">${alertas.metrica[i]}% ${alertas.componente[i]}</p>`
+        }
         maisAlertas.innerHTML = `<p><a href="../tables.html">Você tem mais ${(alertas.descricao.length) - 6} alertas</a></p>`
+    }else{
+        for (i = 0; i < alertas.descricao.length; i++) {
+            tdAlerta[i].innerHTML = `<p class="title">ESTADO DE ${alertas.descricao[i]} TOTEM ${alertas.totem[i]} - ${alertas.horario[i]}</p>
+        <p class="text-muted">${alertas.metrica[i]}% ${alertas.componente[i]}</p>`
+        }
     }
 }
