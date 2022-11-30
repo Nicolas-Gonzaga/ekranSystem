@@ -2,6 +2,12 @@
 <html lang="en">
 
 <head>
+
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="apple-touch-icon" href="assets/img/icon-ekran.png">
+  <link rel="manifest" href="manifest.json">
+  <link rel="canonical" href="https://ekran.azurewebsites.net/">
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -38,6 +44,18 @@
 </head>
 
 <body>
+
+  <script>
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('sw.js')
+      .then(function() {
+        console.log('service worker registred')
+      })
+      .catch(function(){
+        console.warn('service worker failed')
+      })
+    }
+  </script>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header d-flex align-items-center">
@@ -222,7 +240,6 @@
     </section><!-- End Alt Services Section -->
 
     <!-- ======= Features Section ======= -->
-<<<<<<< HEAD
     <section id="features" class="features section-bg">
       <div class="container" >
 
@@ -315,9 +332,7 @@
 
       </div>
     </section><!-- End Features Section -->
-=======
    
->>>>>>> 7f67dd780c9f2c6892b47f0a74190ed8910fba8a
 
 
     <!-- ======= Testimonials Section ======= -->

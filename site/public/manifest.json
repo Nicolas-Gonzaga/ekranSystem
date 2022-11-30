@@ -1,0 +1,9 @@
+{
+  "name": "ekran",
+  "short_name": "ekran",
+  "theme_color": "#2196f3",
+  "background_color": "#fefefe",
+  "display": "standalone",
+  "scope": "/index.html",
+  "start_url": "/"
+}
