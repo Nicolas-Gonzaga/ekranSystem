@@ -9,9 +9,10 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "assets/img/icon-ekran.jpg",
+      "src": "assets/img/icon-ekran1.png",
       "sizes": "512x512",
-      "type": "image/jpg"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
