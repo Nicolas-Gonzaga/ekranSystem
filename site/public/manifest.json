@@ -5,5 +5,12 @@
   "background_color": "#fefefe",
   "display": "standalone",
   "scope": "/index.html",
-  "start_url": "/"
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "assets/img/icon-ekran.jpg",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
